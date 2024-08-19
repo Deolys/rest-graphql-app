@@ -33,6 +33,6 @@
     "lint-staged": "^15.2.9",
     "postcss": "^8",
     "prettier": "3.3.3",
-    "typescript": "^5"
+    "typescript": "^5.2.2"
   }
 }
