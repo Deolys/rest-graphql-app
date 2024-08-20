@@ -5,6 +5,10 @@ import type { FormProps } from 'antd'
 import Title from 'antd/es/typography/Title'
 import styles from '@/app/styles/auth-pages.module.css'
 import { pageRoutes } from '@/constants/page-routes'
+import { useRouter } from 'next/navigation'
+import { logInWithEmailAndPassword } from '@/utils/firebase'
+import { FirebaseError } from 'firebase/app'
+import { useState } from 'react'
 
 type FieldType = {
   email?: string
@@ -12,15 +16,22 @@ type FieldType = {
 }
 
 export default function SignInPage() {
-  const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-    console.log('Success:', values)
+  const router = useRouter()
+  const [loginError, setLoginError] = useState('')
+  const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
+    const { email, password } = values
+    if (!email || !password) {
+      return
+    }
+
+    const response = await logInWithEmailAndPassword(email, password)
+    if (response?.error instanceof FirebaseError) {
+      setLoginError(response.error.message.slice(9))
+    } else {
+      router.push(pageRoutes.RESTFULL_CLIENT)
+    }
   }
 
-  const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (
-    errorInfo,
-  ) => {
-    console.log('Failed:', errorInfo)
-  }
   return (
     <div className={styles.formWrapper}>
       <Title level={2} style={{ textAlign: 'center' }}>
@@ -31,13 +42,19 @@ export default function SignInPage() {
         layout={'vertical'}
         initialValues={{ remember: true }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
       >
         <Form.Item<FieldType>
           label="Email"
           name="email"
-          rules={[{ required: true, message: 'Email is required' }]}
+          rules={[
+            { required: true, message: 'Email is required' },
+            {
+              type: 'email',
+              message: 'Please enter a valid email',
+            },
+          ]}
+          validateDebounce={700}
+          hasFeedback
         >
           <Input />
         </Form.Item>
@@ -45,15 +62,17 @@ export default function SignInPage() {
           label="Password"
           name="password"
           rules={[{ required: true, message: 'Password is required' }]}
+          validateDebounce={700}
+          hasFeedback
         >
-          <Input />
+          <Input.Password />
         </Form.Item>
-        <Form.Item style={{ marginBottom: 4 }}>
+        <Form.Item validateStatus="error" help={loginError}>
           <Button block type="primary" htmlType="submit">
             Submit
           </Button>
-          Don&apos;t have an account? <a href={pageRoutes.SIGN_UP}>Register</a>
         </Form.Item>
+        Don&apos;t have an account? <a href={pageRoutes.SIGN_UP}>Register</a>
       </Form>
     </div>
   )

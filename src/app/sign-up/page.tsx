@@ -10,6 +10,7 @@ import { rulesValidator } from '@/utils/rules-validator'
 import { registerWithEmailAndPassword } from '@/utils/firebase'
 import { FirebaseError } from 'firebase/app'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 type FieldType = {
   email?: string
@@ -18,6 +19,7 @@ type FieldType = {
 
 export default function SignUpPage() {
   const router = useRouter()
+  const [registerError, setRegisterError] = useState('')
   const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
     const { email, password } = values
     if (!email || !password) {
@@ -26,7 +28,7 @@ export default function SignUpPage() {
 
     const response = await registerWithEmailAndPassword(email, password)
     if (response?.error instanceof FirebaseError) {
-      console.log(response.error.message)
+      setRegisterError(response.error.message.slice(9))
     } else {
       router.push(pageRoutes.RESTFULL_CLIENT)
     }
@@ -74,12 +76,12 @@ export default function SignUpPage() {
         >
           <Input.Password />
         </Form.Item>
-        <Form.Item style={{ marginBottom: 4 }}>
+        <Form.Item validateStatus="error" help={registerError}>
           <Button block type="primary" htmlType="submit">
             Submit
           </Button>
-          Already have an account? <a href={pageRoutes.SIGN_IN}>Login</a>
         </Form.Item>
+        Already have an account? <a href={pageRoutes.SIGN_IN}>Login</a>
       </Form>
     </div>
   )
