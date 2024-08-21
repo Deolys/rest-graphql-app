@@ -1,4 +1,4 @@
-import { Image, Dropdown } from 'antd'
+import { Image, Button, Dropdown } from 'antd'
 import { Footer as AntdFooter } from 'antd/es/layout/layout'
 import { footerStyle } from './style'
 

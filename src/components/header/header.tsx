@@ -36,8 +36,11 @@ export default function Header() {
             defaultChecked
           />
         </div>
-        {!isAuthorized && <Button onClick={handleSignIn}>Sign in</Button>}
-        {isAuthorized && <Button onClick={handleSignOut}>Sign out</Button>}
+        {isAuthorized ? (
+          <Button onClick={handleSignOut}>Sign out</Button>
+        ) : (
+          <Button onClick={handleSignIn}>Sign in</Button>
+        )}
       </AntdHeader>
     </>
   )
