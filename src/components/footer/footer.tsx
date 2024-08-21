@@ -50,7 +50,7 @@ export default function Footer() {
         }}
         placement="topRight"
       >
-        <Button>Contributors</Button>
+        <Image width={50} src="/github.png " preview={false} />
       </Dropdown>
 
       <p>© 2024 REST/GraphiQL Client</p>
