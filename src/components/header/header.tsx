@@ -32,7 +32,7 @@ export default function Header() {
           <Link href={pageRoutes.MAIN}>
             <Image
               width={100}
-              height={75}
+              height={90}
               src="/rest_graph.jpg"
               preview={false}
             />
