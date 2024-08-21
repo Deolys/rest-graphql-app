@@ -1,15 +1,15 @@
 name: Pull request
 run-name: ${{ github.actor }} is working on a pull request
-on: 
+on:
   pull_request:
-    branches: [ main, develop ]
-    types: [ opened, edited, reopened ]
+    branches: [main, develop]
+    types: [opened, edited, reopened]
 jobs:
-  init: 
+  init:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 20.x ]
+        node-version: [20.x]
     steps:
       - uses: actions/checkout@v4
       - name: Starting Node.js ${{ matrix.node-version }}
@@ -21,6 +21,13 @@ jobs:
       - name: clean build directory
         run: rm -rf dist
       - name: build project
+        env:
+          DB_API_KEY: ${{secrets.DB_API_KEY}}
+          DB_APP_ID: ${{secrets.DB_APP_ID}}
+          DB_AUTH_DOMAIN: ${{secrets.DB_AUTH_DOMAIN}}
+          DB_MESSAGING_SENDER_ID: ${{secrets.DB_MESSAGING_SENDER_ID}}
+          DB_PROJECT_ID: ${{secrets.DB_PROJECT_ID}}
+          DB_STORAGE_BUCKET: ${{secrets.DB_STORAGE_BUCKET}}
         run: npm run build
       - name: lint code
         run: npm run lint
