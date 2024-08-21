@@ -11,6 +11,7 @@ import { registerWithEmailAndPassword } from '@/utils/firebase'
 import { FirebaseError } from 'firebase/app'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { PasswordStrength } from '@/components/password-strength'
 
 type FieldType = {
   email?: string
@@ -20,6 +21,7 @@ type FieldType = {
 export default function SignUpPage() {
   const router = useRouter()
   const [registerError, setRegisterError] = useState('')
+  const [passwordValue, setPasswordValue] = useState('')
   const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
     const { email, password } = values
     if (!email || !password) {
@@ -67,6 +69,7 @@ export default function SignUpPage() {
             { required: true, message: 'Password is required' },
             () => ({
               validator(_, value) {
+                setPasswordValue(value)
                 return rulesValidator(signUpPasswordRules, value)
               },
             }),
@@ -74,7 +77,10 @@ export default function SignUpPage() {
           validateDebounce={700}
           hasFeedback
         >
-          <Input.Password />
+          <div>
+            <Input.Password />
+            <PasswordStrength password={passwordValue} />
+          </div>
         </Form.Item>
         <Form.Item validateStatus="error" help={registerError}>
           <Button block type="primary" htmlType="submit">
