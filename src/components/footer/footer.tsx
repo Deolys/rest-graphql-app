@@ -1,47 +1,9 @@
-import { Image, Button, Dropdown } from 'antd'
+import { Image, Dropdown } from 'antd'
 import { Footer as AntdFooter } from 'antd/es/layout/layout'
 import { footerStyle } from './style'
+import { coders } from '@/constants/coders'
 
 export default function Footer() {
-  const coders = [
-    {
-      key: '1',
-      label: (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://github.com/algoritmiks"
-        >
-          @algoritmiks
-        </a>
-      ),
-    },
-    {
-      key: '2',
-      label: (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://github.com/Deolys"
-        >
-          @Deolys
-        </a>
-      ),
-    },
-    {
-      key: '3',
-      label: (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://github.com/K98940"
-        >
-          @K98940
-        </a>
-      ),
-    },
-  ]
-
   return (
     <AntdFooter style={footerStyle}>
       <Dropdown

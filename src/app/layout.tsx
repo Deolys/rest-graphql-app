@@ -4,6 +4,7 @@ import Header from '@/components/header/header'
 import Footer from '@/components/footer/footer'
 import './globals.css'
 import { AntdRegistry } from '@ant-design/nextjs-registry'
+import { Content } from 'antd/es/layout/layout'
 
 export const metadata: Metadata = {
   title: 'REST/GraphiQL Client',
@@ -20,13 +21,11 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AntdRegistry>
-          <div className="container">
-            <Layout>
-              <Header />
-              <main className="main">{children}</main>
-              <Footer />
-            </Layout>
-          </div>
+          <Layout>
+            <Header />
+            <Content>{children}</Content>
+            <Footer />
+          </Layout>
         </AntdRegistry>
       </body>
     </html>
