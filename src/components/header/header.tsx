@@ -4,13 +4,17 @@ import { Image, Button, Switch, Flex } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import style from './header.module.css'
+import { pageRoutes } from '@/constants/page-routes'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { auth } from '@/config/firebase-config'
+import { logout } from '@/utils/firebase'
 
 export default function Header() {
   const router = useRouter()
-  const isAuthorized = false // TODO Take authorization from state
+  const [user] = useAuthState(auth)
 
   const handleSignOut = () => {
-    // TODO Sign out
+    logout()
   }
 
   const handleLanguage = () => {
@@ -18,14 +22,14 @@ export default function Header() {
   }
 
   const handleSignIn = () => {
-    router.push('/login')
+    router.push(pageRoutes.SIGN_IN)
   }
 
   return (
     <>
       <AntdHeader className={style.headerStyle}>
         <Flex align="center" gap={20}>
-          <Link href="/">
+          <Link href={pageRoutes.MAIN}>
             <Image
               width={100}
               height={75}
@@ -41,7 +45,7 @@ export default function Header() {
             defaultChecked
           />
         </Flex>
-        {isAuthorized ? (
+        {user ? (
           <Button onClick={handleSignOut}>Sign out</Button>
         ) : (
           <Button onClick={handleSignIn}>Sign in</Button>
