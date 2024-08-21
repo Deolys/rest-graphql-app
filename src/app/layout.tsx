@@ -1,11 +1,9 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Layout } from 'antd'
+import Header from '@/components/header/header'
+import Footer from '@/components/footer/footer'
 import './globals.css'
 import { AntdRegistry } from '@ant-design/nextjs-registry'
-import { Layout } from 'antd'
-import { Content, Footer, Header } from 'antd/es/layout/layout'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'REST/GraphiQL Client',
@@ -20,15 +18,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
         <AntdRegistry>
-          <Layout>
-            <Header>Header</Header>
-            <Content>
-              <main>{children}</main>
-            </Content>
-            <Footer>Footer</Footer>
-          </Layout>
+          <div className="container">
+            <Layout>
+              <Header />
+              <main className="main">{children}</main>
+              <Footer />
+            </Layout>
+          </div>
         </AntdRegistry>
       </body>
     </html>
