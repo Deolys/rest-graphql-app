@@ -1,7 +1,7 @@
 'use client'
 import { useRouter } from 'next/navigation'
 import { Button } from 'antd'
-import { mainContainer, buttonsContainer } from './style'
+import styles from './main.module.css'
 
 export default function Main() {
   const router = useRouter()
@@ -13,11 +13,11 @@ export default function Main() {
   }
 
   return (
-    <div style={mainContainer}>
+    <div className={styles.mainContainer}>
       {isAuthorized ? (
         <>
           <h1>Wellcome back, {userName}!</h1>
-          <div style={buttonsContainer}>
+          <div className={styles.buttonsContainer}>
             <Button onClick={() => handleNavigate('/rest')}>Rest</Button>
             <Button onClick={() => handleNavigate('/graphiql')}>
               GraphiQL
@@ -28,7 +28,7 @@ export default function Main() {
       ) : (
         <>
           <h1>Wellcome to REST/GraphiQL Client</h1>
-          <div style={buttonsContainer}>
+          <div className={styles.buttonsContainer}>
             <Button onClick={() => handleNavigate('/login')}>Sign in</Button>
             <Button onClick={() => handleNavigate('/signup')}>Sign up</Button>
           </div>

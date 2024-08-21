@@ -1,0 +1,9 @@
+.headerStyle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.switchStyle {
+  background-color: #16f;
+}

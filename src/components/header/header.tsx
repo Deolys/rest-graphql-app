@@ -1,9 +1,9 @@
 'use client'
 import { Header as AntdHeader } from 'antd/es/layout/layout'
-import { Image, Button, Switch } from 'antd'
+import { Image, Button, Switch, Flex } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { headerStyle, logoStyle, switchStyle } from './style'
+import style from './header.module.css'
 
 export default function Header() {
   const router = useRouter()
@@ -23,19 +23,24 @@ export default function Header() {
 
   return (
     <>
-      <AntdHeader style={headerStyle}>
-        <div>
-          <Link href="/" style={logoStyle}>
-            <Image width={100} src="/rest_graph.jpg" preview={false} />
+      <AntdHeader className={style.headerStyle}>
+        <Flex align="center" gap={20}>
+          <Link href="/">
+            <Image
+              width={100}
+              height={75}
+              src="/rest_graph.jpg"
+              preview={false}
+            />
           </Link>
           <Switch
-            style={switchStyle}
+            className={style.switchStyle}
             checkedChildren="ru"
             unCheckedChildren="en"
             onChange={handleLanguage}
             defaultChecked
           />
-        </div>
+        </Flex>
         {isAuthorized ? (
           <Button onClick={handleSignOut}>Sign out</Button>
         ) : (
