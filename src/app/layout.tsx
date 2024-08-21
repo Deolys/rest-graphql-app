@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Layout } from 'antd'
+import Header from '@/components/header/header'
+import Footer from '@/components/footer/footer'
 import './globals.css'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'REST/GraphiQL Client',
@@ -17,7 +17,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body>
+        <div className="container">
+          <Layout>
+            <Header />
+            <main className="main">{children}</main>
+            <Footer />
+          </Layout>
+        </div>
+      </body>
     </html>
   )
 }
