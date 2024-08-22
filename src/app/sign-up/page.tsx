@@ -127,7 +127,7 @@ export default function SignUpPage(): JSX.Element {
           <Button block type="primary" htmlType="submit">
             {t.submit}
           </Button>
-          {t.haveAcctount} <Link href={pageRoutes.SIGN_IN}>{t.login}</Link>
+          {t.haveAccount} <Link href={pageRoutes.SIGN_IN}>{t.login}</Link>
         </Form>
       </div>
     </>

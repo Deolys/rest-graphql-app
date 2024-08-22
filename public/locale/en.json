@@ -19,7 +19,7 @@
   "passwordsMatch": "Passwords don't match",
   "passwordLength": "Password must contain at least 8 characters",
   "submit": "Submit",
-  "haveAcctount": "Already have an account?",
+  "haveAccount": "Already have an account?",
   "dontHaveAccount": "Don't have an account?",
   "register": "Register",
   "enterURL": "Enter URL..."
