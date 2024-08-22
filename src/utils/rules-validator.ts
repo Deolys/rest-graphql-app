@@ -3,12 +3,19 @@ interface IRule {
   message: string;
 }
 
-export function rulesValidator(rules: IRule[], value: string): Promise<void> {
-  if (!value) return Promise.reject();
+interface ValidatorResult {
+  success: boolean;
+  message?: string;
+}
+
+export function rulesValidator(rules: IRule[], value: string): ValidatorResult {
+  if (!value) {
+    return { success: false };
+  }
   for (const rule of rules) {
     if (rule.pattern && !rule.pattern.test(value)) {
-      return Promise.reject(rule.message);
+      return { success: false, message: rule.message };
     }
   }
-  return Promise.resolve();
+  return { success: true };
 }
