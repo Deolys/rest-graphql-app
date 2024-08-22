@@ -30,10 +30,12 @@ export function useURL(): UseURL {
   if (paramsSegment) {
     try {
       params = JSON.parse(paramsSegment);
-    } catch (error) {}
+    } catch (error) {
+      throw new Error('Params parse error');
+    }
   }
 
-  function setUrl({ newURL, newParams }: SetURLProps) {
+  function setUrl({ newURL, newParams }: SetURLProps): void {
     const paths = pathname.split('/').slice(0, URLSegment.method);
 
     if (newURL) {

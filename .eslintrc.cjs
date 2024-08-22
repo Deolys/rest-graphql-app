@@ -11,7 +11,13 @@ module.exports = {
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react', 'react-refresh', 'react-hooks', 'prettier', '@typescript-eslint'],
+  plugins: [
+    'react',
+    'react-refresh',
+    'react-hooks',
+    'prettier',
+    '@typescript-eslint',
+  ],
   rules: {
     '@typescript-eslint/no-explicit-any': 'error',
     'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 0 }],
@@ -31,11 +37,10 @@ module.exports = {
       },
     ],
     'no-console': ['error', { allow: ['warn', 'error'] }],
-    
   },
   settings: {
     react: {
       version: 'detect',
     },
   },
-}
+};

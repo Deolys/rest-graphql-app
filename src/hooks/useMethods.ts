@@ -10,7 +10,7 @@ export function useMethods(): PathMethod {
   const router = useRouter();
   const method = pathname.split('/')[indexMethod] || methods.get;
 
-  function setMethod(str: string) {
+  function setMethod(str: string): void {
     const pathBefore = pathname.split('/');
     pathBefore[indexMethod] = Object.values(methods).includes(str)
       ? str

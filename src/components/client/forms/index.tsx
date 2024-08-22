@@ -1,7 +1,7 @@
-import dynamic from 'next/dynamic'
-export { FormBody } from './body/body'
-import FormParams from './params/params'
-export { FormHeaders } from './headers/headers'
+import dynamic from 'next/dynamic';
+export { FormBody } from './body/body';
+import FormParams from './params/params';
+export { FormHeaders } from './headers/headers';
 
 // Для чего тут динамический импорт? - Чтобы отключить SSR для компоненты.
 // 'use client' не помогал и компонента рендерилась на сервере с ошибкой, т.к.
@@ -12,4 +12,4 @@ export const Params = dynamic(
     loading: () => <p>Loading...</p>,
     ssr: false,
   },
-) as typeof FormParams
+) as typeof FormParams;

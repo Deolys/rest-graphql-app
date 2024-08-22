@@ -6,7 +6,9 @@ export const base64 = {
     let result = '';
     try {
       result = atob(str64);
-    } catch (error) {}
+    } catch (error) {
+      return ''; // FIX catch error
+    }
 
     return result;
   },

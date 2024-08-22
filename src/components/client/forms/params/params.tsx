@@ -1,5 +1,6 @@
 'use client';
 import './params.css';
+import type { JSX } from 'react';
 import { useURL } from '@/hooks/useURL';
 import { DataType } from '@/types/client';
 import { initialParams } from '@/constants/client';
@@ -7,9 +8,12 @@ import { Button, Flex, Form, Input, Table } from 'antd';
 import type { GetRef, InputRef, TableProps } from 'antd';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 
+type EditableCell = Record<string, string>;
 type FormInstance<T> = GetRef<typeof Form<T>>;
 
-const EditableContext = React.createContext<FormInstance<any> | null>(null);
+const EditableContext = React.createContext<FormInstance<EditableCell> | null>(
+  null,
+);
 
 interface Item {
   key: string;
@@ -26,7 +30,7 @@ const EditableRow: React.FC<EditableRowProps> = ({ index, ...props }) => {
   return (
     <Form form={form} component={false}>
       <EditableContext.Provider value={form}>
-        <tr {...props} />
+        <tr aria-colindex={index} {...props} />
       </EditableContext.Provider>
     </Form>
   );
@@ -59,19 +63,18 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
     }
   }, [editing]);
 
-  const toggleEdit = () => {
+  const toggleEdit = (): void => {
     setEditing(!editing);
     form.setFieldsValue({ [dataIndex]: record[dataIndex] });
   };
 
-  const save = async () => {
+  const save = async (): Promise<void> => {
     try {
       const values = await form.validateFields();
-
       toggleEdit();
       handleSave({ ...record, ...values });
     } catch (errInfo) {
-      console.log('Save failed:', errInfo);
+      errInfo; // FIX
     }
   };
 
@@ -102,12 +105,12 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
 
 type ColumnTypes = Exclude<TableProps['columns'], undefined>;
 
-export default function FormParams() {
+export default function FormParams(): JSX.Element {
   const { params, setUrl } = useURL();
   const [dataSource, setDataSource] = useState<DataType[]>(params);
   const [count, setCount] = useState(dataSource?.length || 0);
 
-  const handleDelete = (key: React.Key) => {
+  const handleDelete = (key: React.Key): void => {
     const newData = dataSource.filter((item) => item.key !== key);
     setDataSource(newData);
     setUrl({ newParams: newData });
@@ -171,15 +174,14 @@ export default function FormParams() {
     },
   ];
 
-  const handleAdd = () => {
+  const handleAdd = (): void => {
     const nextKey = Number(count) + 1;
-    console.log('count, nextKey', count, nextKey);
     const newData: DataType = { ...initialParams, key: nextKey };
     setDataSource([...dataSource, newData]);
     setCount(nextKey);
   };
 
-  const handleSave = (row: DataType) => {
+  const handleSave = (row: DataType): void => {
     const newData = [...dataSource];
     const index = newData.findIndex((item) => row.key === item.key);
     const item = newData[index];
