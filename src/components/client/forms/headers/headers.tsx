@@ -1,27 +1,25 @@
-import type { JSX } from 'react';
 import { Table } from 'antd';
 
-const dataSource = [
-  {
-    key: '1',
-    paramsKey: 'Content-Type',
-    value: 'application/json',
-  },
-];
+export function FormHeaders(t: Record<string, string>): JSX.Element {
+  const dataSource = [
+    {
+      key: '1',
+      paramsKey: 'Content-Type',
+      value: 'application/json',
+    },
+  ];
 
-const columns = [
-  {
-    title: 'Key',
-    dataIndex: 'paramsKey',
-    key: 'paramsKey',
-  },
-  {
-    title: 'Value',
-    dataIndex: 'value',
-    key: 'value',
-  },
-];
-
-export function FormHeaders(): JSX.Element {
+  const columns = [
+    {
+      title: t.key,
+      dataIndex: 'paramsKey',
+      key: 'paramsKey',
+    },
+    {
+      title: t.value,
+      dataIndex: 'value',
+      key: 'value',
+    },
+  ];
   return <Table dataSource={dataSource} columns={columns} size="small" />;
 }

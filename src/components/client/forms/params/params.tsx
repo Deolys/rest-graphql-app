@@ -1,31 +1,31 @@
-import type { JSX } from 'react';
 import { Table } from 'antd';
 
-const dataSource = [
-  {
-    key: '1',
-    paramsKey: 'name',
-    value: 'My first name',
-  },
-  {
-    key: '2',
-    paramsKey: 'sort',
-    value: 'desc',
-  },
-];
+export function FormParams(t: Record<string, string>): JSX.Element {
+  const dataSource = [
+    {
+      key: '1',
+      paramsKey: 'name',
+      value: 'My first name',
+    },
+    {
+      key: '2',
+      paramsKey: 'sort',
+      value: 'desc',
+    },
+  ];
 
-const columns = [
-  {
-    title: 'Key',
-    dataIndex: 'paramsKey',
-    key: 'paramsKey',
-  },
-  {
-    title: 'Value',
-    dataIndex: 'value',
-    key: 'value',
-  },
-];
-export function FormParams(): JSX.Element {
+  const columns = [
+    {
+      title: t.key,
+      dataIndex: 'paramsKey',
+      key: 'paramsKey',
+    },
+    {
+      title: t.value,
+      dataIndex: 'value',
+      key: 'value',
+    },
+  ];
+
   return <Table dataSource={dataSource} columns={columns} size="small" />;
 }

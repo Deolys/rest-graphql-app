@@ -23,8 +23,17 @@
   "passwordDigit": "Password must contain at least one digit",
   "passwordSpecialCharacter": "Password must contain at least one special character",
   "submit": "Submit",
+  "send": "Send",
   "haveAccount": "Already have an account?",
   "dontHaveAccount": "Don't have an account?",
   "register": "Register",
-  "enterURL": "Enter URL..."
+  "enterURL": "Enter URL...",
+  "params": "Params",
+  "headers": "Headers",
+  "body": "Body",
+  "key": "Key",
+  "value": "Value",
+  "response": "Response",
+  "responseBody": "Response body",
+  "status": "Status"
 }
