@@ -3,6 +3,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from 'firebase/auth';
 import { collection, addDoc } from 'firebase/firestore';
 
@@ -20,6 +21,7 @@ const logInWithEmailAndPassword = async (
 };
 
 const registerWithEmailAndPassword = async (
+  name: string,
   email: string,
   password: string,
 ): AuthResult => {
@@ -28,9 +30,11 @@ const registerWithEmailAndPassword = async (
     const user = res.user;
     await addDoc(collection(db, 'users'), {
       uid: user.uid,
+      name,
       authProvider: 'local',
       email,
     });
+    await updateProfile(user, { displayName: name });
   } catch (err) {
     return { error: err };
   }
