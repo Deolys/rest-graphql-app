@@ -34,7 +34,7 @@ export default function Header() {
               width={100}
               height={90}
               src="/rest_graph.jpg"
-              alt="REAT GraphQl logo"
+              alt="REST GraphQL logo"
               preview={false}
             />
           </Link>
