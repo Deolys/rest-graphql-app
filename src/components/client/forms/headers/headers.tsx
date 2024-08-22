@@ -1,4 +1,5 @@
-import { Table } from 'antd'
+import type { JSX } from 'react';
+import { Table } from 'antd';
 
 const dataSource = [
   {
@@ -6,7 +7,7 @@ const dataSource = [
     paramsKey: 'Content-Type',
     value: 'application/json',
   },
-]
+];
 
 const columns = [
   {
@@ -19,8 +20,8 @@ const columns = [
     dataIndex: 'value',
     key: 'value',
   },
-]
+];
 
-export function FormHeaders() {
-  return <Table dataSource={dataSource} columns={columns} size="small" />
+export function FormHeaders(): JSX.Element {
+  return <Table dataSource={dataSource} columns={columns} size="small" />;
 }

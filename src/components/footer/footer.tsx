@@ -1,10 +1,11 @@
-import { Image, Dropdown, Flex } from 'antd'
-import { Footer as AntdFooter } from 'antd/es/layout/layout'
-import styles from './footer.module.css'
-import Link from 'antd/es/typography/Link'
-import { coders } from '@/constants/coders'
+import type { JSX } from 'react';
+import { Image, Flex } from 'antd';
+import { Footer as AntdFooter } from 'antd/es/layout/layout';
+import styles from './footer.module.css';
+import Link from 'antd/es/typography/Link';
+import { coders } from '@/constants/coders';
 
-export default function Footer() {
+export default function Footer(): JSX.Element {
   return (
     <AntdFooter
       className={styles.footerStyle}
@@ -23,7 +24,7 @@ export default function Footer() {
               >
                 {coder.username}
               </Link>
-            )
+            );
           })}
         </Flex>
       </Flex>
@@ -38,5 +39,5 @@ export default function Footer() {
         <Image width={50} src="/rss-logo.svg" alt="RS School" preview={false} />
       </a>
     </AntdFooter>
-  )
+  );
 }

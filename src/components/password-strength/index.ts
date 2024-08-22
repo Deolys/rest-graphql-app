@@ -1,1 +1,1 @@
-export { PasswordStrength } from './password-strength'
+export { PasswordStrength } from './password-strength';

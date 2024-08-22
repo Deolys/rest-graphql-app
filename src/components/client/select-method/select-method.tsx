@@ -1,15 +1,17 @@
-'use client'
-import { Select } from 'antd'
-import { useEffect, useState } from 'react'
-import { methods } from '@/constants/client'
-import { useMethods } from '../../../hooks/useMethods'
+'use client';
 
-export function SelectMethod() {
-  const [method, setMethod] = useMethods()
-  const [input, setInput] = useState(method)
+import type { JSX } from 'react';
+import { Select } from 'antd';
+import { useEffect, useState } from 'react';
+import { methods } from '@/constants/client';
+import { useMethods } from '../../../hooks/useMethods';
 
-  const handleChange = (method: string) => setInput(method)
-  useEffect(() => setMethod(input), [input, setMethod])
+export function SelectMethod(): JSX.Element {
+  const [method, setMethod] = useMethods();
+  const [input, setInput] = useState(method);
+
+  const handleChange = (method: string): void => setInput(method);
+  useEffect(() => setMethod(input), [input, setMethod]);
 
   return (
     <Select
@@ -21,10 +23,10 @@ export function SelectMethod() {
         return {
           value: method,
           label: method,
-        }
+        };
       })}
       onChange={handleChange}
       value={input}
     ></Select>
-  )
+  );
 }

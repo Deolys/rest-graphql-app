@@ -1,4 +1,5 @@
-import { Table } from 'antd'
+import type { JSX } from 'react';
+import { Table } from 'antd';
 
 const dataSource = [
   {
@@ -6,7 +7,7 @@ const dataSource = [
     paramsKey: 'name',
     value: 'my name',
   },
-]
+];
 
 const columns = [
   {
@@ -19,8 +20,8 @@ const columns = [
     dataIndex: 'value',
     key: 'value',
   },
-]
+];
 
-export function FormBody() {
-  return <Table dataSource={dataSource} columns={columns} size="small" />
+export function FormBody(): JSX.Element {
+  return <Table dataSource={dataSource} columns={columns} size="small" />;
 }

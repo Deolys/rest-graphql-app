@@ -1,19 +1,21 @@
-'use client'
-import { useState } from 'react'
-import TextArea from 'antd/es/input/TextArea'
-import { clientMenu } from '@/constants/client'
-import { Button, Descriptions, Flex } from 'antd'
-import { InputUrl, Navigation, SelectMethod } from '@/components'
-import { FormBody, FormParams, FormHeaders } from '@/components/client/forms'
+'use client';
+
+import type { JSX } from 'react';
+import { useState } from 'react';
+import TextArea from 'antd/es/input/TextArea';
+import { clientMenu } from '@/constants/client';
+import { Button, Descriptions, Flex } from 'antd';
+import { InputUrl, Navigation, SelectMethod } from '@/components';
+import { FormBody, FormParams, FormHeaders } from '@/components/client/forms';
 
 const forms = {
   [clientMenu[0].key]: FormParams(),
   [clientMenu[1].key]: FormHeaders(),
   [clientMenu[2].key]: FormBody(),
-}
+};
 
-export default function Page() {
-  const [currentTab, setCurrentTab] = useState(clientMenu[0].key)
+export default function Page(): JSX.Element {
+  const [currentTab, setCurrentTab] = useState(clientMenu[0].key);
 
   return (
     <div>
@@ -45,5 +47,5 @@ export default function Page() {
         </Descriptions>
       </article>
     </div>
-  )
+  );
 }
