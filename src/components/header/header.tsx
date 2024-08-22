@@ -2,7 +2,7 @@
 
 import type { JSX } from 'react';
 import { Header as AntdHeader } from 'antd/es/layout/layout';
-import { Image, Button, Switch, Flex } from 'antd';
+import { Image, Button, Switch, Flex, Skeleton } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import style from './header.module.css';
@@ -13,7 +13,7 @@ import { logout } from '@/utils/firebase';
 
 export default function Header(): JSX.Element {
   const router = useRouter();
-  const [user] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
 
   const handleSignOut = (): void => {
     logout();
@@ -48,7 +48,16 @@ export default function Header(): JSX.Element {
             defaultChecked
           />
         </Flex>
-        {user ? (
+        {loading ? (
+          <Skeleton.Button
+            active
+            style={{
+              backgroundImage:
+                'linear-gradient(90deg, #ffffff 25%, #ffffff 37%, #d3d3d3 63%)',
+              marginTop: 16,
+            }}
+          />
+        ) : user ? (
           <Button onClick={handleSignOut}>Sign out</Button>
         ) : (
           <Button onClick={handleSignIn}>Sign in</Button>
