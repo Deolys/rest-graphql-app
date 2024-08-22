@@ -11,7 +11,7 @@ import { auth } from '@/config/firebase-config';
 export default function Main(): JSX.Element {
   const router = useRouter();
   const [user] = useAuthState(auth);
-  const userName = user?.email?.split('@')[0];
+  const userName = user?.displayName;
 
   const handleNavigate = (path: string): void => {
     router.push(path);

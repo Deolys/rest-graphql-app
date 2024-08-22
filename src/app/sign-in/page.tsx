@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 import { logInWithEmailAndPassword } from '@/utils/firebase';
 import { FirebaseError } from 'firebase/app';
 import { useState } from 'react';
+import { getErrorByCodeFB } from '@/utils/get-error-by-code-fb';
 
 type FieldType = {
   email?: string;
@@ -27,7 +28,8 @@ export default function SignInPage(): JSX.Element {
 
     const response = await logInWithEmailAndPassword(email, password);
     if (response?.error instanceof FirebaseError) {
-      setLoginError(response.error.message.slice(9));
+      const errorMessage = getErrorByCodeFB(response.error.code);
+      setLoginError(errorMessage);
     } else {
       router.push(pageRoutes.RESTFULL_CLIENT);
     }

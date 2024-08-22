@@ -13,10 +13,13 @@ import { FirebaseError } from 'firebase/app';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { PasswordStrength } from '@/components/password-strength';
+import { getErrorByCodeFB } from '@/utils/get-error-by-code-fb';
 
 type FieldType = {
+  name?: string;
   email?: string;
   password?: string;
+  confirmPassword?: string;
 };
 
 export default function SignUpPage(): JSX.Element {
@@ -24,14 +27,15 @@ export default function SignUpPage(): JSX.Element {
   const [registerError, setRegisterError] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
-    const { email, password } = values;
-    if (!email || !password) {
+    const { name, email, password } = values;
+    if (!name || !email || !password) {
       return;
     }
 
-    const response = await registerWithEmailAndPassword(email, password);
+    const response = await registerWithEmailAndPassword(name, email, password);
     if (response?.error instanceof FirebaseError) {
-      setRegisterError(response.error.message.slice(9));
+      const errorMessage = getErrorByCodeFB(response.error.code);
+      setRegisterError(errorMessage);
     } else {
       router.push(pageRoutes.RESTFULL_CLIENT);
     }
@@ -48,6 +52,15 @@ export default function SignUpPage(): JSX.Element {
         initialValues={{ remember: true }}
         onFinish={onFinish}
       >
+        <Form.Item<FieldType>
+          label="Name"
+          name="name"
+          rules={[{ required: true, message: 'Name is required' }]}
+          validateDebounce={700}
+          hasFeedback
+        >
+          <Input />
+        </Form.Item>
         <Form.Item<FieldType>
           label="Email"
           name="email"
@@ -82,6 +95,25 @@ export default function SignUpPage(): JSX.Element {
             <Input.Password />
             <PasswordStrength password={passwordValue} />
           </div>
+        </Form.Item>
+        <Form.Item<FieldType>
+          label="Confirm password"
+          name="confirmPassword"
+          rules={[
+            { required: true, message: 'Confirm your password' },
+            ({ getFieldValue }) => ({
+              validator(_, value) {
+                if (!value || getFieldValue('password') === value) {
+                  return Promise.resolve();
+                }
+                return Promise.reject('Passwords do not match');
+              },
+            }),
+          ]}
+          validateDebounce={700}
+          hasFeedback
+        >
+          <Input.Password />
         </Form.Item>
         <Form.Item validateStatus="error" help={registerError}>
           <Button block type="primary" htmlType="submit">
