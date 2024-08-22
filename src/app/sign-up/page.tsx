@@ -64,7 +64,7 @@ export default function SignUpPage(): JSX.Element {
           <Form.Item<FieldType>
             label={t.name}
             name="name"
-            rules={[{ required: true, message: `${t.nameRequired}` }]}
+            rules={[{ required: true, message: t.nameRequired }]}
             validateDebounce={700}
             hasFeedback
           >
@@ -74,10 +74,10 @@ export default function SignUpPage(): JSX.Element {
             label={t.email}
             name="email"
             rules={[
-              { required: true, message: `${t.emailRequired}` },
+              { required: true, message: t.emailRequired },
               {
                 type: 'email',
-                message: `${t.validEmail}`,
+                message: t.validEmail,
               },
             ]}
             validateDebounce={700}
@@ -89,11 +89,16 @@ export default function SignUpPage(): JSX.Element {
             label={t.password}
             name="password"
             rules={[
-              { required: true, message: `${t.passwordRequired}` },
+              { required: true, message: t.passwordRequired },
               () => ({
                 validator(_, value) {
                   setPasswordValue(value);
-                  return rulesValidator(signUpPasswordRules, value);
+                  const result = rulesValidator(signUpPasswordRules, value);
+                  return new Promise((resolve, reject) => {
+                    result.success
+                      ? resolve('')
+                      : reject(t[result.message || '']);
+                  });
                 },
               }),
             ]}
@@ -108,14 +113,15 @@ export default function SignUpPage(): JSX.Element {
           <Form.Item<FieldType>
             label={t.confirmPassword}
             name="confirmPassword"
+            dependencies={['password']}
             rules={[
-              { required: true, message: `${t.confirmPassword}` },
+              { required: true, message: t.confirmPassword },
               ({ getFieldValue }) => ({
                 validator(_, value) {
                   if (!value || getFieldValue('password') === value) {
                     return Promise.resolve();
                   }
-                  return Promise.reject(`${t.passwordsMatch}`);
+                  return Promise.reject(t.passwordsMatch);
                 },
               }),
             ]}

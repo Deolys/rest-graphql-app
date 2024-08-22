@@ -58,10 +58,10 @@ export default function SignInPage(): JSX.Element {
             label={t.email}
             name="email"
             rules={[
-              { required: true, message: `${t.emailRequired}` },
+              { required: true, message: t.emailRequired },
               {
                 type: 'email',
-                message: `${t.validEmail}`,
+                message: t.validEmail,
               },
             ]}
             validateDebounce={700}
@@ -72,7 +72,7 @@ export default function SignInPage(): JSX.Element {
           <Form.Item<FieldType>
             label={t.password}
             name="password"
-            rules={[{ required: true, message: `${t.passwordRequired}` }]}
+            rules={[{ required: true, message: t.passwordRequired }]}
             validateDebounce={700}
             hasFeedback
           >

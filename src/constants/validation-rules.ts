@@ -15,22 +15,22 @@ export const strengthRules = [
 export const signUpPasswordRules = [
   {
     pattern: atLeastEightCharactersRegExp,
-    message: 'Password must contain at least 8 characters',
+    message: 'passwordLength',
   },
   {
     pattern: uppercaseLetterRegExp,
-    message: 'Password must contain at least one uppercase letter',
+    message: 'passwordUppercase',
   },
   {
     pattern: lowercaseLetterRegExp,
-    message: 'Password must contain at least one lowercase letter',
+    message: 'passwordLowercase',
   },
   {
     pattern: digitRegExp,
-    message: 'Password must contain at least one digit',
+    message: 'passwordDigit',
   },
   {
     pattern: specialCharacterRegExp,
-    message: 'Password must contain at least one special character',
+    message: 'passwordSpecialCharacter',
   },
 ];
