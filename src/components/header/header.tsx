@@ -1,29 +1,31 @@
-'use client'
-import { Header as AntdHeader } from 'antd/es/layout/layout'
-import { Image, Button, Switch, Flex } from 'antd'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import style from './header.module.css'
-import { pageRoutes } from '@/constants/page-routes'
-import { useAuthState } from 'react-firebase-hooks/auth'
-import { auth } from '@/config/firebase-config'
-import { logout } from '@/utils/firebase'
+'use client';
 
-export default function Header() {
-  const router = useRouter()
-  const [user] = useAuthState(auth)
+import type { JSX } from 'react';
+import { Header as AntdHeader } from 'antd/es/layout/layout';
+import { Image, Button, Switch, Flex } from 'antd';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import style from './header.module.css';
+import { pageRoutes } from '@/constants/page-routes';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '@/config/firebase-config';
+import { logout } from '@/utils/firebase';
 
-  const handleSignOut = () => {
-    logout()
-  }
+export default function Header(): JSX.Element {
+  const router = useRouter();
+  const [user] = useAuthState(auth);
 
-  const handleLanguage = () => {
+  const handleSignOut = (): void => {
+    logout();
+  };
+
+  const handleLanguage = (): void => {
     //TODO change language globally
-  }
+  };
 
-  const handleSignIn = () => {
-    router.push(pageRoutes.SIGN_IN)
-  }
+  const handleSignIn = (): void => {
+    router.push(pageRoutes.SIGN_IN);
+  };
 
   return (
     <>
@@ -34,7 +36,7 @@ export default function Header() {
               width={100}
               height={90}
               src="/rest_graph.jpg"
-              alt="REAT GraphQl logo"
+              alt="REST GraphQL logo"
               preview={false}
             />
           </Link>
@@ -53,5 +55,5 @@ export default function Header() {
         )}
       </AntdHeader>
     </>
-  )
+  );
 }

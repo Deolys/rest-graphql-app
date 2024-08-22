@@ -5,4 +5,4 @@ export const pageRoutes = {
   RESTFULL_CLIENT: '/RESTfull-client',
   GRAPHQL: '/GRAPHQL',
   HISTORY: '/history',
-}
+};

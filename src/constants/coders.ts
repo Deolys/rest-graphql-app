@@ -11,4 +11,4 @@ export const coders = [
     username: '@K98940',
     link: 'https://github.com/K98940',
   },
-]
+];

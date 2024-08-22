@@ -1,40 +1,41 @@
-'use client'
+'use client';
 
-import { Button, Form, Input } from 'antd'
-import type { FormProps } from 'antd'
-import Title from 'antd/es/typography/Title'
-import styles from '@/app/styles/auth-pages.module.css'
-import { pageRoutes } from '@/constants/page-routes'
-import { signUpPasswordRules } from '@/constants/validation-rules'
-import { rulesValidator } from '@/utils/rules-validator'
-import { registerWithEmailAndPassword } from '@/utils/firebase'
-import { FirebaseError } from 'firebase/app'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
-import { PasswordStrength } from '@/components/password-strength'
+import type { JSX } from 'react';
+import { Button, Form, Input } from 'antd';
+import type { FormProps } from 'antd';
+import Title from 'antd/es/typography/Title';
+import styles from '@/app/styles/auth-pages.module.css';
+import { pageRoutes } from '@/constants/page-routes';
+import { signUpPasswordRules } from '@/constants/validation-rules';
+import { rulesValidator } from '@/utils/rules-validator';
+import { registerWithEmailAndPassword } from '@/utils/firebase';
+import { FirebaseError } from 'firebase/app';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { PasswordStrength } from '@/components/password-strength';
 
 type FieldType = {
-  email?: string
-  password?: string
-}
+  email?: string;
+  password?: string;
+};
 
-export default function SignUpPage() {
-  const router = useRouter()
-  const [registerError, setRegisterError] = useState('')
-  const [passwordValue, setPasswordValue] = useState('')
+export default function SignUpPage(): JSX.Element {
+  const router = useRouter();
+  const [registerError, setRegisterError] = useState('');
+  const [passwordValue, setPasswordValue] = useState('');
   const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
-    const { email, password } = values
+    const { email, password } = values;
     if (!email || !password) {
-      return
+      return;
     }
 
-    const response = await registerWithEmailAndPassword(email, password)
+    const response = await registerWithEmailAndPassword(email, password);
     if (response?.error instanceof FirebaseError) {
-      setRegisterError(response.error.message.slice(9))
+      setRegisterError(response.error.message.slice(9));
     } else {
-      router.push(pageRoutes.RESTFULL_CLIENT)
+      router.push(pageRoutes.RESTFULL_CLIENT);
     }
-  }
+  };
 
   return (
     <div className={styles.formWrapper}>
@@ -69,8 +70,8 @@ export default function SignUpPage() {
             { required: true, message: 'Password is required' },
             () => ({
               validator(_, value) {
-                setPasswordValue(value)
-                return rulesValidator(signUpPasswordRules, value)
+                setPasswordValue(value);
+                return rulesValidator(signUpPasswordRules, value);
               },
             }),
           ]}
@@ -90,5 +91,5 @@ export default function SignUpPage() {
         Already have an account? <a href={pageRoutes.SIGN_IN}>Login</a>
       </Form>
     </div>
-  )
+  );
 }

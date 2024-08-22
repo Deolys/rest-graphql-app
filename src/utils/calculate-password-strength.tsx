@@ -1,4 +1,4 @@
-import { strengthRules } from '@/constants/validation-rules'
+import { strengthRules } from '@/constants/validation-rules';
 
 export function calculatePasswordStrength(password: string): number {
   return password
@@ -7,5 +7,5 @@ export function calculatePasswordStrength(password: string): number {
           rule.regex.test(password) ? total + rule.points : total,
         0,
       )
-    : 0
+    : 0;
 }

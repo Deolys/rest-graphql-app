@@ -1,7 +1,7 @@
 export const URLSegment = {
   method: 2,
   url: 3,
-}
+};
 
 export const methods = {
   get: 'GET',
@@ -11,10 +11,10 @@ export const methods = {
   delete: 'DELETE',
   head: 'HEAD',
   options: 'OPTIONS',
-}
+};
 
 export const clientMenu = [
   { label: 'Params', key: 'params' },
   { label: 'Headers', key: 'headers' },
   { label: 'Body', key: 'body' },
-]
+];

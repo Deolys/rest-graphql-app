@@ -1,4 +1,5 @@
-import { Table } from 'antd'
+import type { JSX } from 'react';
+import { Table } from 'antd';
 
 const dataSource = [
   {
@@ -11,7 +12,7 @@ const dataSource = [
     paramsKey: 'sort',
     value: 'desc',
   },
-]
+];
 
 const columns = [
   {
@@ -24,7 +25,7 @@ const columns = [
     dataIndex: 'value',
     key: 'value',
   },
-]
-export function FormParams() {
-  return <Table dataSource={dataSource} columns={columns} size="small" />
+];
+export function FormParams(): JSX.Element {
+  return <Table dataSource={dataSource} columns={columns} size="small" />;
 }

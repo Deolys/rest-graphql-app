@@ -1,19 +1,21 @@
-'use client'
-import { useRouter } from 'next/navigation'
-import { Button } from 'antd'
-import styles from './main.module.css'
-import { pageRoutes } from '@/constants/page-routes'
-import { useAuthState } from 'react-firebase-hooks/auth'
-import { auth } from '@/config/firebase-config'
+'use client';
 
-export default function Main() {
-  const router = useRouter()
-  const [user] = useAuthState(auth)
-  const userName = user?.email?.split('@')[0]
+import type { JSX } from 'react';
+import { useRouter } from 'next/navigation';
+import { Button } from 'antd';
+import styles from './main.module.css';
+import { pageRoutes } from '@/constants/page-routes';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '@/config/firebase-config';
 
-  const handleNavigate = (path: string) => {
-    router.push(path)
-  }
+export default function Main(): JSX.Element {
+  const router = useRouter();
+  const [user] = useAuthState(auth);
+  const userName = user?.email?.split('@')[0];
+
+  const handleNavigate = (path: string): void => {
+    router.push(path);
+  };
 
   return (
     <div className={styles.mainContainer}>
@@ -46,5 +48,5 @@ export default function Main() {
         </>
       )}
     </div>
-  )
+  );
 }
