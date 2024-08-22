@@ -6,6 +6,7 @@ import Footer from '@/components/footer/footer';
 import './globals.css';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { Content } from 'antd/es/layout/layout';
+import { LanguageProvider } from '@/providers/language';
 
 export const metadata: Metadata = {
   title: 'REST/GraphiQL Client',
@@ -21,13 +22,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <AntdRegistry>
-          <Layout>
-            <Header />
-            <Content>{children}</Content>
-            <Footer />
-          </Layout>
-        </AntdRegistry>
+        <LanguageProvider>
+          <AntdRegistry>
+            <Layout>
+              <Header />
+              <Content>{children}</Content>
+              <Footer />
+            </Layout>
+          </AntdRegistry>
+        </LanguageProvider>
       </body>
     </html>
   );

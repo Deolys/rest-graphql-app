@@ -3,6 +3,7 @@
 import type { JSX } from 'react';
 import { Button, Form, Input, message } from 'antd';
 import type { FormProps } from 'antd';
+import Link from 'next/link';
 import Title from 'antd/es/typography/Title';
 import styles from '@/app/styles/auth-pages.module.css';
 import { pageRoutes } from '@/constants/page-routes';
@@ -10,6 +11,8 @@ import { useRouter } from 'next/navigation';
 import { logInWithEmailAndPassword } from '@/utils/firebase';
 import { FirebaseError } from 'firebase/app';
 import { getErrorByCodeFB } from '@/utils/get-error-by-code-fb';
+import { useContext } from 'react';
+import { LanguageContext } from '@/providers/language';
 
 type FieldType = {
   email?: string;
@@ -18,6 +21,7 @@ type FieldType = {
 
 export default function SignInPage(): JSX.Element {
   const router = useRouter();
+  const { t } = useContext(LanguageContext);
   const [messageApi, contextHolder] = message.useMessage();
   const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
     const { email, password } = values;
@@ -42,7 +46,7 @@ export default function SignInPage(): JSX.Element {
       {contextHolder}
       <div className={styles.formWrapper}>
         <Title level={2} style={{ textAlign: 'center' }}>
-          Sign In
+          {t.signIn}
         </Title>
         <Form
           name="sign-in"
@@ -51,13 +55,13 @@ export default function SignInPage(): JSX.Element {
           onFinish={onFinish}
         >
           <Form.Item<FieldType>
-            label="Email"
+            label={t.email}
             name="email"
             rules={[
-              { required: true, message: 'Email is required' },
+              { required: true, message: `${t.emailRequired}` },
               {
                 type: 'email',
-                message: 'Please enter a valid email',
+                message: `${t.validEmail}`,
               },
             ]}
             validateDebounce={700}
@@ -66,18 +70,19 @@ export default function SignInPage(): JSX.Element {
             <Input />
           </Form.Item>
           <Form.Item<FieldType>
-            label="Password"
+            label={t.password}
             name="password"
-            rules={[{ required: true, message: 'Password is required' }]}
+            rules={[{ required: true, message: `${t.passwordRequired}` }]}
             validateDebounce={700}
             hasFeedback
           >
             <Input.Password />
           </Form.Item>
           <Button block type="primary" htmlType="submit">
-            Submit
+            {t.submit}
           </Button>
-          Don&apos;t have an account? <a href={pageRoutes.SIGN_UP}>Register</a>
+          {t.dontHaveAccount}{' '}
+          <Link href={pageRoutes.SIGN_UP}>{t.register}</Link>
         </Form>
       </div>
     </>

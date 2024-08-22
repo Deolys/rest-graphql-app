@@ -10,17 +10,20 @@ import { pageRoutes } from '@/constants/page-routes';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/config/firebase-config';
 import { logout } from '@/utils/firebase';
+import { useContext } from 'react';
+import { LanguageContext } from '@/providers/language';
 
 export default function Header(): JSX.Element {
   const router = useRouter();
   const [user, loading] = useAuthState(auth);
+  const { toggleLanguage, t } = useContext(LanguageContext);
 
   const handleSignOut = (): void => {
     logout();
   };
 
   const handleLanguage = (): void => {
-    //TODO change language globally
+    toggleLanguage();
   };
 
   const handleSignIn = (): void => {
@@ -42,8 +45,8 @@ export default function Header(): JSX.Element {
           </Link>
           <Switch
             className={style.switchStyle}
-            checkedChildren="ru"
-            unCheckedChildren="en"
+            checkedChildren="en"
+            unCheckedChildren="ru"
             onChange={handleLanguage}
             defaultChecked
           />
@@ -58,9 +61,9 @@ export default function Header(): JSX.Element {
             }}
           />
         ) : user ? (
-          <Button onClick={handleSignOut}>Sign out</Button>
+          <Button onClick={handleSignOut}>{t.signOut}</Button>
         ) : (
-          <Button onClick={handleSignIn}>Sign in</Button>
+          <Button onClick={handleSignIn}>{t.signIn}</Button>
         )}
       </AntdHeader>
     </>
