@@ -1,6 +1,9 @@
+import { DataType } from '@/types/client';
+
 export const URLSegment = {
-  method: 2,
+  method: 3,
   url: 3,
+  params: 4,
 };
 
 export const methods = {
@@ -18,3 +21,9 @@ export const clientMenu = [
   { label: 'Headers', key: 'headers' },
   { label: 'Body', key: 'body' },
 ];
+
+export const initialParams: DataType = {
+  key: 0,
+  keyName: '',
+  keyValue: '',
+};
