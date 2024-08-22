@@ -14,6 +14,9 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { PasswordStrength } from '@/components/password-strength';
 import { getErrorByCodeFB } from '@/utils/get-error-by-code-fb';
+import Link from 'next/link';
+import { useContext } from 'react';
+import { LanguageContext } from '@/providers/language';
 
 type FieldType = {
   name?: string;
@@ -24,6 +27,7 @@ type FieldType = {
 
 export default function SignUpPage(): JSX.Element {
   const router = useRouter();
+  const { t } = useContext(LanguageContext);
   const [messageApi, contextHolder] = message.useMessage();
   const [passwordValue, setPasswordValue] = useState('');
   const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
@@ -49,7 +53,7 @@ export default function SignUpPage(): JSX.Element {
       {contextHolder}
       <div className={styles.formWrapper}>
         <Title level={2} style={{ textAlign: 'center' }}>
-          Sign Up
+          {t.signUp}
         </Title>
         <Form
           name="sign-up"
@@ -58,22 +62,22 @@ export default function SignUpPage(): JSX.Element {
           onFinish={onFinish}
         >
           <Form.Item<FieldType>
-            label="Name"
+            label={t.name}
             name="name"
-            rules={[{ required: true, message: 'Name is required' }]}
+            rules={[{ required: true, message: `${t.nameRequired}` }]}
             validateDebounce={700}
             hasFeedback
           >
             <Input />
           </Form.Item>
           <Form.Item<FieldType>
-            label="Email"
+            label={t.email}
             name="email"
             rules={[
-              { required: true, message: 'Email is required' },
+              { required: true, message: `${t.emailRequired}` },
               {
                 type: 'email',
-                message: 'Please enter a valid email',
+                message: `${t.validEmail}`,
               },
             ]}
             validateDebounce={700}
@@ -82,10 +86,10 @@ export default function SignUpPage(): JSX.Element {
             <Input />
           </Form.Item>
           <Form.Item<FieldType>
-            label="Password"
+            label={t.password}
             name="password"
             rules={[
-              { required: true, message: 'Password is required' },
+              { required: true, message: `${t.passwordRequired}` },
               () => ({
                 validator(_, value) {
                   setPasswordValue(value);
@@ -102,16 +106,16 @@ export default function SignUpPage(): JSX.Element {
             </div>
           </Form.Item>
           <Form.Item<FieldType>
-            label="Confirm password"
+            label={t.confirmPassword}
             name="confirmPassword"
             rules={[
-              { required: true, message: 'Confirm your password' },
+              { required: true, message: `${t.confirmPassword}` },
               ({ getFieldValue }) => ({
                 validator(_, value) {
                   if (!value || getFieldValue('password') === value) {
                     return Promise.resolve();
                   }
-                  return Promise.reject('Passwords do not match');
+                  return Promise.reject(`${t.passwordsMatch}`);
                 },
               }),
             ]}
@@ -121,9 +125,9 @@ export default function SignUpPage(): JSX.Element {
             <Input.Password />
           </Form.Item>
           <Button block type="primary" htmlType="submit">
-            Submit
+            {t.submit}
           </Button>
-          Already have an account? <a href={pageRoutes.SIGN_IN}>Login</a>
+          {t.haveAccount} <Link href={pageRoutes.SIGN_IN}>{t.login}</Link>
         </Form>
       </div>
     </>

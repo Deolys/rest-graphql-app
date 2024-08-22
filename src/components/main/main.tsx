@@ -7,9 +7,12 @@ import styles from './main.module.css';
 import { pageRoutes } from '@/constants/page-routes';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/config/firebase-config';
+import { useContext } from 'react';
+import { LanguageContext } from '@/providers/language';
 
 export default function Main(): JSX.Element {
   const router = useRouter();
+  const { t } = useContext(LanguageContext);
   const [user, loading] = useAuthState(auth);
   const userName = user?.displayName;
 
@@ -23,28 +26,30 @@ export default function Main(): JSX.Element {
         <Spin />
       ) : user ? (
         <>
-          <h1>Wellcome back, {userName}!</h1>
+          <h1>
+            {t.welcomeBack}, {userName}!
+          </h1>
           <div className={styles.buttonsContainer}>
             <Button onClick={() => handleNavigate(pageRoutes.RESTFULL_CLIENT)}>
-              REST Client
+              {t.restClient}
             </Button>
             <Button onClick={() => handleNavigate(pageRoutes.GRAPHQL)}>
-              GraphiQL Client
+              {t.graphqlClient}
             </Button>
             <Button onClick={() => handleNavigate(pageRoutes.HISTORY)}>
-              History
+              {t.history}
             </Button>
           </div>
         </>
       ) : (
         <>
-          <h1>Wellcome to REST/GraphiQL Client</h1>
+          <h1>{t.welcome}</h1>
           <div className={styles.buttonsContainer}>
             <Button onClick={() => handleNavigate(pageRoutes.SIGN_IN)}>
-              Sign in
+              {t.signIn}
             </Button>
             <Button onClick={() => handleNavigate(pageRoutes.SIGN_UP)}>
-              Sign up
+              {t.signUp}
             </Button>
           </div>
         </>
