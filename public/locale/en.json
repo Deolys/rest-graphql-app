@@ -23,6 +23,7 @@
   "passwordDigit": "Password must contain at least one digit",
   "passwordSpecialCharacter": "Password must contain at least one special character",
   "submit": "Submit",
+  "add": "Add",
   "send": "Send",
   "haveAccount": "Already have an account?",
   "dontHaveAccount": "Don't have an account?",

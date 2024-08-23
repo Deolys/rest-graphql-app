@@ -7,6 +7,7 @@ import { initialParams } from '@/constants/client';
 import { Button, Flex, Form, Input, Table } from 'antd';
 import type { GetRef, InputRef, TableProps } from 'antd';
 import React, { useContext, useEffect, useRef, useState } from 'react';
+import { LanguageContext } from '@/providers/language';
 
 type EditableCell = Record<string, string>;
 type FormInstance<T> = GetRef<typeof Form<T>>;
@@ -109,6 +110,7 @@ export default function FormParams(): JSX.Element {
   const { params, setUrl } = useURL();
   const [dataSource, setDataSource] = useState<DataType[]>(params);
   const [count, setCount] = useState(dataSource?.length || 0);
+  const { t } = useContext(LanguageContext);
 
   const handleDelete = (key: React.Key): void => {
     const newData = dataSource.filter((item) => item.key !== key);
@@ -121,38 +123,25 @@ export default function FormParams(): JSX.Element {
     dataIndex: string;
   })[] = [
     {
-      title: 'key',
+      title: t.key,
       dataIndex: 'keyName',
       width: '30%',
       editable: true,
     },
     {
-      title: 'value',
+      title: t.value,
       dataIndex: 'keyValue',
       width: '30%',
       editable: true,
     },
-    // {
-    //   title: 'address',
-    //   dataIndex: 'address',
-    // },
     {
-      title: 'operation',
+      title: '-',
       dataIndex: 'operation',
       align: 'center',
       width: '1%',
       render: (_, record) =>
         dataSource.length >= 1 ? (
           <>
-            {/* <Button
-              shape="circle"
-              onClick={handleAdd}
-              type="default"
-              size="small"
-              style={{ marginBottom: 16, marginRight: '1em' }}
-            >
-              +
-            </Button> */}
             <Button
               shape="circle"
               onClick={() => handleDelete(record.key)}
@@ -162,13 +151,6 @@ export default function FormParams(): JSX.Element {
             >
               -
             </Button>
-
-            {/* <Popconfirm
-              title="Sure to delete?"
-              onConfirm={() => handleDelete(record.key)}
-            >
-              <a>Delete</a>
-            </Popconfirm> */}
           </>
         ) : null,
     },
@@ -234,7 +216,7 @@ export default function FormParams(): JSX.Element {
           size="small"
           style={{ marginBottom: 16 }}
         >
-          Add
+          {t.add}
         </Button>
       </Flex>
     </>

@@ -12,7 +12,7 @@ export default function Page(): JSX.Element {
   const { t } = useContext(LanguageContext);
 
   const forms = {
-    [clientMenu[0].key]: Params(t),
+    [clientMenu[0].key]: Params(),
     [clientMenu[1].key]: FormHeaders(t),
     [clientMenu[2].key]: FormBody(t),
   };
