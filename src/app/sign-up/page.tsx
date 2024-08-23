@@ -42,7 +42,7 @@ export default function SignUpPage(): JSX.Element {
         content: errorMessage,
       });
     } else {
-      router.push(pageRoutes.RESTFULL_CLIENT);
+      router.push(pageRoutes.MAIN);
     }
   };
 

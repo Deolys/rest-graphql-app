@@ -31,6 +31,10 @@ export default function Header(): JSX.Element {
     router.push(pageRoutes.SIGN_IN);
   };
 
+  const handleSignUp = (): void => {
+    router.push(pageRoutes.SIGN_UP);
+  };
+
   return (
     <>
       <AntdHeader className={style.headerStyle}>
@@ -57,14 +61,19 @@ export default function Header(): JSX.Element {
             active
             style={{
               backgroundImage:
-                'linear-gradient(90deg, #ffffff 25%, #ffffff 37%, #d3d3d3 63%)',
+                'linear-gradient(90deg, #ffffff 25%, #ffffff 37%, #bdbdbd 63%)',
               marginTop: 16,
             }}
           />
         ) : user ? (
           <Button onClick={handleSignOut}>{t.signOut}</Button>
         ) : (
-          <Button onClick={handleSignIn}>{t.signIn}</Button>
+          <Flex gap="small" wrap>
+            <Button type="primary" onClick={handleSignIn}>
+              {t.signIn}
+            </Button>
+            <Button onClick={handleSignUp}>{t.signUp}</Button>
+          </Flex>
         )}
       </AntdHeader>
     </>

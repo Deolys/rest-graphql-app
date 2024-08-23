@@ -36,7 +36,7 @@ export default function SignInPage(): JSX.Element {
         content: errorMessage,
       });
     } else {
-      router.push(pageRoutes.RESTFULL_CLIENT);
+      router.push(pageRoutes.MAIN);
     }
   };
 
