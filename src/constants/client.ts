@@ -14,7 +14,8 @@ export const methods = {
   delete: 'DELETE',
   head: 'HEAD',
   options: 'OPTIONS',
-};
+  graphql: 'GRAPHQL',
+} as const;
 
 export const clientMenu = [
   { label: 'Params', key: 'params' },
