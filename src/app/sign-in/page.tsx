@@ -1,16 +1,17 @@
 'use client';
 
-import { type JSX, useContext } from 'react';
+import { Button, Form, type FormProps, Input, message } from 'antd';
+import Title from 'antd/es/typography/Title';
+import { FirebaseError } from 'firebase/app';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { FirebaseError } from 'firebase/app';
-import { Button, Form, Input, message, type FormProps } from 'antd';
-import Title from 'antd/es/typography/Title';
+import { type JSX, useContext } from 'react';
+
+import styles from '@/app/styles/auth-pages.module.css';
 import { pageRoutes } from '@/constants/page-routes';
+import { LanguageContext } from '@/providers/language';
 import { logInWithEmailAndPassword } from '@/utils/firebase';
 import { getErrorByCodeFB } from '@/utils/get-error-by-code-fb';
-import { LanguageContext } from '@/providers/language';
-import styles from '@/app/styles/auth-pages.module.css';
 
 type FieldType = {
   email?: string;

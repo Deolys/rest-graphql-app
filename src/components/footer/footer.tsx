@@ -1,8 +1,10 @@
-import { type JSX } from 'react';
-import { Image, Flex } from 'antd';
+import { Flex, Image } from 'antd';
 import { Footer as AntdFooter } from 'antd/es/layout/layout';
 import Link from 'antd/es/typography/Link';
+import { type JSX } from 'react';
+
 import { coders } from '@/constants/coders';
+
 import styles from './footer.module.css';
 
 export default function Footer(): JSX.Element {

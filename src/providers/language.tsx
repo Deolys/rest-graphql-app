@@ -1,5 +1,6 @@
 'use client';
-import { useState, useEffect, createContext, ReactNode } from 'react';
+
+import { ReactNode, createContext, useEffect, useState } from 'react';
 
 type TLanguage = 'en' | 'ru';
 

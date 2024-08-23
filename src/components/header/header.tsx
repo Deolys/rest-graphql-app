@@ -1,15 +1,17 @@
 'use client';
 
-import { type JSX, useContext } from 'react';
+import { Button, Flex, Image, Skeleton, Switch } from 'antd';
+import { Header as AntdHeader } from 'antd/es/layout/layout';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { type JSX, useContext } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Header as AntdHeader } from 'antd/es/layout/layout';
-import { Image, Button, Switch, Flex, Skeleton } from 'antd';
-import { pageRoutes } from '@/constants/page-routes';
+
 import { auth } from '@/config/firebase-config';
-import { logout } from '@/utils/firebase';
+import { pageRoutes } from '@/constants/page-routes';
 import { LanguageContext } from '@/providers/language';
+import { logout } from '@/utils/firebase';
+
 import style from './header.module.css';
 
 export default function Header(): JSX.Element {

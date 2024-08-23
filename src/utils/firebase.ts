@@ -1,11 +1,12 @@
-import { auth, db } from '@/config/firebase-config';
 import {
-  signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
   signOut,
   updateProfile,
 } from 'firebase/auth';
-import { collection, addDoc } from 'firebase/firestore';
+import { addDoc, collection } from 'firebase/firestore';
+
+import { auth, db } from '@/config/firebase-config';
 
 type AuthResult = Promise<{ error: unknown } | void>;
 
