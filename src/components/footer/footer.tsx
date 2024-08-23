@@ -1,5 +1,5 @@
 import { type JSX } from 'react';
-import { Image, Flex } from 'antd';
+import { Image, Dropdown, Button } from 'antd';
 import { Footer as AntdFooter } from 'antd/es/layout/layout';
 import Link from 'antd/es/typography/Link';
 import { coders } from '@/constants/coders';
@@ -11,25 +11,28 @@ export default function Footer(): JSX.Element {
       className={styles.footerStyle}
       style={{ backgroundColor: '#f9f2ff', paddingBlock: 0 }}
     >
-      <Flex gap={16} align="center">
-        <Image width={50} src="/github.png" alt="Github" preview={false} />
-        <Flex vertical>
-          {coders.map((coder) => {
-            return (
-              <Link
-                key={coder.link}
-                href={coder.link}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+      <Dropdown
+        menu={{
+          items: coders.map((coder) => ({
+            key: coder.link,
+            label: (
+              <Link target="_blank" rel="noopener noreferrer" href={coder.link}>
                 {coder.username}
               </Link>
-            );
-          })}
-        </Flex>
-      </Flex>
+            ),
+          })),
+        }}
+        placement="topRight"
+      >
+        <Button
+          icon={
+            <Image width={50} src="/github.png" alt="Github" preview={false} />
+          }
+        />
+      </Dropdown>
 
       <p>© 2024 REST/GraphiQL Client</p>
+
       <a
         href="https://rs.school/courses/reactjs"
         target="_blank"
