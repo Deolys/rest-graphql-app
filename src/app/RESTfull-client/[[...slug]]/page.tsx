@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useContext } from 'react';
+import { type JSX, useState, useContext } from 'react';
+import { Button, Descriptions, Flex } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { clientMenu } from '@/constants/client';
-import { Button, Descriptions, Flex } from 'antd';
 import { InputUrl, Navigation, SelectMethod } from '@/components';
 import { FormBody, FormParams, FormHeaders } from '@/components/client/forms';
 import { LanguageContext } from '@/providers/language';

@@ -1,3 +1,4 @@
+import { type JSX } from 'react';
 import { Table } from 'antd';
 
 export function FormBody(t: Record<string, string>): JSX.Element {

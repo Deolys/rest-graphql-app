@@ -1,10 +1,9 @@
 'use client';
 
-import type { JSX } from 'react';
+import { type JSX, useEffect, useState } from 'react';
 import { Select } from 'antd';
-import { useEffect, useState } from 'react';
 import { methods } from '@/constants/client';
-import { useMethods } from '../../../hooks/useMethods';
+import { useMethods } from '@/hooks/useMethods';
 
 export function SelectMethod(): JSX.Element {
   const [method, setMethod] = useMethods();

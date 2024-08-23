@@ -1,11 +1,15 @@
 'use client';
 
-import type { JSX } from 'react';
+import {
+  type JSX,
+  type ChangeEvent,
+  useEffect,
+  useState,
+  useContext,
+} from 'react';
+import { usePathname } from 'next/navigation';
 import { Input } from 'antd';
 import { useURL } from '@/hooks/useURL';
-import { usePathname } from 'next/navigation';
-import { ChangeEvent, useEffect, useState } from 'react';
-import { useContext } from 'react';
 import { LanguageContext } from '@/providers/language';
 
 export function InputUrl(): JSX.Element {

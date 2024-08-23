@@ -1,22 +1,19 @@
 'use client';
 
-import type { JSX } from 'react';
-import { Button, Form, Input, message } from 'antd';
-import type { FormProps } from 'antd';
+import { type JSX, useState, useContext } from 'react';
+import { Button, Form, Input, message, type FormProps } from 'antd';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import Title from 'antd/es/typography/Title';
-import styles from '@/app/styles/auth-pages.module.css';
+import { FirebaseError } from 'firebase/app';
 import { pageRoutes } from '@/constants/page-routes';
 import { signUpPasswordRules } from '@/constants/validation-rules';
 import { rulesValidator } from '@/utils/rules-validator';
 import { registerWithEmailAndPassword } from '@/utils/firebase';
-import { FirebaseError } from 'firebase/app';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import { PasswordStrength } from '@/components/password-strength';
 import { getErrorByCodeFB } from '@/utils/get-error-by-code-fb';
-import Link from 'next/link';
-import { useContext } from 'react';
 import { LanguageContext } from '@/providers/language';
+import styles from '@/app/styles/auth-pages.module.css';
 
 type FieldType = {
   name?: string;

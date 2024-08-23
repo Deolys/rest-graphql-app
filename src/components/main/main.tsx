@@ -1,14 +1,13 @@
 'use client';
 
-import type { JSX } from 'react';
+import { type JSX, useContext } from 'react';
 import { useRouter } from 'next/navigation';
-import { Button, Spin } from 'antd';
-import styles from './main.module.css';
-import { pageRoutes } from '@/constants/page-routes';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { Button, Spin } from 'antd';
+import { pageRoutes } from '@/constants/page-routes';
 import { auth } from '@/config/firebase-config';
-import { useContext } from 'react';
 import { LanguageContext } from '@/providers/language';
+import styles from './main.module.css';
 
 export default function Main(): JSX.Element {
   const router = useRouter();

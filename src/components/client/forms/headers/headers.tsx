@@ -1,3 +1,4 @@
+import { type JSX } from 'react';
 import { Table } from 'antd';
 
 export function FormHeaders(t: Record<string, string>): JSX.Element {
