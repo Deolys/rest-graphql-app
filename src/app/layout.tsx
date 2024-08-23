@@ -23,6 +23,9 @@ export default function RootLayout({
 }>): ReactNode {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/graphql-rest-logo.svg" type="image/svg+xml" />
+      </head>
       <body>
         <LanguageProvider>
           <AntdRegistry>
