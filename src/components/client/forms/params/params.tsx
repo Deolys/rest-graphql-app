@@ -57,6 +57,7 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
   const [editing, setEditing] = useState(false);
   const inputRef = useRef<InputRef>(null);
   const form = useContext(EditableContext)!;
+  const { t } = useContext(LanguageContext);
 
   useEffect(() => {
     if (editing) {
@@ -75,7 +76,7 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
       toggleEdit();
       handleSave({ ...record, ...values });
     } catch (errInfo) {
-      console.warn(errInfo);
+      return undefined;
     }
   };
 
@@ -86,7 +87,7 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
       <Form.Item
         style={{ margin: 0 }}
         name={dataIndex}
-        rules={[{ required: true, message: `${title} is required.` }]}
+        rules={[{ required: true, message: `${title} ${t.required}.` }]}
       >
         <Input ref={inputRef} onPressEnter={save} onBlur={save} />
       </Form.Item>

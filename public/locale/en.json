@@ -34,6 +34,7 @@
   "body": "Body",
   "key": "Key",
   "value": "Value",
+  "required": "is required",
   "response": "Response",
   "responseBody": "Response body",
   "status": "Status"
