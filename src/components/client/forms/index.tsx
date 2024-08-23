@@ -1,6 +1,9 @@
 import dynamic from 'next/dynamic';
+
+import type FormParams from './params/params';
+
 export { FormBody } from './body/body';
-import FormParams from './params/params';
+
 export { FormHeaders } from './headers/headers';
 
 // Для чего тут динамический импорт? - Чтобы отключить SSR для компоненты.

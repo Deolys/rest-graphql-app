@@ -1,4 +1,4 @@
-import { DataType } from '@/types/client';
+import type { DataType } from '@/types/client';
 
 type Props = unknown | DataType[];
 
