@@ -75,7 +75,7 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
       toggleEdit();
       handleSave({ ...record, ...values });
     } catch (errInfo) {
-      errInfo; // FIX
+      console.warn(errInfo);
     }
   };
 
