@@ -20,6 +20,12 @@ module.exports = {
     '@typescript-eslint',
     'import',
   ],
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: ['./tsconfig.json'],
+    tsconfigRootDir: __dirname,
+  },
   rules: {
     '@typescript-eslint/no-explicit-any': 'error',
     'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 0 }],
@@ -39,6 +45,8 @@ module.exports = {
       },
     ],
     'no-console': ['error', { allow: ['warn', 'error'] }],
+    '@typescript-eslint/consistent-type-imports': 'error',
+    '@typescript-eslint/consistent-type-exports': 'error',
     'import/order': [
       'error',
       {
