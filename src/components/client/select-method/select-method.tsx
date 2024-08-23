@@ -1,7 +1,8 @@
 'use client';
 
-import { type JSX, useEffect, useState } from 'react';
 import { Select } from 'antd';
+import { type JSX, useEffect, useState } from 'react';
+
 import { methods } from '@/constants/client';
 import { useMethods } from '@/hooks/useMethods';
 

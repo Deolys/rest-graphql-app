@@ -1,5 +1,11 @@
-import { type JSX, Dispatch, SetStateAction, useContext } from 'react';
-import { Menu, MenuProps } from 'antd';
+import { Menu, type MenuProps } from 'antd';
+import {
+  type Dispatch,
+  type JSX,
+  type SetStateAction,
+  useContext,
+} from 'react';
+
 import { clientMenu } from '@/constants/client';
 import { LanguageContext } from '@/providers/language';
 

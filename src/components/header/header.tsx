@@ -1,15 +1,17 @@
 'use client';
 
-import { type JSX, useContext } from 'react';
+import { Button, Flex, Image, Skeleton, Switch } from 'antd';
+import { Header as AntdHeader } from 'antd/es/layout/layout';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { type JSX, useContext } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Header as AntdHeader } from 'antd/es/layout/layout';
-import { Image, Button, Switch, Flex, Skeleton } from 'antd';
-import { pageRoutes } from '@/constants/page-routes';
+
 import { auth } from '@/config/firebase-config';
-import { logout } from '@/utils/firebase';
+import { pageRoutes } from '@/constants/page-routes';
 import { LanguageContext } from '@/providers/language';
+import { logout } from '@/utils/firebase';
+
 import style from './header.module.css';
 
 export default function Header(): JSX.Element {
@@ -27,6 +29,10 @@ export default function Header(): JSX.Element {
 
   const handleSignIn = (): void => {
     router.push(pageRoutes.SIGN_IN);
+  };
+
+  const handleSignUp = (): void => {
+    router.push(pageRoutes.SIGN_UP);
   };
 
   return (
@@ -55,14 +61,19 @@ export default function Header(): JSX.Element {
             active
             style={{
               backgroundImage:
-                'linear-gradient(90deg, #ffffff 25%, #ffffff 37%, #d3d3d3 63%)',
+                'linear-gradient(90deg, #ffffff 25%, #ffffff 37%, #bdbdbd 63%)',
               marginTop: 16,
             }}
           />
         ) : user ? (
           <Button onClick={handleSignOut}>{t.signOut}</Button>
         ) : (
-          <Button onClick={handleSignIn}>{t.signIn}</Button>
+          <Flex gap="small" wrap>
+            <Button type="primary" onClick={handleSignIn}>
+              {t.signIn}
+            </Button>
+            <Button onClick={handleSignUp}>{t.signUp}</Button>
+          </Flex>
         )}
       </AntdHeader>
     </>

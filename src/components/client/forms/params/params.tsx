@@ -1,5 +1,5 @@
-import { type JSX } from 'react';
 import { Table } from 'antd';
+import { type JSX } from 'react';
 
 export function FormParams(t: Record<string, string>): JSX.Element {
   const dataSource = [

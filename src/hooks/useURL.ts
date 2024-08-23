@@ -1,6 +1,7 @@
-import { base64 } from '@/utils/base64';
-import { URLSegment } from '@/constants/client';
 import { usePathname, useRouter } from 'next/navigation';
+
+import { URLSegment } from '@/constants/client';
+import { base64 } from '@/utils/base64';
 
 type PathUrl = [result: string, (str: string) => void];
 

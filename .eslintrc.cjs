@@ -7,11 +7,25 @@ module.exports = {
     'plugin:react-hooks/recommended',
     'plugin:react/recommended',
     'next/core-web-vitals',
+    'plugin:import/recommended',
     'prettier',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react', 'react-refresh', 'react-hooks', 'prettier', '@typescript-eslint'],
+  plugins: [
+    'react',
+    'react-refresh',
+    'react-hooks',
+    'prettier',
+    '@typescript-eslint',
+    'import',
+  ],
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: ['./tsconfig.json'],
+    tsconfigRootDir: __dirname,
+  },
   rules: {
     '@typescript-eslint/no-explicit-any': 'error',
     'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 0 }],
@@ -31,11 +45,24 @@ module.exports = {
       },
     ],
     'no-console': ['error', { allow: ['warn', 'error'] }],
-    
+    '@typescript-eslint/consistent-type-imports': 'error',
+    '@typescript-eslint/consistent-type-exports': 'error',
+    'import/order': [
+      'error',
+      {
+        groups: ['builtin', 'external', 'internal'],
+        pathGroupsExcludedImportTypes: ['react'],
+        'newlines-between': 'always',
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true,
+        },
+      },
+    ],
   },
   settings: {
     react: {
       version: 'detect',
     },
   },
-}
+};

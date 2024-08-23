@@ -1,5 +1,6 @@
-import { methods, URLSegment } from '@/constants/client';
 import { usePathname, useRouter } from 'next/navigation';
+
+import { URLSegment, methods } from '@/constants/client';
 
 type PathMethod = [result: string, (str: string) => void];
 

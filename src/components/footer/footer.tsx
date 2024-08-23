@@ -1,8 +1,10 @@
-import { type JSX } from 'react';
-import { Image, Dropdown, Button } from 'antd';
+import { Button, Dropdown, Image } from 'antd';
 import { Footer as AntdFooter } from 'antd/es/layout/layout';
 import Link from 'antd/es/typography/Link';
+import { type JSX } from 'react';
+
 import { coders } from '@/constants/coders';
+
 import styles from './footer.module.css';
 
 export default function Footer(): JSX.Element {
@@ -25,6 +27,7 @@ export default function Footer(): JSX.Element {
         placement="topRight"
       >
         <Button
+          style={{ backgroundColor: 'transparent', border: 'none' }}
           icon={
             <Image width={50} src="/github.png" alt="Github" preview={false} />
           }
