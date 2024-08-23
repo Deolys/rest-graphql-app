@@ -6,7 +6,6 @@ import { clientMenu } from '@/constants/client';
 import { InputUrl, Navigation, SelectMethod } from '@/components';
 import { LanguageContext } from '@/providers/language';
 import { FormBody, FormHeaders, Params } from '@/components/client/forms';
-
 export default function Page(): JSX.Element {
   const [currentTab, setCurrentTab] = useState(clientMenu[0].key);
   const { t } = useContext(LanguageContext);

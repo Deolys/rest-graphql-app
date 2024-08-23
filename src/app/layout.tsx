@@ -1,12 +1,14 @@
-import type { ReactNode } from 'react';
-import type { Metadata } from 'next';
-import { Layout } from 'antd';
-import Header from '@/components/header/header';
-import Footer from '@/components/footer/footer';
-import './globals.css';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
+import { Layout } from 'antd';
 import { Content } from 'antd/es/layout/layout';
+import type { Metadata } from 'next';
+import type { ReactNode } from 'react';
+
+import Footer from '@/components/footer/footer';
+import Header from '@/components/header/header';
 import { LanguageProvider } from '@/providers/language';
+
+import './globals.css';
 
 export const metadata: Metadata = {
   title: 'REST/GraphiQL Client',

@@ -9,6 +9,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { LanguageContext } from '@/providers/language';
 import styles from './params.module.css';
 
+
 type EditableCell = Record<string, string>;
 type FormInstance<T> = GetRef<typeof Form<T>>;
 

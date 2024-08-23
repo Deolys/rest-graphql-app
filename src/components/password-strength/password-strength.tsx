@@ -1,5 +1,6 @@
-import { type JSX } from 'react';
 import { Progress } from 'antd';
+import { type JSX } from 'react';
+
 import { calculatePasswordStrength } from '@/utils/calculate-password-strength';
 
 interface PasswordStrengthProps {
