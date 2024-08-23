@@ -1,8 +1,9 @@
-import { base64 } from '@/utils/base64';
-import { DataType } from '@/types/client';
-import { isDataTypeArr } from '@/utils/predicates';
 import { usePathname, useRouter } from 'next/navigation';
-import { initialParams, URLSegment } from '@/constants/client';
+
+import { URLSegment, initialParams } from '@/constants/client';
+import type { DataType } from '@/types/client';
+import { base64 } from '@/utils/base64';
+import { isDataTypeArr } from '@/utils/predicates';
 
 type SetURLProps = {
   newURL?: string;

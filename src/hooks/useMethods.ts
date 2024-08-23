@@ -1,5 +1,6 @@
-import { methods } from '@/constants/client';
 import { usePathname, useRouter } from 'next/navigation';
+
+import { methods } from '@/constants/client';
 
 const indexMethod = 2;
 

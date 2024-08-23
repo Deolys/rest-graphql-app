@@ -7,6 +7,7 @@ import type { ReactNode } from 'react';
 import Footer from '@/components/footer/footer';
 import Header from '@/components/header/header';
 import { LanguageProvider } from '@/providers/language';
+import StoreProvider from '@/store/storeProvider';
 
 import './globals.css';
 
@@ -27,15 +28,17 @@ export default function RootLayout({
         <link rel="icon" href="/graphql-rest-logo.svg" type="image/svg+xml" />
       </head>
       <body>
-        <LanguageProvider>
-          <AntdRegistry>
-            <Layout>
-              <Header />
-              <Content>{children}</Content>
-              <Footer />
-            </Layout>
-          </AntdRegistry>
-        </LanguageProvider>
+        <StoreProvider>
+          <LanguageProvider>
+            <AntdRegistry>
+              <Layout>
+                <Header />
+                <Content>{children}</Content>
+                <Footer />
+              </Layout>
+            </AntdRegistry>
+          </LanguageProvider>
+        </StoreProvider>
       </body>
     </html>
   );
