@@ -27,6 +27,7 @@ export default function Footer(): JSX.Element {
         placement="topRight"
       >
         <Button
+          style={{ backgroundColor: 'transparent', border: 'none' }}
           icon={
             <Image width={50} src="/github.png" alt="Github" preview={false} />
           }
