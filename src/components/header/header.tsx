@@ -39,11 +39,11 @@ export default function Header(): JSX.Element {
     <>
       <AntdHeader className={style.headerStyle}>
         <Flex align="center" gap={20}>
-          <Link href={pageRoutes.MAIN}>
+          <Link className={style.link} href={pageRoutes.MAIN}>
             <Image
-              width={100}
-              height={90}
-              src="/rest_graph.jpg"
+              width={50}
+              height={50}
+              src="graphql-rest-logo.svg"
               alt="REST GraphQL logo"
               preview={false}
             />

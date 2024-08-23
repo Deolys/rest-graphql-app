@@ -7,3 +7,7 @@
 .switchStyle {
   background-color: #16f;
 }
+
+.link {
+  display: flex;
+}
