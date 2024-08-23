@@ -1,5 +1,4 @@
 'use client';
-import './params.css';
 import type { JSX } from 'react';
 import { useURL } from '@/hooks/useURL';
 import { DataType } from '@/types/client';
@@ -8,6 +7,7 @@ import { Button, Flex, Form, Input, Table } from 'antd';
 import type { GetRef, InputRef, TableProps } from 'antd';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { LanguageContext } from '@/providers/language';
+import styles from './params.module.css';
 
 type EditableCell = Record<string, string>;
 type FormInstance<T> = GetRef<typeof Form<T>>;
@@ -92,7 +92,7 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
       </Form.Item>
     ) : (
       <div
-        className="editable-cell-value-wrap"
+        className={styles.editableCellValueWrap}
         style={{ paddingInlineEnd: 24 }}
         onClick={toggleEdit}
       >
@@ -204,7 +204,7 @@ export default function FormParams(): JSX.Element {
         <Table
           size="small"
           components={components}
-          rowClassName={() => 'editable-row'}
+          rowClassName={styles.editableRow}
           bordered
           dataSource={dataSource}
           columns={columns as ColumnTypes}
