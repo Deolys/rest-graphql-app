@@ -1,56 +1,54 @@
 'use client';
 
-import { Table } from 'antd';
-import type { TableProps } from 'antd';
-import { type JSX } from 'react';
+import { List } from 'antd';
+import Link from 'next/link';
+import { useContext } from 'react';
 
-interface DataType {
-  key: string;
+import { LanguageContext } from '@/providers/language';
+
+type Data = {
   date: string;
-  request: string;
-  status: string;
-}
+  query: string;
+};
 
-const columns: TableProps<DataType>['columns'] = [
+const data: Data[] = [
   {
-    title: 'Date',
-    dataIndex: 'date',
-    key: 'date',
+    date: '23-08-2024',
+    query:
+      'https://github.com/rolling-scopes-school/tasks/blob/master/react/modules/tasks/final.md',
   },
   {
-    title: 'Request',
-    dataIndex: 'request',
-    key: 'request',
-    render: (text) => <a>{text}</a>,
+    date: '24-08-2024',
+    query: 'https://github.com/algoritmiks/graphiql-app/pulls',
   },
   {
-    title: 'Status',
-    dataIndex: 'status',
-    key: 'status',
-  },
-];
-
-const data: DataType[] = [
-  {
-    key: '1',
-    date: 'Yesterday',
-    request: 'google.com',
-    status: '200',
-  },
-  {
-    key: '2',
-    date: 'Today',
-    request: 'x.com',
-    status: '403',
+    date: '25-08-2024',
+    query: 'https://github.com/users/algoritmiks/projects/1/views/1',
   },
 ];
 
 export default function HistoryPage(): JSX.Element {
+  const { t } = useContext(LanguageContext);
+
   return (
     <>
       <article style={{ padding: '1em' }}>
-        <h1 style={{ textAlign: 'center' }}>History</h1>;
-        <Table columns={columns} dataSource={data} />
+        <List
+          size="large"
+          header={<h1 style={{ textAlign: 'center' }}>{t.history}</h1>}
+          bordered
+          dataSource={data}
+          renderItem={(item) => (
+            <List.Item>
+              {
+                <p>
+                  <span>{item.date}: </span>
+                  <Link href={item.query}>{item.query}</Link>
+                </p>
+              }
+            </List.Item>
+          )}
+        />
       </article>
     </>
   );
