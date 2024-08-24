@@ -38,7 +38,7 @@ export const initialHeader: DataType = {
 export const initialState: InitialState = {
   isFormInited: false,
   method: methods.get,
-  url: 'test url',
+  url: '',
   headers: [initialHeader],
   body: '',
   variables: '{\n  \n}',

@@ -1,7 +1,7 @@
 import { type JSX } from 'react';
 
 import { CodeEditor } from '@/components/code-editor';
-import { setVariables } from '@/store/reducers/requestSlice';
+import { setVariables } from '@/store/reducers/rest-request-slice';
 import { useAppDispatch, useAppSelector } from '@/store/store';
 
 export function FormVariables(): JSX.Element {

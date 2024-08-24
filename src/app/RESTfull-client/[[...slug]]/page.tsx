@@ -19,7 +19,7 @@ import {
   setHeaders,
   setMethod,
   setUrl,
-} from '@/store/reducers/requestSlice';
+} from '@/store/reducers/rest-request-slice';
 import { useAppDispatch, useAppSelector } from '@/store/store';
 import {
   parseDataFromPathname,
@@ -69,7 +69,7 @@ export default function Page(): JSX.Element {
       <Flex gap="small" style={{ marginBottom: '1em' }}>
         <SelectMethod />
         <InputUrl />
-        <Button type="primary" onChange={handleSend}>
+        <Button type="primary" onClick={handleSend}>
           {t.send}
         </Button>
       </Flex>

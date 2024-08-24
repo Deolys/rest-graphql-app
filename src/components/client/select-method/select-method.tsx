@@ -4,7 +4,7 @@ import { Select } from 'antd';
 import { type JSX } from 'react';
 
 import { methods } from '@/constants/client';
-import { selectMethod, setMethod } from '@/store/reducers/requestSlice';
+import { selectMethod, setMethod } from '@/store/reducers/rest-request-slice';
 import { useAppDispatch, useAppSelector } from '@/store/store';
 import type { HTTPMethod } from '@/types/client';
 
