@@ -6,6 +6,17 @@ export interface DataType {
   keyValue: string;
 }
 
+export type HTTPMethod = (typeof methods)[MethodsValues];
+
+export type InitialState = {
+  isFormInited: boolean;
+  method: HTTPMethod;
+  url: string;
+  headers: DataType[];
+  body: string;
+  variables: string;
+};
+
 export type MethodsValues = keyof typeof methods;
 
 export type TRequestMethods =

@@ -1,29 +1,18 @@
 'use client';
 
-import {
-  Button,
-  Flex,
-  Form,
-  type GetRef,
-  Input,
-  type InputRef,
-  Table,
-  type TableProps,
-} from 'antd';
-import React, {
-  type JSX,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import type { UnknownAction } from '@reduxjs/toolkit';
+import type { GetRef, InputRef, TableProps } from 'antd';
+import { Button, Flex, Form, Input, Table } from 'antd';
+import type { JSX } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 
-import { initialParams } from '@/constants/client';
-import { useURL } from '@/hooks/useURL';
+import { initialData } from '@/constants/client';
 import { LanguageContext } from '@/providers/language';
+import { useAppDispatch } from '@/store/store';
 import type { DataType } from '@/types/client';
 
-import styles from './params.module.css';
+// eslint-disable-next-line import/order
+import styles from './custom-form.module.css';
 
 type EditableCell = Record<string, string>;
 type FormInstance<T> = GetRef<typeof Form<T>>;
@@ -122,17 +111,24 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
 };
 
 type ColumnTypes = Exclude<TableProps['columns'], undefined>;
+type CustomFormProps = {
+  dataSource: DataType[];
+  setData: (payload: DataType[]) => UnknownAction;
+};
 
-export default function FormParams(): JSX.Element {
-  const { params, setUrl } = useURL();
-  const [dataSource, setDataSource] = useState<DataType[]>(params);
+export default function CustomForm({
+  dataSource,
+  setData,
+}: CustomFormProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
   const [count, setCount] = useState(dataSource?.length || 0);
   const { t } = useContext(LanguageContext);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleDelete = (key: React.Key): void => {
     const newData = dataSource.filter((item) => item.key !== key);
-    setDataSource(newData);
-    setUrl({ newParams: newData });
+    dispatch(setData(newData));
   };
 
   const defaultColumns: (ColumnTypes[number] & {
@@ -175,8 +171,8 @@ export default function FormParams(): JSX.Element {
 
   const handleAdd = (): void => {
     const nextKey = Number(count) + 1;
-    const newData: DataType = { ...initialParams, key: nextKey };
-    setDataSource([...dataSource, newData]);
+    const newData: DataType = { ...initialData, key: nextKey };
+    dispatch(setData([...dataSource, newData]));
     setCount(nextKey);
   };
 
@@ -188,8 +184,7 @@ export default function FormParams(): JSX.Element {
       ...item,
       ...row,
     });
-    setUrl({ newParams: newData });
-    setDataSource(newData);
+    dispatch(setData(newData));
   };
 
   const components = {

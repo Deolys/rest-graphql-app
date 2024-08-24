@@ -1,14 +1,14 @@
+import type { Store } from '@reduxjs/toolkit';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 
-import requestSlice from '@/store/reducers/requestSlice';
+import restRequestSlise from '@/store/reducers/rest-request-slice';
 
 const rootReducer = combineReducers({
-  request: requestSlice,
+  request: restRequestSlise,
 });
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const setupStore = () => {
+export const setupStore = (): Store<RootState> => {
   return configureStore({
     reducer: rootReducer,
   });
