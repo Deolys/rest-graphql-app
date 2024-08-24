@@ -7,3 +7,13 @@ export interface DataType {
 }
 
 export type MethodsValues = keyof typeof methods;
+
+export type TRequestMethods =
+  | 'GET'
+  | 'POST'
+  | 'PUT'
+  | 'PATCH'
+  | 'DELETE'
+  | 'HEAD'
+  | 'OPTIONS'
+  | 'GRAPHQL';
