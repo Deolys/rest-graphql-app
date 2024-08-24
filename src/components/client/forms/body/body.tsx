@@ -1,27 +1,14 @@
-import { Table } from 'antd';
 import { type JSX } from 'react';
 
-export function FormBody(t: Record<string, string>): JSX.Element {
-  const dataSource = [
-    {
-      key: '1',
-      paramsKey: 'name',
-      value: 'my name',
-    },
-  ];
+import { CodeEditor } from '@/components/code-editor';
+import { setBody } from '@/store/reducers/requestSlice';
+import { useAppDispatch, useAppSelector } from '@/store/store';
 
-  const columns = [
-    {
-      title: t.key,
-      dataIndex: 'paramsKey',
-      key: 'paramsKey',
-    },
-    {
-      title: t.value,
-      dataIndex: 'value',
-      key: 'value',
-    },
-  ];
-
-  return <Table dataSource={dataSource} columns={columns} size="small" />;
+export function FormBody(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const body = useAppSelector((state) => state.request.body);
+  const handleBodyChange = (value: string): void => {
+    dispatch(setBody(value));
+  };
+  return <CodeEditor value={body} onChange={handleBodyChange} />;
 }

@@ -13,6 +13,7 @@
   "nameRequired": "Имя обязательно",
   "email": "Электронная почта",
   "validEmail": "Пожалуйста, введите корректный адрес email",
+  "variables": "Переменные",
   "emailRequired": "Электронная почта обязательна",
   "password": "Пароль",
   "passwordRequired": "Пароль обязателен",

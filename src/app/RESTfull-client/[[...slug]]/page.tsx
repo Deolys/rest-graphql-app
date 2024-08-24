@@ -6,6 +6,7 @@ import { type JSX, useContext, useState } from 'react';
 
 import { InputUrl, Navigation, SelectMethod } from '@/components';
 import { FormBody, FormHeaders, Params } from '@/components/client/forms';
+import { FormVariables } from '@/components/client/forms/variables/variables';
 import { clientMenu } from '@/constants/client';
 import { LanguageContext } from '@/providers/language';
 
@@ -16,7 +17,8 @@ export default function Page(): JSX.Element {
   const forms = {
     [clientMenu[0].key]: Params(),
     [clientMenu[1].key]: FormHeaders(t),
-    [clientMenu[2].key]: FormBody(t),
+    [clientMenu[2].key]: FormVariables(),
+    [clientMenu[3].key]: FormBody(),
   };
 
   return (

@@ -13,6 +13,7 @@
   "nameRequired": "Name is required",
   "email": "Email",
   "validEmail": "Please enter a valid email",
+  "variables": "Variables",
   "emailRequired": "Email is required",
   "password": "Password",
   "passwordRequired": "Password is required",
