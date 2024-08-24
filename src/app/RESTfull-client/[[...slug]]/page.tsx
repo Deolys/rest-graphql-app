@@ -1,24 +1,71 @@
 'use client';
 
 import { Button, Descriptions, Flex } from 'antd';
-import { type JSX, useContext, useState } from 'react';
+import TextArea from 'antd/es/input/TextArea';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useContext, useEffect, useState } from 'react';
 
 import { InputUrl, Navigation, SelectMethod } from '@/components';
-import { FormBody, FormHeaders, Params } from '@/components/client/forms';
-import { FormVariables } from '@/components/client/forms/variables/variables';
-import { CodeEditor } from '@/components/code-editor';
-import { clientMenu } from '@/constants/client';
+import { ClientCustomForm } from '@/components/client/forms';
+import {
+  selectBody,
+  selectEncodedURL,
+  selectHeaders,
+  selectisInit,
+  setBody,
+  setFormInited,
+  setHeaders,
+  setMethod,
+  setUrl,
+} from '@/components/client/requestSlice';
+import { initialBody, tabs } from '@/constants/client';
 import { LanguageContext } from '@/providers/language';
+import { useAppDispatch, useAppSelector } from '@/store/store';
+import {
+  parseDataFromPathname,
+  parseDataFromSearchParams,
+} from '@/utils/parsers';
 
 export default function Page(): JSX.Element {
-  const [currentTab, setCurrentTab] = useState(clientMenu[0].key);
+  const [currentTab, setCurrentTab] = useState(tabs[0].key);
+  const isFormInited = useAppSelector(selectisInit);
+  const dataHeaders = useAppSelector(selectHeaders);
+  const dataBody = useAppSelector(selectBody);
+  const encodedURL = useAppSelector(selectEncodedURL);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
   const { t } = useContext(LanguageContext);
+  const pathName = usePathname();
+  const searchParams = useSearchParams();
 
-  const forms = {
-    [clientMenu[0].key]: Params(),
-    [clientMenu[1].key]: FormHeaders(t),
-    [clientMenu[2].key]: FormVariables(),
-    [clientMenu[3].key]: FormBody(),
+  useEffect(() => {
+    if (!isFormInited) {
+      const { methodForm, urlForm } = parseDataFromPathname(pathName);
+      const headersForm = parseDataFromSearchParams(searchParams);
+
+      dispatch(setFormInited(true));
+      dispatch(setUrl(urlForm));
+      dispatch(setMethod(methodForm));
+      dispatch(setHeaders(headersForm));
+      dispatch(setBody([initialBody]));
+    }
+  }, [isFormInited, pathName, dispatch, searchParams]);
+
+  function handleSend(): void {
+    router.push(encodedURL);
+    // TODO push in History
+    // TODO do fetch
+  }
+
+  const form = {
+    [tabs[0].key]: ClientCustomForm({
+      dataSource: dataHeaders,
+      setData: setHeaders,
+    }),
+    [tabs[1].key]: ClientCustomForm({
+      dataSource: dataBody,
+      setData: setBody,
+    }),
   };
 
   return (
