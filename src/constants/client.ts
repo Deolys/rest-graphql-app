@@ -1,4 +1,4 @@
-import type { DataType } from '@/types/client';
+import type { DataType, InitialState } from '@/types/client';
 
 export const URLSegment = {
   method: 3,
@@ -17,15 +17,34 @@ export const methods = {
   graphql: 'GRAPHQL',
 } as const;
 
-export const clientMenu = [
-  { label: 'Params', key: 'params' },
+export const tabs = [
   { label: 'Headers', key: 'headers' },
   { label: 'Variables', key: 'variables' },
   { label: 'Body', key: 'body' },
 ];
 
-export const initialParams: DataType = {
+export const initialData: DataType = {
   key: 0,
   keyName: '',
   keyValue: '',
+};
+
+export const initialHeader: DataType = {
+  key: 0,
+  keyName: 'Content-Type',
+  keyValue: 'multipart/form-data',
+};
+
+export const initialBody: DataType = {
+  key: 0,
+  keyName: 'test body',
+  keyValue: '12345',
+};
+
+export const initialState: InitialState = {
+  isFormInited: false,
+  method: methods.get,
+  url: 'test url',
+  headers: [initialHeader],
+  body: [initialBody],
 };
