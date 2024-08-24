@@ -5,12 +5,15 @@ import { type JSX, useEffect, useState } from 'react';
 
 import { methods } from '@/constants/client';
 import { useMethods } from '@/hooks/useMethods';
+import type { TRequestMethods } from '@/types/client';
 
 export function SelectMethod(): JSX.Element {
   const [method, setMethod] = useMethods();
-  const [input, setInput] = useState(method);
+  const [input, setInput] = useState<TRequestMethods>(
+    method as TRequestMethods,
+  );
 
-  const handleChange = (method: string): void => setInput(method);
+  const handleChange = (method: TRequestMethods): void => setInput(method);
   useEffect(() => setMethod(input), [input, setMethod]);
 
   return (
