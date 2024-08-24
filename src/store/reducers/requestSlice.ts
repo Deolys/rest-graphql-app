@@ -10,7 +10,7 @@ type InitialState = {
 
 const initialState: InitialState = {
   url: 'test url',
-  body: '{\n  \n}',
+  body: '',
   variables: '{\n  \n}',
 };
 
