@@ -1,6 +1,7 @@
 {
   "welcome": "Welcome to REST/GraphiQL Client",
   "welcomeBack": "Welcome back",
+  "pageNotFound": "The page you're looking for doesn't exist",
   "signIn": "Sign In",
   "signUp": "Sign Up",
   "signOut": "Sign Out",
