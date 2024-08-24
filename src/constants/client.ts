@@ -20,6 +20,7 @@ export const methods = {
 export const clientMenu = [
   { label: 'Params', key: 'params' },
   { label: 'Headers', key: 'headers' },
+  { label: 'Variables', key: 'variables' },
   { label: 'Body', key: 'body' },
 ];
 

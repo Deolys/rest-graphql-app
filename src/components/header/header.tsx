@@ -35,6 +35,10 @@ export default function Header(): JSX.Element {
     router.push(pageRoutes.SIGN_UP);
   };
 
+  const handleMainPage = (): void => {
+    router.push(pageRoutes.MAIN);
+  };
+
   return (
     <>
       <AntdHeader className={style.headerStyle}>
@@ -43,7 +47,7 @@ export default function Header(): JSX.Element {
             <Image
               width={50}
               height={50}
-              src="graphql-rest-logo.svg"
+              src="/graphql-rest-logo.svg"
               alt="REST GraphQL logo"
               preview={false}
             />
@@ -65,14 +69,23 @@ export default function Header(): JSX.Element {
               marginTop: 16,
             }}
           />
-        ) : user ? (
-          <Button onClick={handleSignOut}>{t.signOut}</Button>
         ) : (
           <Flex gap="small" wrap>
-            <Button type="primary" onClick={handleSignIn}>
-              {t.signIn}
-            </Button>
-            <Button onClick={handleSignUp}>{t.signUp}</Button>
+            {user ? (
+              <>
+                <Button type="primary" onClick={handleMainPage}>
+                  {t.mainPage}
+                </Button>
+                <Button onClick={handleSignOut}>{t.signOut}</Button>
+              </>
+            ) : (
+              <>
+                <Button type="primary" onClick={handleSignIn}>
+                  {t.signIn}
+                </Button>
+                <Button onClick={handleSignUp}>{t.signUp}</Button>
+              </>
+            )}
           </Flex>
         )}
       </AntdHeader>
