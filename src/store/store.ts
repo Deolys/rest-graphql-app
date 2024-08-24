@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 
-import requestSlice from '@/components/client/requestSlice';
+import requestSlice from '@/store/reducers/requestSlice';
 
 const rootReducer = combineReducers({
   request: requestSlice,
