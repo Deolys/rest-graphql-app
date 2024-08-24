@@ -15,6 +15,7 @@
   "validEmail": "Пожалуйста, введите корректный адрес email",
   "variables": "Переменные",
   "emailRequired": "Электронная почта обязательна",
+  "mainPage": "Главная страница",
   "password": "Пароль",
   "passwordRequired": "Пароль обязателен",
   "confirmPassword": "Подтвердите пароль",

@@ -15,6 +15,7 @@
   "validEmail": "Please enter a valid email",
   "variables": "Variables",
   "emailRequired": "Email is required",
+  "mainPage": "Main Page",
   "password": "Password",
   "passwordRequired": "Password is required",
   "confirmPassword": "Confirm your password",
