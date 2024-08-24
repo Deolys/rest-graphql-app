@@ -1,35 +1,23 @@
 'use client';
 
 import { Input } from 'antd';
-import { usePathname } from 'next/navigation';
-import {
-  type ChangeEvent,
-  type JSX,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { type ChangeEvent, type JSX, useContext } from 'react';
 
-import { useURL } from '@/hooks/useURL';
 import { LanguageContext } from '@/providers/language';
+import { useAppDispatch, useAppSelector } from '@/store/store';
+
+import { selectURL, setUrl } from '../requestSlice';
 
 export function InputUrl(): JSX.Element {
-  const pathname = usePathname();
-  const { url, setUrl } = useURL();
-  const [input, setInput] = useState(url);
+  const dispatch = useAppDispatch();
+  const url = useAppSelector(selectURL);
   const { t } = useContext(LanguageContext);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>): void =>
-    setInput(e.target.value);
-  const handleBlur = (): void => setUrl({ newURL: input });
-  useEffect(() => setInput(url), [pathname, url]);
+  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    dispatch(setUrl(e.target.value));
+  };
 
   return (
-    <Input
-      value={input}
-      onBlur={handleBlur}
-      onChange={handleChange}
-      placeholder={t.enterURL}
-    ></Input>
+    <Input value={url} onChange={handleChange} placeholder={t.enterURL}></Input>
   );
 }

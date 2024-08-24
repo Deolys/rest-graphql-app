@@ -1,23 +1,25 @@
 'use client';
 
 import { Select } from 'antd';
-import { type JSX, useEffect, useState } from 'react';
+import { type JSX } from 'react';
 
 import { methods } from '@/constants/client';
-import { useMethods } from '@/hooks/useMethods';
-import type { TRequestMethods } from '@/types/client';
+import { useAppDispatch, useAppSelector } from '@/store/store';
+import type { HTTPMethod } from '@/types/client';
+
+import { selectMethod, setMethod } from '../requestSlice';
 
 export function SelectMethod(): JSX.Element {
-  const [method, setMethod] = useMethods();
-  const [input, setInput] = useState<TRequestMethods>(
-    method as TRequestMethods,
-  );
+  const dispatch = useAppDispatch();
+  const method = useAppSelector(selectMethod);
 
-  const handleChange = (method: TRequestMethods): void => setInput(method);
-  useEffect(() => setMethod(input), [input, setMethod]);
+  const handleChange = (method: string): void => {
+    dispatch(setMethod(method as HTTPMethod));
+  };
 
   return (
     <Select
+      // FIX translate
       placeholder="Method..."
       style={{
         width: '10em',
@@ -29,7 +31,7 @@ export function SelectMethod(): JSX.Element {
         };
       })}
       onChange={handleChange}
-      value={input}
+      value={method}
     ></Select>
   );
 }
