@@ -43,7 +43,7 @@ export default function Header(): JSX.Element {
             <Image
               width={50}
               height={50}
-              src="graphql-rest-logo.svg"
+              src="/graphql-rest-logo.svg"
               alt="REST GraphQL logo"
               preview={false}
             />
