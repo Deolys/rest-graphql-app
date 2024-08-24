@@ -4,10 +4,9 @@ import { Select } from 'antd';
 import { type JSX } from 'react';
 
 import { methods } from '@/constants/client';
+import { selectMethod, setMethod } from '@/store/reducers/requestSlice';
 import { useAppDispatch, useAppSelector } from '@/store/store';
 import type { HTTPMethod } from '@/types/client';
-
-import { selectMethod, setMethod } from '../requestSlice';
 
 export function SelectMethod(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -19,8 +18,6 @@ export function SelectMethod(): JSX.Element {
 
   return (
     <Select
-      // FIX translate
-      placeholder="Method..."
       style={{
         width: '10em',
       }}

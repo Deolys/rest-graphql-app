@@ -35,16 +35,11 @@ export const initialHeader: DataType = {
   keyValue: 'multipart/form-data',
 };
 
-export const initialBody: DataType = {
-  key: 0,
-  keyName: 'test body',
-  keyValue: '12345',
-};
-
 export const initialState: InitialState = {
   isFormInited: false,
   method: methods.get,
   url: 'test url',
   headers: [initialHeader],
-  body: [initialBody],
+  body: '',
+  variables: '{\n  \n}',
 };

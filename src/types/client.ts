@@ -13,7 +13,8 @@ export type InitialState = {
   method: HTTPMethod;
   url: string;
   headers: DataType[];
-  body: DataType[];
+  body: string;
+  variables: string;
 };
 
 export type MethodsValues = keyof typeof methods;

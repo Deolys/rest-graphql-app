@@ -1,25 +1,25 @@
 'use client';
 
 import { Button, Descriptions, Flex } from 'antd';
-import TextArea from 'antd/es/input/TextArea';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useContext, useEffect, useState } from 'react';
 
 import { InputUrl, Navigation, SelectMethod } from '@/components';
 import { ClientCustomForm } from '@/components/client/forms';
+import { FormBody } from '@/components/client/forms/body/body';
+import { FormVariables } from '@/components/client/forms/variables/variables';
+import { CodeEditor } from '@/components/code-editor';
+import { tabs } from '@/constants/client';
+import { LanguageContext } from '@/providers/language';
 import {
-  selectBody,
   selectEncodedURL,
   selectHeaders,
   selectisInit,
-  setBody,
   setFormInited,
   setHeaders,
   setMethod,
   setUrl,
-} from '@/components/client/requestSlice';
-import { initialBody, tabs } from '@/constants/client';
-import { LanguageContext } from '@/providers/language';
+} from '@/store/reducers/requestSlice';
 import { useAppDispatch, useAppSelector } from '@/store/store';
 import {
   parseDataFromPathname,
@@ -30,7 +30,6 @@ export default function Page(): JSX.Element {
   const [currentTab, setCurrentTab] = useState(tabs[0].key);
   const isFormInited = useAppSelector(selectisInit);
   const dataHeaders = useAppSelector(selectHeaders);
-  const dataBody = useAppSelector(selectBody);
   const encodedURL = useAppSelector(selectEncodedURL);
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -47,7 +46,6 @@ export default function Page(): JSX.Element {
       dispatch(setUrl(urlForm));
       dispatch(setMethod(methodForm));
       dispatch(setHeaders(headersForm));
-      dispatch(setBody([initialBody]));
     }
   }, [isFormInited, pathName, dispatch, searchParams]);
 
@@ -62,10 +60,8 @@ export default function Page(): JSX.Element {
       dataSource: dataHeaders,
       setData: setHeaders,
     }),
-    [tabs[1].key]: ClientCustomForm({
-      dataSource: dataBody,
-      setData: setBody,
-    }),
+    [tabs[1].key]: FormVariables(),
+    [tabs[2].key]: FormBody(),
   };
 
   return (
@@ -73,10 +69,12 @@ export default function Page(): JSX.Element {
       <Flex gap="small" style={{ marginBottom: '1em' }}>
         <SelectMethod />
         <InputUrl />
-        <Button type="primary">{t.send}</Button>
+        <Button type="primary" onChange={handleSend}>
+          {t.send}
+        </Button>
       </Flex>
       <Navigation setCurrentTab={setCurrentTab} currentTab={currentTab} />
-      {forms[currentTab]}
+      {form[currentTab]}
       <Descriptions
         title={t.response}
         className="Response"

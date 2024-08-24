@@ -4,9 +4,8 @@ import { Input } from 'antd';
 import { type ChangeEvent, type JSX, useContext } from 'react';
 
 import { LanguageContext } from '@/providers/language';
+import { selectURL, setUrl } from '@/store/reducers/requestSlice';
 import { useAppDispatch, useAppSelector } from '@/store/store';
-
-import { selectURL, setUrl } from '../requestSlice';
 
 export function InputUrl(): JSX.Element {
   const dispatch = useAppDispatch();

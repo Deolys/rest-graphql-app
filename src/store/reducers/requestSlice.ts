@@ -1,5 +1,5 @@
-import { createSelector, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
 
 import { initialState } from '@/constants/client';
 import { pageRoutes } from '@/constants/page-routes';
@@ -29,6 +29,9 @@ const requestSlice = createSlice({
     },
     setBody: (state, action: PayloadAction<InitialState['body']>) => {
       state.body = action.payload;
+    },
+    setVariables: (state, action: PayloadAction<string>) => {
+      state.variables = action.payload;
     },
   },
 });
@@ -83,5 +86,11 @@ export const selectQueryOject = createSelector(
   },
 );
 
-export const { setBody, setHeaders, setMethod, setUrl, setFormInited } =
-  requestSlice.actions;
+export const {
+  setBody,
+  setHeaders,
+  setMethod,
+  setUrl,
+  setFormInited,
+  setVariables,
+} = requestSlice.actions;
