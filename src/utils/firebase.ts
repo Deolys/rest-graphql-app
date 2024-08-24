@@ -45,4 +45,4 @@ const logout = (): void => {
   signOut(auth);
 };
 
-export { logInWithEmailAndPassword, registerWithEmailAndPassword, logout };
+export { logInWithEmailAndPassword, logout, registerWithEmailAndPassword };
