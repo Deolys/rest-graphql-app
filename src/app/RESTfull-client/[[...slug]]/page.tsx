@@ -66,6 +66,10 @@ export default function Page(): JSX.Element {
 
     const { method, url, headers, body } = req;
     const response = await fetchRest({ method, url, headers, body });
+    if (response.error) {
+      console.warn(response.error);
+    }
+
     dispatch(setResponseStatus(`${response.status}`));
     dispatch(setResponseBody(response.body));
     router.push(encodedURL);
