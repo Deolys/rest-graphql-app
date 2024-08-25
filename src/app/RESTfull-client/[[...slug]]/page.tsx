@@ -4,6 +4,7 @@ import { Button, Descriptions, Flex } from 'antd';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useContext, useEffect, useState } from 'react';
 
+import { fetchRest } from '@/api/rest';
 import { InputUrl, Navigation, SelectMethod } from '@/components';
 import { ClientCustomForm } from '@/components/client/forms';
 import { FormBody } from '@/components/client/forms/body/body';
@@ -15,12 +16,18 @@ import {
   selectEncodedURL,
   selectHeaders,
   selectisInit,
+  selectisResBudy,
+  selectisResStatus,
+  selectRequestOject,
   setFormInited,
   setHeaders,
   setMethod,
+  setResponseBody,
+  setResponseStatus,
   setUrl,
 } from '@/store/reducers/rest-request-slice';
 import { useAppDispatch, useAppSelector } from '@/store/store';
+import { jsonFormat } from '@/utils/json-format';
 import {
   parseDataFromPathname,
   parseDataFromSearchParams,
@@ -30,6 +37,9 @@ export default function Page(): JSX.Element {
   const [currentTab, setCurrentTab] = useState(tabs[0].key);
   const isFormInited = useAppSelector(selectisInit);
   const dataHeaders = useAppSelector(selectHeaders);
+  const responseStatus = useAppSelector(selectisResStatus);
+  const responseBudy = useAppSelector(selectisResBudy);
+  const req = useAppSelector(selectRequestOject);
   const encodedURL = useAppSelector(selectEncodedURL);
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -43,16 +53,22 @@ export default function Page(): JSX.Element {
       const headersForm = parseDataFromSearchParams(searchParams);
 
       dispatch(setFormInited(true));
-      dispatch(setUrl(urlForm));
+      urlForm && dispatch(setUrl(urlForm));
       dispatch(setMethod(methodForm));
       dispatch(setHeaders(headersForm));
     }
   }, [isFormInited, pathName, dispatch, searchParams]);
 
-  function handleSend(): void {
+  async function handleSend(): Promise<void> {
+    if (req.error) {
+      console.warn('variables error:', req.error);
+    }
+
+    const { method, url, headers, body } = req;
+    const response = await fetchRest({ method, url, headers, body });
+    dispatch(setResponseStatus(`${response.status}`));
+    dispatch(setResponseBody(response.body));
     router.push(encodedURL);
-    // TODO push in History
-    // TODO do fetch
   }
 
   const form = {
@@ -82,7 +98,7 @@ export default function Page(): JSX.Element {
         size="small"
         column={1}
       >
-        <Descriptions.Item label={t.status}>200 OK</Descriptions.Item>
+        <Descriptions.Item label={t.status}>{responseStatus}</Descriptions.Item>
         <Descriptions.Item
           label={t.body}
           contentStyle={{
@@ -90,7 +106,11 @@ export default function Page(): JSX.Element {
             width: '90%',
           }}
         >
-          <CodeEditor placeholder={t.responseBody} readOnly={true} />
+          <CodeEditor
+            placeholder={t.responseBody}
+            readOnly={true}
+            value={jsonFormat(responseBudy)}
+          />
         </Descriptions.Item>
       </Descriptions>
     </article>

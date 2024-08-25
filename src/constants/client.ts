@@ -32,14 +32,17 @@ export const initialData: DataType = {
 export const initialHeader: DataType = {
   key: 0,
   keyName: 'Content-Type',
-  keyValue: 'multipart/form-data',
+  keyValue: 'application/x-www-form-urlencoded',
 };
 
 export const initialState: InitialState = {
   isFormInited: false,
   method: methods.get,
-  url: '',
+  url: '{{baseURL}}{{url}}',
   headers: [initialHeader],
-  body: '',
-  variables: '{\n  \n}',
+  body: '"title=ship"',
+  variables:
+    '{\n"baseURL": "https://stapi.co/api",\n"url": "/v1/rest/season/search?pageNumber=0&pageSize=2"\n}',
+  responseStatus: '',
+  responseBody: '',
 };

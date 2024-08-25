@@ -5,6 +5,8 @@ import { initialState } from '@/constants/client';
 import { pageRoutes } from '@/constants/page-routes';
 import type { RootState } from '@/store/store';
 import type { InitialState } from '@/types/client';
+import { headersToObj } from '@/utils/headers-to-obj';
+import { replaceVariables } from '@/utils/replace-variables';
 
 import { base64 } from '../../utils/base64';
 
@@ -30,8 +32,20 @@ const restRequestSlise = createSlice({
     setBody: (state, action: PayloadAction<InitialState['body']>) => {
       state.body = action.payload;
     },
-    setVariables: (state, action: PayloadAction<string>) => {
+    setVariables: (state, action: PayloadAction<InitialState['variables']>) => {
       state.variables = action.payload;
+    },
+    setResponseStatus: (
+      state,
+      action: PayloadAction<InitialState['responseStatus']>,
+    ) => {
+      state.responseStatus = action.payload;
+    },
+    setResponseBody: (
+      state,
+      action: PayloadAction<InitialState['responseBody']>,
+    ) => {
+      state.responseBody = action.payload;
     },
   },
 });
@@ -50,8 +64,19 @@ export const selectHeaders = (state: RootState): InitialState['headers'] =>
 export const selectBody = (state: RootState): InitialState['body'] =>
   state.request.body;
 
+export const selectVars = (state: RootState): InitialState['variables'] =>
+  state.request.variables;
+
 export const selectisInit = (state: RootState): InitialState['isFormInited'] =>
   state.request.isFormInited;
+
+export const selectisResStatus = (
+  state: RootState,
+): InitialState['responseStatus'] => state.request.responseStatus;
+
+export const selectisResBudy = (
+  state: RootState,
+): InitialState['responseBody'] => state.request.responseBody;
 
 export const selectEncodedURL = (state: RootState): InitialState['url'] => {
   // /RESTfull-client/POST/{endpointUrlBase64encoded}/{bodyBase64encoded}?header1=header1value&header2=header2value...
@@ -75,14 +100,13 @@ export const selectEncodedURL = (state: RootState): InitialState['url'] => {
   }
 };
 
-export const selectQueryOject = createSelector(
-  [selectURL, selectHeaders, selectBody],
-  (url, headersData, bodyData) => {
-    const headers = headersData.reduce((obj, header) => {
-      return { ...obj, [header.keyName]: header.keyValue };
-    }, {});
+export const selectRequestOject = createSelector(
+  [selectMethod, selectURL, selectHeaders, selectBody, selectVars],
+  (method, urlData, headersData, body, varsData) => {
+    const { url, error } = replaceVariables(varsData, urlData);
+    const headers = headersToObj(headersData);
 
-    return { url, bodyData, headers };
+    return { method, url, body, headers, error };
   },
 );
 
@@ -93,4 +117,6 @@ export const {
   setUrl,
   setFormInited,
   setVariables,
+  setResponseStatus,
+  setResponseBody,
 } = restRequestSlise.actions;
