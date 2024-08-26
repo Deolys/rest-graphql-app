@@ -74,7 +74,7 @@ export const selectisResStatus = (
   state: RootState,
 ): InitialState['responseStatus'] => state.request.responseStatus;
 
-export const selectisResBudy = (
+export const selectisResBody = (
   state: RootState,
 ): InitialState['responseBody'] => state.request.responseBody;
 

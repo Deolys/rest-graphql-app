@@ -16,7 +16,7 @@ import {
   selectEncodedURL,
   selectHeaders,
   selectisInit,
-  selectisResBudy,
+  selectisResBody,
   selectisResStatus,
   selectRequestOject,
   setFormInited,
@@ -27,11 +27,11 @@ import {
   setUrl,
 } from '@/store/reducers/rest-request-slice';
 import { useAppDispatch, useAppSelector } from '@/store/store';
-import { jsonFormat } from '@/utils/json-format';
 import {
   parseDataFromPathname,
   parseDataFromSearchParams,
 } from '@/utils/parsers';
+import { prettifyJson } from '@/utils/prettify-json';
 
 export default function Page(): JSX.Element {
   const [messageApi, contextHolder] = message.useMessage();
@@ -39,7 +39,7 @@ export default function Page(): JSX.Element {
   const isFormInited = useAppSelector(selectisInit);
   const dataHeaders = useAppSelector(selectHeaders);
   const responseStatus = useAppSelector(selectisResStatus);
-  const responseBudy = useAppSelector(selectisResBudy);
+  const responseBody = useAppSelector(selectisResBody);
   const req = useAppSelector(selectRequestOject);
   const encodedURL = useAppSelector(selectEncodedURL);
   const dispatch = useAppDispatch();
@@ -119,7 +119,7 @@ export default function Page(): JSX.Element {
           <CodeEditor
             placeholder={t.responseBody}
             readOnly={true}
-            value={jsonFormat(responseBudy)}
+            value={prettifyJson(responseBody)}
           />
         </Descriptions.Item>
       </Descriptions>
