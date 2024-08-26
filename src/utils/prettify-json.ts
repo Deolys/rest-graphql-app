@@ -12,8 +12,8 @@ export function prettifyJson(data: string): string {
     if (line.length === 0) {
       continue;
     }
-    line = line.replace(/,/g, ',\n' + '  '.repeat(level));
-    prettifiedLines.push('  '.repeat(level) + line);
+    line = line.replace(/,/g, ',\n' + '  '.repeat(level > 0 ? level : 0));
+    prettifiedLines.push('  '.repeat(level > 0 ? level : 0) + line);
     if (line.includes('{')) {
       level++;
     }
