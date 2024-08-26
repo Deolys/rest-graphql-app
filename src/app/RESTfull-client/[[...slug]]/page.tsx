@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Descriptions, Flex } from 'antd';
+import { Button, Descriptions, Flex, message } from 'antd';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useContext, useEffect, useState } from 'react';
 
@@ -34,6 +34,7 @@ import {
 } from '@/utils/parsers';
 
 export default function Page(): JSX.Element {
+  const [messageApi, contextHolder] = message.useMessage();
   const [currentTab, setCurrentTab] = useState(tabs[0].key);
   const isFormInited = useAppSelector(selectisInit);
   const dataHeaders = useAppSelector(selectHeaders);
@@ -61,13 +62,17 @@ export default function Page(): JSX.Element {
 
   async function handleSend(): Promise<void> {
     if (req.error) {
-      console.warn('variables error:', req.error);
+      messageApi.open({
+        type: 'warning',
+        duration: 10,
+        content: `Variables: ${req.error}`,
+      });
     }
 
     const { method, url, headers, body } = req;
     const response = await fetchRest({ method, url, headers, body });
     if (response.error) {
-      console.warn(response.error);
+      messageApi.open({ type: 'error', duration: 5, content: response.error });
     }
 
     dispatch(setResponseStatus(`${response.status}`));
@@ -86,6 +91,7 @@ export default function Page(): JSX.Element {
 
   return (
     <article style={{ padding: '1em' }}>
+      {contextHolder}
       <Flex gap="small" style={{ marginBottom: '1em' }}>
         <SelectMethod />
         <InputUrl />

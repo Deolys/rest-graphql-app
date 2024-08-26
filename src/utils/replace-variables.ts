@@ -7,6 +7,8 @@ export function replaceVariables(
   variables: string,
   urlData: string,
 ): ReplaceVariables {
+  if (!variables.trim()) return { url: urlData, error: '' };
+
   try {
     const varsObj = JSON.parse(variables);
     const entries = Object.entries(varsObj);
