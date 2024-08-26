@@ -41,5 +41,9 @@
   "required": "is required",
   "response": "Response",
   "responseBody": "Response body",
-  "status": "Status"
+  "status": "Status",
+  "emailExists": "Email already in use",
+  "invalidCredentials": "Invalid credentials",
+  "tooManyAttempts": "Too many attempts. Please, try later",
+  "tokenExpired": "Token expired. Please, login again"
 }

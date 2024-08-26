@@ -33,7 +33,7 @@ export default function SignInPage(): JSX.Element {
       const errorMessage = getErrorByCodeFB(response.error.code);
       messageApi.open({
         type: 'error',
-        content: errorMessage,
+        content: t[errorMessage],
       });
     } else {
       router.push(pageRoutes.MAIN);
