@@ -29,10 +29,7 @@ import {
   setVariables,
 } from '@/store/reducers/rest-request-slice';
 import { useAppDispatch, useAppSelector } from '@/store/store';
-import {
-  parseDataFromPathname,
-  parseDataFromSearchParams,
-} from '@/utils/parsers';
+import { parseDataFromURL } from '@/utils/parser-data-from-url';
 import { prettifyJson } from '@/utils/prettify-json';
 
 export default function Page(): JSX.Element {
