@@ -1,13 +1,13 @@
 type ReplaceVariables = {
-  url: string;
+  data: string;
   error: string;
 };
 
 export function replaceVariables(
   variables: string,
-  urlData: string,
+  sourceData: string,
 ): ReplaceVariables {
-  if (!variables.trim()) return { url: urlData, error: '' };
+  if (!variables.trim()) return { data: sourceData, error: '' };
 
   try {
     const varsObj = JSON.parse(variables);
@@ -17,15 +17,15 @@ export function replaceVariables(
         const regexp = new RegExp(String.raw`{{${key}}}`, 'gi');
         return result.replaceAll(regexp, `${value}`);
       },
-      urlData,
+      sourceData,
     );
 
-    return { url: urlWithReplacedVars, error: '' };
+    return { data: urlWithReplacedVars, error: '' };
   } catch (error) {
     if (error instanceof SyntaxError) {
-      return { url: urlData, error: error.message };
+      return { data: sourceData, error: error.message };
     } else {
-      return { url: urlData, error: `${error}` };
+      return { data: sourceData, error: `${error}` };
     }
   }
 }
