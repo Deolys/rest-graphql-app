@@ -1,7 +1,8 @@
 export function prettifyJson(data: string): string {
-  data = data.replace(/\s/g, '');
-  data = data.replace(/{/g, '{\n');
-  data = data.replace(/}/g, '\n}\n');
+  data = data
+    .replace(/\s/g, '')
+    .replace(/{/g, '{\n')
+    .replace(/(}\s*,?)/g, '\n$1\n');
   const lines = data.split('\n');
 
   let level = 0;
@@ -21,8 +22,9 @@ export function prettifyJson(data: string): string {
     }
   }
   let prettifiedToJson = prettifiedLines.join('\n');
-  prettifiedToJson = prettifiedToJson.replace(/ {2}}/g, '}');
-  prettifiedToJson = prettifiedToJson.replace(/{,/g, '{');
-  prettifiedToJson = prettifiedToJson.replace(/:/g, ': ');
+  prettifiedToJson = prettifiedToJson
+    .replace(/ {2}}/g, '}')
+    .replace(/:/g, ': ')
+    .replace(/\n(?:\s*\n)+/g, '\n');
   return prettifiedToJson;
 }
