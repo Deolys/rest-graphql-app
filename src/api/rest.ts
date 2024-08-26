@@ -9,7 +9,7 @@ type Props = {
 
 type FetchRest = Promise<{
   body: string;
-  status: number;
+  status: string;
   error: string;
 }>;
 
@@ -32,15 +32,14 @@ export async function fetchRest({
 
     const status = response.status;
     if (!response.ok) {
-      return { body: '', status, error: '' };
+      return { body: '', status: `${status} HTTP error!`, error: '' };
     }
 
     const json: unknown = await response.json();
     const str = JSON.stringify(json);
-    return { body: str, status, error: '' };
+    return { body: str, status: `${status} OK`, error: '' };
   } catch (e) {
-    const status = 0;
     const error = e instanceof Error ? e.message : `${e}`;
-    return { body: '', status, error };
+    return { body: '', status: '500 HTTP errror!', error };
   }
 }
