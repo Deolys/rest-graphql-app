@@ -5,6 +5,7 @@
   "signIn": "Вход",
   "signUp": "Регистрация",
   "signOut": "Выход",
+  "somethingWentWrong": "Что-то пошло не так",
   "login": "Войти",
   "restClient": "REST Клиент",
   "graphqlClient": "GraphQL Клиент",

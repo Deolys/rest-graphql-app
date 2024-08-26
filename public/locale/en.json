@@ -5,6 +5,7 @@
   "signIn": "Sign In",
   "signUp": "Sign Up",
   "signOut": "Sign Out",
+  "somethingWentWrong": "Something went wrong",
   "login": "Login",
   "restClient": "REST Client",
   "graphqlClient": "GraphQL Client",
