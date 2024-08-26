@@ -16,8 +16,7 @@ export function prettifyJson(data: string): string {
     prettifiedLines.push('  '.repeat(level > 0 ? level : 0) + line);
     if (line.includes('{')) {
       level++;
-    }
-    if (line.includes('}')) {
+    } else if (line.includes('}')) {
       level--;
     }
   }
