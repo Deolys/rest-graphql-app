@@ -15,6 +15,8 @@ export type InitialState = {
   headers: DataType[];
   body: string;
   variables: string;
+  responseStatus: string;
+  responseBody: string;
 };
 
 export type MethodsValues = keyof typeof methods;

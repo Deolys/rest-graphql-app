@@ -21,21 +21,26 @@ export async function fetchRest({
 }: Props): FetchRest {
   let response;
 
-  if (method === 'GET' || method === 'HEAD') {
-    response = await fetch(url);
-  } else {
-    response = await fetch(url, { method, body, headers });
-  }
-
-  const status = response.status;
-
   try {
+    const correctURL = new URL(url);
+
+    if (method === 'GET' || method === 'HEAD') {
+      response = await fetch(correctURL);
+    } else {
+      response = await fetch(correctURL, { method, body, headers });
+    }
+
+    const status = response.status;
+    if (!response.ok) {
+      return { body: '', status, error: '' };
+    }
+
     const json: unknown = await response.json();
-    const body = JSON.stringify(json);
-    return { body, status, error: '' };
-  } catch (error) {
-    const errorMessage =
-      error instanceof SyntaxError ? error.message : `${error}`;
-    return { body: '', status, error: errorMessage };
+    const str = JSON.stringify(json);
+    return { body: str, status, error: '' };
+  } catch (e) {
+    const status = 0;
+    const error = e instanceof Error ? e.message : `${e}`;
+    return { body: '', status, error };
   }
 }
