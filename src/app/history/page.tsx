@@ -9,11 +9,14 @@ import { pageRoutes } from '@/constants/page-routes';
 import { withAuth } from '@/hoc/with-auth';
 import { useHistoryLS } from '@/hooks/useHistoryLS';
 import { LanguageContext } from '@/providers/language';
+import { setFormInited } from '@/store/reducers/rest-request-slice';
+import { useAppDispatch } from '@/store/store';
 
 import styles from './history.module.css';
 
 function HistoryPage(): JSX.Element {
   const { t } = useContext(LanguageContext);
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const { requests } = useHistoryLS();
 
@@ -37,7 +40,14 @@ function HistoryPage(): JSX.Element {
                 <div>
                   <span style={{ paddingRight: '0.5em' }}>{item.date}:</span>
                   <span style={{ paddingRight: '0.5em' }}>[{item.method}]</span>
-                  <Link href={item.encodedURL}>{item.url}</Link>
+                  <Link
+                    href={item.encodedURL}
+                    onClick={() => {
+                      dispatch(setFormInited(false));
+                    }}
+                  >
+                    {item.url}
+                  </Link>
                 </div>
               </List.Item>
             )}
