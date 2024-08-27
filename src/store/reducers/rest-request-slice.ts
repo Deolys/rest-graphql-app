@@ -11,12 +11,6 @@ const restRequestSlise = createSlice({
   name: 'request',
   initialState,
   reducers: {
-    setFormInited: (
-      state,
-      action: PayloadAction<InitialState['isFormInited']>,
-    ) => {
-      state.isFormInited = action.payload;
-    },
     setUrl: (state, action: PayloadAction<InitialState['url']>) => {
       state.url = action.payload;
     },
@@ -64,9 +58,6 @@ export const selectBody = (state: RootState): InitialState['body'] =>
 export const selectVars = (state: RootState): InitialState['variables'] =>
   state.request.variables;
 
-export const selectisInit = (state: RootState): InitialState['isFormInited'] =>
-  state.request.isFormInited;
-
 export const selectisResStatus = (
   state: RootState,
 ): InitialState['responseStatus'] => state.request.responseStatus;
@@ -100,7 +91,6 @@ export const {
   setHeaders,
   setMethod,
   setUrl,
-  setFormInited,
   setVariables,
   setResponseStatus,
   setResponseBody,

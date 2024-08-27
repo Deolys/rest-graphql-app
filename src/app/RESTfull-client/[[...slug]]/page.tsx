@@ -18,11 +18,9 @@ import { LanguageContext } from '@/providers/language';
 import {
   selectHeaders,
   selectRequestOject,
-  selectisInit,
   selectisResBody,
   selectisResStatus,
   setBody,
-  setFormInited,
   setHeaders,
   setMethod,
   setResponseBody,
@@ -37,7 +35,6 @@ import { prettifyJson } from '@/utils/prettify-json';
 function Page(): JSX.Element {
   const [messageApi, contextHolder] = message.useMessage();
   const [currentTab, setCurrentTab] = useState(tabsRest[0].key);
-  const isFormInited = useAppSelector(selectisInit);
   const dataHeaders = useAppSelector(selectHeaders);
   const responseStatus = useAppSelector(selectisResStatus);
   const responseBody = useAppSelector(selectisResBody);
@@ -50,20 +47,17 @@ function Page(): JSX.Element {
   const { addRequestToLS } = useHistoryLS();
 
   useEffect(() => {
-    if (!isFormInited) {
-      const { method, url, variables, body, headers } = parseDataFromURL(
-        pathName,
-        searchParams,
-      );
+    const { method, url, variables, body, headers } = parseDataFromURL(
+      pathName,
+      searchParams,
+    );
 
-      dispatch(setFormInited(true));
-      dispatch(setMethod(method));
-      url && dispatch(setUrl(url));
-      variables && dispatch(setVariables(variables));
-      body && dispatch(setBody(body));
-      headers.length && dispatch(setHeaders(headers));
-    }
-  }, [isFormInited, pathName, dispatch, searchParams]);
+    dispatch(setMethod(method));
+    url && dispatch(setUrl(url));
+    variables && dispatch(setVariables(variables));
+    body && dispatch(setBody(body));
+    headers.length && dispatch(setHeaders(headers));
+  }, [pathName, dispatch, searchParams]);
 
   async function handleSend(): Promise<void> {
     if (req.error) {
