@@ -1,7 +1,7 @@
 'use client';
 
 import { Button, Descriptions, Flex, message } from 'antd';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { useContext, useEffect, useState } from 'react';
 
 import { fetchRest } from '@/api/rest';
@@ -43,7 +43,6 @@ function Page(): JSX.Element {
   const responseBody = useAppSelector(selectisResBody);
   const req = useAppSelector(selectRequestOject);
   const dispatch = useAppDispatch();
-  const router = useRouter();
   const { t } = useContext(LanguageContext);
   const pathName = usePathname();
   const searchParams = useSearchParams();
@@ -71,14 +70,12 @@ function Page(): JSX.Element {
       messageApi.open({
         type: 'warning',
         duration: 10,
-        content: `Variables: ${req.error}`,
+        content: `${t.variables}: ${req.error}`,
       });
     }
 
     const { method, url, headers, body } = req;
-    const encodedURL = encodeURL(req); // encodedURL можно сохранять в History
-    // с него восстановиятся state. Только не забыть перед роутом из History
-    // делать dispatch(setFormInited(false));
+    const encodedURL = encodeURL(req);
 
     const response = await fetchRest({ method, url, headers, body });
     if (response.error) {
@@ -89,7 +86,7 @@ function Page(): JSX.Element {
 
     dispatch(setResponseStatus(`${response.status}`));
     dispatch(setResponseBody(response.body));
-    router.push(encodedURL);
+    window.history.pushState(null, '', encodedURL);
   }
 
   const form = {
