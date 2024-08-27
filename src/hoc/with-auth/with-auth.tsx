@@ -12,10 +12,10 @@ export function withAuth<P extends JSX.IntrinsicAttributes>(
     const [user, loading] = useAuthState(auth);
 
     useEffect(() => {
-      if (!user) {
+      if (!loading && !user) {
         redirect('/sign-in');
       }
-    }, [user]);
+    }, [user, loading]);
 
     if (loading) {
       return (
