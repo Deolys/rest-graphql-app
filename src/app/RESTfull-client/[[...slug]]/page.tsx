@@ -3,6 +3,7 @@
 import { Button, Descriptions, Flex, message } from 'antd';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useContext, useEffect, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { fetchRest } from '@/api/rest';
 import { InputUrl, Navigation, SelectMethod } from '@/components';
@@ -10,6 +11,7 @@ import { ClientCustomForm } from '@/components/client/forms';
 import { FormBody } from '@/components/client/forms/body/body';
 import { FormVariables } from '@/components/client/forms/variables/variables';
 import { CodeEditor } from '@/components/code-editor';
+import { auth } from '@/config/firebase-config';
 import { tabs } from '@/constants/client';
 import { withAuth } from '@/hoc/with-auth';
 import { useEncodeURL } from '@/hooks/useCodeURL';
@@ -32,6 +34,7 @@ import {
 import { useAppDispatch, useAppSelector } from '@/store/store';
 import { parseDataFromURL } from '@/utils/parser-data-from-url';
 import { prettifyJson } from '@/utils/prettify-json';
+import { setRequestHistory } from '@/utils/request-history-ls';
 
 function Page(): JSX.Element {
   const [messageApi, contextHolder] = message.useMessage();
@@ -47,6 +50,7 @@ function Page(): JSX.Element {
   const pathName = usePathname();
   const searchParams = useSearchParams();
   const encodeURL = useEncodeURL();
+  const [user] = useAuthState(auth);
 
   useEffect(() => {
     if (!isFormInited) {
@@ -82,6 +86,8 @@ function Page(): JSX.Element {
     if (response.error) {
       messageApi.open({ type: 'error', duration: 5, content: response.error });
     }
+
+    setRequestHistory(method, url, encodedURL, user?.uid);
 
     dispatch(setResponseStatus(`${response.status}`));
     dispatch(setResponseBody(response.body));

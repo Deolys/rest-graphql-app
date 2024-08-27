@@ -1,6 +1,12 @@
 'use client';
 
-import { type ReactNode, createContext, useEffect, useState } from 'react';
+import {
+  type FC,
+  type ReactNode,
+  createContext,
+  useEffect,
+  useState,
+} from 'react';
 
 type TLanguage = 'en' | 'ru';
 
@@ -17,9 +23,7 @@ const contextDefaultValue: ILanguageContext = {
 export const LanguageContext =
   createContext<ILanguageContext>(contextDefaultValue);
 
-export const LanguageProvider: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
+export const LanguageProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [language, setLanguage] = useState<TLanguage>('en');
   const [t, setT] = useState({});
 
