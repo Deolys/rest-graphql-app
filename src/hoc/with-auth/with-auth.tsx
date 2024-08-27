@@ -5,7 +5,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { auth } from '@/config/firebase-config';
 
-export function withAuth<P extends JSX.IntrinsicAttributes>(
+export function withAuth<P extends object>(
   Component: ComponentType<P>,
 ): ComponentType<P> {
   const WrappedComponent = (props: P): JSX.Element => {
