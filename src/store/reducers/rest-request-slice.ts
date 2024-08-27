@@ -2,13 +2,10 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 
 import { initialState } from '@/constants/client';
-import { pageRoutes } from '@/constants/page-routes';
 import type { RootState } from '@/store/store';
 import type { InitialState } from '@/types/client';
 import { headersToObj } from '@/utils/headers-to-obj';
 import { replaceVariables } from '@/utils/replace-variables';
-
-import { base64 } from '../../utils/base64';
 
 const restRequestSlise = createSlice({
   name: 'request',
@@ -78,35 +75,14 @@ export const selectisResBody = (
   state: RootState,
 ): InitialState['responseBody'] => state.request.responseBody;
 
-export const selectEncodedURL = (state: RootState): InitialState['url'] => {
-  // /RESTfull-client/POST/{endpointUrlBase64encoded}/{bodyBase64encoded}?header1=header1value&header2=header2value...
-  try {
-    if (!state.request.url.trim()) return '';
-    const baseURL = state.request.url.match(/http/gi)
-      ? new URL(state.request.url)
-      : new URL('https://' + state.request.url);
-    const endpointUrlBase64encoded = base64.encode(state.request.url);
-    const bodyBase64encoded = state.request.body
-      ? base64.encode(JSON.stringify(state.request.body))
-      : state.request.body;
-    state.request.headers.forEach((header) =>
-      baseURL.searchParams.append(header.keyName, header.keyValue),
-    );
-    const encodedURL = `${pageRoutes.RESTFULL_CLIENT}/${state.request.method}/${endpointUrlBase64encoded}/${bodyBase64encoded}?${baseURL.searchParams}`;
-    return encodedURL;
-  } catch (error) {
-    console.warn(error);
-    return '';
-  }
-};
-
 export const selectRequestOject = createSelector(
   [selectMethod, selectURL, selectHeaders, selectBody, selectVars],
-  (method, urlData, headersData, body, varsData) => {
-    const { url, error } = replaceVariables(varsData, urlData);
+  (method, urlData, headersData, bodyData, varsData) => {
+    const { data: url, error } = replaceVariables(varsData, urlData);
+    const { data: body } = replaceVariables(varsData, bodyData);
     const headers = headersToObj(headersData);
 
-    return { method, url, body, headers, error };
+    return { method, url, urlData, body, headers, variables: varsData, error };
   },
 );
 

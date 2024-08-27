@@ -12,26 +12,25 @@ import { FormVariables } from '@/components/client/forms/variables/variables';
 import { CodeEditor } from '@/components/code-editor';
 import { tabs } from '@/constants/client';
 import { withAuth } from '@/hoc/with-auth';
+import { useEncodeURL } from '@/hooks/useCodeURL';
 import { LanguageContext } from '@/providers/language';
 import {
-  selectEncodedURL,
   selectHeaders,
   selectisInit,
   selectisResBody,
   selectisResStatus,
   selectRequestOject,
+  setBody,
   setFormInited,
   setHeaders,
   setMethod,
   setResponseBody,
   setResponseStatus,
   setUrl,
+  setVariables,
 } from '@/store/reducers/rest-request-slice';
 import { useAppDispatch, useAppSelector } from '@/store/store';
-import {
-  parseDataFromPathname,
-  parseDataFromSearchParams,
-} from '@/utils/parsers';
+import { parseDataFromURL } from '@/utils/parser-data-from-url';
 import { prettifyJson } from '@/utils/prettify-json';
 
 export function Page(): JSX.Element {
@@ -42,22 +41,26 @@ export function Page(): JSX.Element {
   const responseStatus = useAppSelector(selectisResStatus);
   const responseBody = useAppSelector(selectisResBody);
   const req = useAppSelector(selectRequestOject);
-  const encodedURL = useAppSelector(selectEncodedURL);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { t } = useContext(LanguageContext);
   const pathName = usePathname();
   const searchParams = useSearchParams();
+  const encodeURL = useEncodeURL();
 
   useEffect(() => {
     if (!isFormInited) {
-      const { methodForm, urlForm } = parseDataFromPathname(pathName);
-      const headersForm = parseDataFromSearchParams(searchParams);
+      const { method, url, variables, body, headers } = parseDataFromURL(
+        pathName,
+        searchParams,
+      );
 
       dispatch(setFormInited(true));
-      urlForm && dispatch(setUrl(urlForm));
-      dispatch(setMethod(methodForm));
-      dispatch(setHeaders(headersForm));
+      dispatch(setMethod(method));
+      url && dispatch(setUrl(url));
+      variables && dispatch(setVariables(variables));
+      body && dispatch(setBody(body));
+      headers.length && dispatch(setHeaders(headers));
     }
   }, [isFormInited, pathName, dispatch, searchParams]);
 
@@ -71,6 +74,10 @@ export function Page(): JSX.Element {
     }
 
     const { method, url, headers, body } = req;
+    const encodedURL = encodeURL(req); // encodedURL можно сохранять в History
+    // с него восстановиятся state. Только не забыть перед роутом из History
+    // делать dispatch(setFormInited(false));
+
     const response = await fetchRest({ method, url, headers, body });
     if (response.error) {
       messageApi.open({ type: 'error', duration: 5, content: response.error });

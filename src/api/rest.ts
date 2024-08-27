@@ -22,7 +22,10 @@ export async function fetchRest({
   let response;
 
   try {
-    const correctURL = new URL(url);
+    const newURL = url.match(/(http:\/\/|https:\/\/)/i)
+      ? url
+      : 'https://' + url;
+    const correctURL = new URL(newURL);
 
     if (method === 'GET' || method === 'HEAD') {
       response = await fetch(correctURL);
