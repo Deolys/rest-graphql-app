@@ -4,6 +4,7 @@ import { Content } from 'antd/es/layout/layout';
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 
+import { ErrorBoundary, ErrorPage } from '@/components';
 import Footer from '@/components/footer/footer';
 import Header from '@/components/header/header';
 import Providers from '@/providers/providers';
@@ -29,11 +30,13 @@ export default function RootLayout({
       <body>
         <Providers>
           <AntdRegistry>
-            <Layout>
-              <Header />
-              <Content>{children}</Content>
-              <Footer />
-            </Layout>
+            <ErrorBoundary fallback={<ErrorPage />}>
+              <Layout>
+                <Header />
+                <Content>{children}</Content>
+                <Footer />
+              </Layout>
+            </ErrorBoundary>
           </AntdRegistry>
         </Providers>
       </body>

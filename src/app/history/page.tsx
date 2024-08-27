@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useContext } from 'react';
 
 import type { methods } from '@/constants/client';
+import { withAuth } from '@/hoc/with-auth';
 import { LanguageContext } from '@/providers/language';
 import type { MethodsValues } from '@/types/client';
 
@@ -33,30 +34,30 @@ const data: Data[] = [
   },
 ];
 
-export default function HistoryPage(): JSX.Element {
+function HistoryPage(): JSX.Element {
   const { t } = useContext(LanguageContext);
 
   return (
-    <>
-      <article style={{ padding: '1em' }}>
-        <List
-          size="large"
-          header={<h1 style={{ textAlign: 'center' }}>{t.history}</h1>}
-          bordered
-          dataSource={data}
-          renderItem={(item) => (
-            <List.Item>
-              {
-                <p>
-                  <span style={{ paddingRight: '0.5em' }}>{item.date}:</span>
-                  <span style={{ paddingRight: '0.5em' }}>[{item.method}]</span>
-                  <Link href={item.query}>{item.query}</Link>
-                </p>
-              }
-            </List.Item>
-          )}
-        />
-      </article>
-    </>
+    <article style={{ padding: '1em' }}>
+      <List
+        size="large"
+        header={<h1 style={{ textAlign: 'center' }}>{t.history}</h1>}
+        bordered
+        dataSource={data}
+        renderItem={(item) => (
+          <List.Item>
+            {
+              <p>
+                <span style={{ paddingRight: '0.5em' }}>{item.date}:</span>
+                <span style={{ paddingRight: '0.5em' }}>[{item.method}]</span>
+                <Link href={item.query}>{item.query}</Link>
+              </p>
+            }
+          </List.Item>
+        )}
+      />
+    </article>
   );
 }
+
+export default withAuth(HistoryPage);

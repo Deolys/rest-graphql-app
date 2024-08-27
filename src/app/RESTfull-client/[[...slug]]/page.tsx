@@ -11,14 +11,15 @@ import { FormBody } from '@/components/client/forms/body/body';
 import { FormVariables } from '@/components/client/forms/variables/variables';
 import { CodeEditor } from '@/components/code-editor';
 import { tabs } from '@/constants/client';
+import { withAuth } from '@/hoc/with-auth';
 import { useEncodeURL } from '@/hooks/useCodeURL';
 import { LanguageContext } from '@/providers/language';
 import {
   selectHeaders,
+  selectRequestOject,
   selectisInit,
   selectisResBody,
   selectisResStatus,
-  selectRequestOject,
   setBody,
   setFormInited,
   setHeaders,
@@ -32,7 +33,7 @@ import { useAppDispatch, useAppSelector } from '@/store/store';
 import { parseDataFromURL } from '@/utils/parser-data-from-url';
 import { prettifyJson } from '@/utils/prettify-json';
 
-export default function Page(): JSX.Element {
+function Page(): JSX.Element {
   const [messageApi, contextHolder] = message.useMessage();
   const [currentTab, setCurrentTab] = useState(tabs[0].key);
   const isFormInited = useAppSelector(selectisInit);
@@ -133,3 +134,5 @@ export default function Page(): JSX.Element {
     </article>
   );
 }
+
+export default withAuth(Page);

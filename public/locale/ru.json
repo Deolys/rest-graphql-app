@@ -5,6 +5,7 @@
   "signIn": "Вход",
   "signUp": "Регистрация",
   "signOut": "Выход",
+  "somethingWentWrong": "Что-то пошло не так",
   "login": "Войти",
   "restClient": "REST Клиент",
   "graphqlClient": "GraphQL Клиент",
@@ -40,5 +41,9 @@
   "required": "необходимо заполнить",
   "response": "Ответ",
   "responseBody": "Тело ответа",
-  "status": "Статус"
+  "status": "Статус",
+  "emailExists": "Пользователь с таким email уже существует",
+  "invalidCredentials": "Неверный логин или пароль",
+  "tooManyAttempts": "Слишком много попыток. Пожалуйста, попробуйте позже",
+  "tokenExpired": "Токен истек. Подалуйста, авторизуйтесь снова"
 }

@@ -24,7 +24,7 @@ export default function Main(): JSX.Element {
   return (
     <div className={styles.mainContainer}>
       {loading ? (
-        <Spin />
+        <Spin size="large" />
       ) : user ? (
         <>
           <h1>
