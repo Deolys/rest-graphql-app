@@ -34,7 +34,7 @@ const data: Data[] = [
   },
 ];
 
-export function HistoryPage(): JSX.Element {
+function HistoryPage(): JSX.Element {
   const { t } = useContext(LanguageContext);
 
   return (

@@ -33,7 +33,7 @@ import { useAppDispatch, useAppSelector } from '@/store/store';
 import { parseDataFromURL } from '@/utils/parser-data-from-url';
 import { prettifyJson } from '@/utils/prettify-json';
 
-export function Page(): JSX.Element {
+function Page(): JSX.Element {
   const [messageApi, contextHolder] = message.useMessage();
   const [currentTab, setCurrentTab] = useState(tabs[0].key);
   const isFormInited = useAppSelector(selectisInit);
