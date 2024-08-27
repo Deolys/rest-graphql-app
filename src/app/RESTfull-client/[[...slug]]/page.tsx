@@ -11,6 +11,7 @@ import { FormBody } from '@/components/client/forms/body/body';
 import { FormVariables } from '@/components/client/forms/variables/variables';
 import { CodeEditor } from '@/components/code-editor';
 import { tabs } from '@/constants/client';
+import { withAuth } from '@/hoc/with-auth';
 import { LanguageContext } from '@/providers/language';
 import {
   selectEncodedURL,
@@ -33,7 +34,7 @@ import {
 } from '@/utils/parsers';
 import { prettifyJson } from '@/utils/prettify-json';
 
-export default function Page(): JSX.Element {
+export function Page(): JSX.Element {
   const [messageApi, contextHolder] = message.useMessage();
   const [currentTab, setCurrentTab] = useState(tabs[0].key);
   const isFormInited = useAppSelector(selectisInit);
@@ -126,3 +127,5 @@ export default function Page(): JSX.Element {
     </article>
   );
 }
+
+export default withAuth(Page);
