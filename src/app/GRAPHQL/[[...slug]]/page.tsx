@@ -5,15 +5,14 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useContext, useEffect, useState } from 'react';
 
 import { fetchRest } from '@/api/rest';
-import { InputUrl, Navigation, SelectMethod } from '@/components';
+import { InputUrl, Navigation } from '@/components';
 import { ClientCustomForm } from '@/components/client/forms';
 import { FormBody } from '@/components/client/forms/body/body';
 import { FormVariables } from '@/components/client/forms/variables/variables';
 import { CodeEditor } from '@/components/code-editor';
-import { tabsRest } from '@/constants/client';
+import { tabsGraphQL } from '@/constants/client';
 import { withAuth } from '@/hoc/with-auth';
 import { useEncodeURL } from '@/hooks/useCodeURL';
-import { useHistoryLS } from '@/hooks/useHistoryLS';
 import { LanguageContext } from '@/providers/language';
 import {
   selectHeaders,
@@ -36,7 +35,7 @@ import { prettifyJson } from '@/utils/prettify-json';
 
 function Page(): JSX.Element {
   const [messageApi, contextHolder] = message.useMessage();
-  const [currentTab, setCurrentTab] = useState(tabsRest[0].key);
+  const [currentTab, setCurrentTab] = useState(tabsGraphQL[0].key);
   const isFormInited = useAppSelector(selectisInit);
   const dataHeaders = useAppSelector(selectHeaders);
   const responseStatus = useAppSelector(selectisResStatus);
@@ -48,7 +47,6 @@ function Page(): JSX.Element {
   const pathName = usePathname();
   const searchParams = useSearchParams();
   const encodeURL = useEncodeURL();
-  const { addRequestToLS } = useHistoryLS();
 
   useEffect(() => {
     if (!isFormInited) {
@@ -76,16 +74,12 @@ function Page(): JSX.Element {
     }
 
     const { method, url, headers, body } = req;
-    const encodedURL = encodeURL(req); // encodedURL можно сохранять в History
-    // с него восстановиятся state. Только не забыть перед роутом из History
-    // делать dispatch(setFormInited(false));
+    const encodedURL = encodeURL(req);
 
     const response = await fetchRest({ method, url, headers, body });
     if (response.error) {
       messageApi.open({ type: 'error', duration: 5, content: response.error });
     }
-
-    addRequestToLS(method, url, encodedURL);
 
     dispatch(setResponseStatus(`${response.status}`));
     dispatch(setResponseBody(response.body));
@@ -93,29 +87,42 @@ function Page(): JSX.Element {
   }
 
   const form = {
-    [tabsRest[0].key]: ClientCustomForm({
+    [tabsGraphQL[0].key]: ClientCustomForm({
       dataSource: dataHeaders,
       setData: setHeaders,
     }),
-    [tabsRest[1].key]: FormVariables({
+    [tabsGraphQL[1].key]: FormVariables({
       variables: req.variables,
       setVariables,
     }),
-    [tabsRest[2].key]: FormBody({ body: req.bodyData, setBody }),
+    [tabsGraphQL[2].key]: FormBody({ body: req.bodyData, setBody }),
   };
 
   return (
     <article style={{ padding: '1em' }}>
       {contextHolder}
       <Flex gap="small" style={{ marginBottom: '1em' }}>
-        <SelectMethod />
-        <InputUrl url={req.urlData} setURL={setUrl} placeholder={t.enterURL} />
+        <InputUrl
+          url={req.urlData}
+          setURL={setUrl}
+          placeholder={t.enterEndPointURL}
+        />
+        <Button type="primary" onClick={handleSend}>
+          {t.send}
+        </Button>
+      </Flex>
+      <Flex gap="small" style={{ marginBottom: '1em' }}>
+        <InputUrl
+          url={req.urlData}
+          setURL={setUrl}
+          placeholder={t.enterSDLurl}
+        />
         <Button type="primary" onClick={handleSend}>
           {t.send}
         </Button>
       </Flex>
       <Navigation
-        tabs={tabsRest}
+        tabs={tabsGraphQL}
         setCurrentTab={setCurrentTab}
         currentTab={currentTab}
       />

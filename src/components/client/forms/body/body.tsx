@@ -3,13 +3,17 @@ import Image from 'next/image';
 import { type JSX } from 'react';
 
 import { CodeEditor } from '@/components/code-editor';
-import { setBody } from '@/store/reducers/rest-request-slice';
-import { useAppDispatch, useAppSelector } from '@/store/store';
+import { useAppDispatch } from '@/store/store';
+import type { ClientAction } from '@/types/client';
 import { prettifyJson } from '@/utils/prettify-json';
 
-export function FormBody(): JSX.Element {
+type Props = {
+  body: string;
+  setBody: ClientAction;
+};
+
+export function FormBody({ body, setBody }: Props): JSX.Element {
   const dispatch = useAppDispatch();
-  const body = useAppSelector((state) => state.request.body);
   const handleBodyChange = (value: string): void => {
     dispatch(setBody(value));
   };

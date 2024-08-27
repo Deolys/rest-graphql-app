@@ -12,8 +12,8 @@ export function SelectMethod(): JSX.Element {
   const dispatch = useAppDispatch();
   const method = useAppSelector(selectMethod);
 
-  const handleChange = (method: string): void => {
-    dispatch(setMethod(method as HTTPMethod));
+  const handleChange = (method: HTTPMethod): void => {
+    dispatch(setMethod(method));
   };
 
   return (
