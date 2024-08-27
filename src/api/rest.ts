@@ -33,14 +33,19 @@ export async function fetchRest({
       response = await fetch(correctURL, { method, body, headers });
     }
 
-    const status = response.status;
-    if (!response.ok) {
-      return { body: '', status: `${status} HTTP error!`, error: '' };
+    let status: string;
+    if (response.ok) {
+      status = `${response.status} OK`;
+    } else {
+      status = `${response.status} HTTP error!`;
     }
 
-    const json: unknown = await response.json();
-    const str = JSON.stringify(json);
-    return { body: str, status: `${status} OK`, error: '' };
+    let responseBody = '';
+    if (response.headers.get('Content-Type')?.includes('application/json')) {
+      const json: unknown = await response.json();
+      responseBody = JSON.stringify(json);
+    }
+    return { body: responseBody, status, error: '' };
   } catch (e) {
     const error = e instanceof Error ? e.message : `${e}`;
     return { body: '', status: '500 HTTP errror!', error };
