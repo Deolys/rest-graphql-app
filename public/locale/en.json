@@ -36,6 +36,7 @@
   "params": "Params",
   "headers": "Headers",
   "body": "Body",
+  "query": "Query",
   "key": "Key",
   "value": "Value",
   "required": "is required",
