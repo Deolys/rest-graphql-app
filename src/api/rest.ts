@@ -33,12 +33,7 @@ export async function fetchRest({
       response = await fetch(correctURL, { method, body, headers });
     }
 
-    let status: string;
-    if (response.ok) {
-      status = `${response.status} OK`;
-    } else {
-      status = `${response.status} HTTP error!`;
-    }
+    const status = `${response.status} ${response.ok ? 'OK' : 'HTTP error!'}`;
 
     let responseBody = '';
     if (response.headers.get('Content-Type')?.includes('application/json')) {
