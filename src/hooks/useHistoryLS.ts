@@ -4,6 +4,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/config/firebase-config';
 import type { methods } from '@/constants/client';
 import { setFormInited } from '@/store/reducers/rest-request-slice';
+import { useAppDispatch } from '@/store/store';
 import type { MethodsValues } from '@/types/client';
 
 type Data = {
@@ -21,11 +22,12 @@ interface UseHistoryLSReturn {
 export function useHistoryLS(): UseHistoryLSReturn {
   const [user] = useAuthState(auth);
   const [requests, setRequests] = useState<Data[]>([]);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const requestsLS = localStorage.getItem(`reqHist-${user?.uid}`) as string;
     setRequests(JSON.parse(requestsLS));
-    setFormInited(false);
+    dispatch(setFormInited(false));
   }, [user]);
 
   const addRequestToLS = (
