@@ -1,3 +1,5 @@
+import { jsonParseLinter } from '@codemirror/lang-json';
+import { lintGutter, linter } from '@codemirror/lint';
 import { type JSX } from 'react';
 
 import { CodeEditor } from '@/components/code-editor';
@@ -14,5 +16,11 @@ export function FormVariables({ variables, setVariables }: Props): JSX.Element {
   const handleVariablesChange = (value: string): void => {
     dispatch(setVariables(value));
   };
-  return <CodeEditor value={variables} onChange={handleVariablesChange} />;
+  return (
+    <CodeEditor
+      value={variables}
+      onChange={handleVariablesChange}
+      addExtensions={[linter(jsonParseLinter()), lintGutter()]}
+    />
+  );
 }

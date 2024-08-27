@@ -1,3 +1,5 @@
+import { jsonParseLinter } from '@codemirror/lang-json';
+import { lintGutter, linter } from '@codemirror/lint';
 import { Button } from 'antd';
 import Image from 'next/image';
 import { type JSX } from 'react';
@@ -24,7 +26,11 @@ export function FormBody({ body, setBody }: Props): JSX.Element {
 
   return (
     <div style={{ position: 'relative' }}>
-      <CodeEditor value={body} onChange={handleBodyChange} />
+      <CodeEditor
+        value={body}
+        onChange={handleBodyChange}
+        addExtensions={[linter(jsonParseLinter()), lintGutter()]}
+      />
       <Button
         onClick={handlePrettify}
         style={{ position: 'absolute', top: 0, right: 0 }}
