@@ -28,8 +28,7 @@ export type TRequestMethods =
   | 'PATCH'
   | 'DELETE'
   | 'HEAD'
-  | 'OPTIONS'
-  | 'GRAPHQL';
+  | 'OPTIONS';
 
 export type ClientAction<T = string> = (payload: T) => {
   payload: T;
