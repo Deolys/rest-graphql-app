@@ -10,6 +10,8 @@
   "restClient": "REST Клиент",
   "graphqlClient": "GraphQL Клиент",
   "history": "История",
+  "historyRequests": "История запросов",
+  "historyEmpty": "История запросов пуста, попробуйте:",
   "name": "Имя",
   "nameRequired": "Имя обязательно",
   "email": "Электронная почта",

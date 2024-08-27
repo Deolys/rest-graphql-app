@@ -1,62 +1,62 @@
 'use client';
 
-import { List } from 'antd';
+import { Button, List } from 'antd';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useContext } from 'react';
 
-import type { methods } from '@/constants/client';
+import { pageRoutes } from '@/constants/page-routes';
 import { withAuth } from '@/hoc/with-auth';
+import { useHistoryLS } from '@/hooks/useHistoryLS';
 import { LanguageContext } from '@/providers/language';
-import type { MethodsValues } from '@/types/client';
 
-type Data = {
-  date: string;
-  method: (typeof methods)[MethodsValues];
-  query: string;
-};
-
-const data: Data[] = [
-  {
-    date: '23-08-2024',
-    method: 'GET',
-    query:
-      'https://github.com/rolling-scopes-school/tasks/blob/master/react/modules/tasks/final.md',
-  },
-  {
-    date: '24-08-2024',
-    method: 'POST',
-    query: 'https://github.com/algoritmiks/graphiql-app/pulls',
-  },
-  {
-    date: '25-08-2024',
-    method: 'GRAPHQL',
-    query: 'https://github.com/users/algoritmiks/projects/1/views/1',
-  },
-];
+import styles from './history.module.css';
 
 function HistoryPage(): JSX.Element {
   const { t } = useContext(LanguageContext);
+  const router = useRouter();
+  const { requests } = useHistoryLS();
+
+  const handleNavigate = (path: string): void => {
+    router.push(path);
+  };
 
   return (
-    <article style={{ padding: '1em' }}>
-      <List
-        size="large"
-        header={<h1 style={{ textAlign: 'center' }}>{t.history}</h1>}
-        bordered
-        dataSource={data}
-        renderItem={(item) => (
-          <List.Item>
-            {
-              <p>
-                <span style={{ paddingRight: '0.5em' }}>{item.date}:</span>
-                <span style={{ paddingRight: '0.5em' }}>[{item.method}]</span>
-                <Link href={item.query}>{item.query}</Link>
-              </p>
+    <>
+      {requests ? (
+        <article style={{ padding: '1em' }}>
+          <List
+            size="large"
+            header={
+              <h1 style={{ textAlign: 'center' }}>{t.historyRequests}</h1>
             }
-          </List.Item>
-        )}
-      />
-    </article>
+            bordered
+            dataSource={requests}
+            renderItem={(item) => (
+              <List.Item>
+                <div>
+                  <span style={{ paddingRight: '0.5em' }}>{item.date}:</span>
+                  <span style={{ paddingRight: '0.5em' }}>[{item.method}]</span>
+                  <Link href={item.encodedURL}>{item.url}</Link>
+                </div>
+              </List.Item>
+            )}
+          />
+        </article>
+      ) : (
+        <div className={styles.mainContainer}>
+          <h1>{t.historyEmpty}</h1>
+          <div className={styles.buttonsContainer}>
+            <Button onClick={() => handleNavigate(pageRoutes.RESTFULL_CLIENT)}>
+              {t.restClient}
+            </Button>
+            <Button onClick={() => handleNavigate(pageRoutes.GRAPHQL)}>
+              {t.graphqlClient}
+            </Button>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 

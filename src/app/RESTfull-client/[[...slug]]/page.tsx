@@ -13,6 +13,7 @@ import { CodeEditor } from '@/components/code-editor';
 import { tabs } from '@/constants/client';
 import { withAuth } from '@/hoc/with-auth';
 import { useEncodeURL } from '@/hooks/useCodeURL';
+import { useHistoryLS } from '@/hooks/useHistoryLS';
 import { LanguageContext } from '@/providers/language';
 import {
   selectHeaders,
@@ -47,6 +48,7 @@ function Page(): JSX.Element {
   const pathName = usePathname();
   const searchParams = useSearchParams();
   const encodeURL = useEncodeURL();
+  const { addRequestToLS } = useHistoryLS();
 
   useEffect(() => {
     if (!isFormInited) {
@@ -82,6 +84,8 @@ function Page(): JSX.Element {
     if (response.error) {
       messageApi.open({ type: 'error', duration: 5, content: response.error });
     }
+
+    addRequestToLS(method, url, encodedURL);
 
     dispatch(setResponseStatus(`${response.status}`));
     dispatch(setResponseBody(response.body));
