@@ -1,12 +1,16 @@
 import { type JSX } from 'react';
 
 import { CodeEditor } from '@/components/code-editor';
-import { setVariables } from '@/store/reducers/rest-request-slice';
-import { useAppDispatch, useAppSelector } from '@/store/store';
+import { useAppDispatch } from '@/store/store';
+import type { ClientAction } from '@/types/client';
 
-export function FormVariables(): JSX.Element {
+type Props = {
+  variables: string;
+  setVariables: ClientAction;
+};
+
+export function FormVariables({ variables, setVariables }: Props): JSX.Element {
   const dispatch = useAppDispatch();
-  const variables = useAppSelector((state) => state.request.variables);
   const handleVariablesChange = (value: string): void => {
     dispatch(setVariables(value));
   };
