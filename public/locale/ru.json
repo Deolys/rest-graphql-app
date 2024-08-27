@@ -33,6 +33,8 @@
   "dontHaveAccount": "Нет учетной записи?",
   "register": "Зарегистрироваться",
   "enterURL": "Введите адрес...",
+  "enterEndPointURL": "Введите адрес точки доступа...",
+  "enterSDLurl": "Введите адрес SDL...",
   "params": "Параметры",
   "headers": "Заголовки",
   "body": "Тело",

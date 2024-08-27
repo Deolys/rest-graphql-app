@@ -33,6 +33,8 @@
   "dontHaveAccount": "Don't have an account?",
   "register": "Register",
   "enterURL": "Enter URL...",
+  "enterEndPointURL": "Enter endpoint URL...",
+  "enterSDLurl": "Enter SDL URL...",
   "params": "Params",
   "headers": "Headers",
   "body": "Body",

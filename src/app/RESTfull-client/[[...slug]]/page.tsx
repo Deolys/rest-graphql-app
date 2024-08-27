@@ -105,7 +105,7 @@ function Page(): JSX.Element {
       {contextHolder}
       <Flex gap="small" style={{ marginBottom: '1em' }}>
         <SelectMethod />
-        <InputUrl url={req.urlData} setURL={setUrl} />
+        <InputUrl url={req.urlData} setURL={setUrl} placeholder={t.enterURL} />
         <Button type="primary" onClick={handleSend}>
           {t.send}
         </Button>

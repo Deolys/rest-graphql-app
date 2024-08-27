@@ -102,10 +102,21 @@ function Page(): JSX.Element {
     <article style={{ padding: '1em' }}>
       {contextHolder}
       <Flex gap="small" style={{ marginBottom: '1em' }}>
-        <Flex vertical={true} flex="1 1 auto" gap="0.5em">
-          <InputUrl url={req.urlData} setURL={setUrl} />
-          <InputUrl url={req.urlData} setURL={setUrl} />
-        </Flex>
+        <InputUrl
+          url={req.urlData}
+          setURL={setUrl}
+          placeholder={t.enterEndPointURL}
+        />
+        <Button type="primary" onClick={handleSend}>
+          {t.send}
+        </Button>
+      </Flex>
+      <Flex gap="small" style={{ marginBottom: '1em' }}>
+        <InputUrl
+          url={req.urlData}
+          setURL={setUrl}
+          placeholder={t.enterSDLurl}
+        />
         <Button type="primary" onClick={handleSend}>
           {t.send}
         </Button>
