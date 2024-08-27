@@ -3,37 +3,19 @@
 import { Button, List } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useContext, useEffect, useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { useContext } from 'react';
 
-import { auth } from '@/config/firebase-config';
-import type { methods } from '@/constants/client';
 import { pageRoutes } from '@/constants/page-routes';
 import { withAuth } from '@/hoc/with-auth';
+import { useHistoryLS } from '@/hooks/useHistoryLS';
 import { LanguageContext } from '@/providers/language';
-import { setFormInited } from '@/store/reducers/rest-request-slice';
-import type { MethodsValues } from '@/types/client';
 
 import styles from './history.module.css';
-
-type Data = {
-  date: string;
-  method: (typeof methods)[MethodsValues];
-  url: string;
-  encodedURL: string;
-};
 
 function HistoryPage(): JSX.Element {
   const { t } = useContext(LanguageContext);
   const router = useRouter();
-  const [user] = useAuthState(auth);
-  const [requests, setRequests] = useState<Data[]>([]);
-
-  useEffect(() => {
-    const requestsLS = localStorage.getItem(`reqHist-${user?.uid}`) as string;
-    setRequests(JSON.parse(requestsLS));
-    setFormInited(false);
-  }, [user]);
+  const { requests } = useHistoryLS();
 
   const handleNavigate = (path: string): void => {
     router.push(path);
