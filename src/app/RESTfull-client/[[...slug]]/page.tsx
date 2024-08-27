@@ -10,7 +10,7 @@ import { ClientCustomForm } from '@/components/client/forms';
 import { FormBody } from '@/components/client/forms/body/body';
 import { FormVariables } from '@/components/client/forms/variables/variables';
 import { CodeEditor } from '@/components/code-editor';
-import { tabs } from '@/constants/client';
+import { tabsRest } from '@/constants/client';
 import { withAuth } from '@/hoc/with-auth';
 import { useEncodeURL } from '@/hooks/useCodeURL';
 import { LanguageContext } from '@/providers/language';
@@ -35,7 +35,7 @@ import { prettifyJson } from '@/utils/prettify-json';
 
 function Page(): JSX.Element {
   const [messageApi, contextHolder] = message.useMessage();
-  const [currentTab, setCurrentTab] = useState(tabs[0].key);
+  const [currentTab, setCurrentTab] = useState(tabsRest[0].key);
   const isFormInited = useAppSelector(selectisInit);
   const dataHeaders = useAppSelector(selectHeaders);
   const responseStatus = useAppSelector(selectisResStatus);
@@ -89,12 +89,15 @@ function Page(): JSX.Element {
   }
 
   const form = {
-    [tabs[0].key]: ClientCustomForm({
+    [tabsRest[0].key]: ClientCustomForm({
       dataSource: dataHeaders,
       setData: setHeaders,
     }),
-    [tabs[1].key]: FormVariables(),
-    [tabs[2].key]: FormBody(),
+    [tabsRest[1].key]: FormVariables({
+      variables: req.variables,
+      setVariables,
+    }),
+    [tabsRest[2].key]: FormBody({ body: req.bodyData, setBody }),
   };
 
   return (
@@ -102,12 +105,16 @@ function Page(): JSX.Element {
       {contextHolder}
       <Flex gap="small" style={{ marginBottom: '1em' }}>
         <SelectMethod />
-        <InputUrl />
+        <InputUrl url={req.urlData} setURL={setUrl} />
         <Button type="primary" onClick={handleSend}>
           {t.send}
         </Button>
       </Flex>
-      <Navigation setCurrentTab={setCurrentTab} currentTab={currentTab} />
+      <Navigation
+        tabs={tabsRest}
+        setCurrentTab={setCurrentTab}
+        currentTab={currentTab}
+      />
       {form[currentTab]}
       <Descriptions
         title={t.response}

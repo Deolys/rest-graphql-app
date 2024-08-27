@@ -82,7 +82,16 @@ export const selectRequestOject = createSelector(
     const { data: body } = replaceVariables(varsData, bodyData);
     const headers = headersToObj(headersData);
 
-    return { method, url, urlData, body, headers, variables: varsData, error };
+    return {
+      method,
+      url,
+      urlData,
+      body,
+      bodyData,
+      headers,
+      variables: varsData,
+      error,
+    };
   },
 );
 
