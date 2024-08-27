@@ -32,10 +32,10 @@ function HistoryPage(): JSX.Element {
   useEffect(() => {
     const requestsLS = localStorage.getItem(`reqHist-${user?.uid}`) as string;
     setRequests(JSON.parse(requestsLS));
+    setFormInited(false);
   }, [user]);
 
   const handleNavigate = (path: string): void => {
-    setFormInited(false);
     router.push(path);
   };
 
