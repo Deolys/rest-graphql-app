@@ -11,7 +11,6 @@ import { LanguageContext } from '@/providers/language';
 import { useAppDispatch } from '@/store/store';
 import type { DataType } from '@/types/client';
 
-// eslint-disable-next-line import/order
 import styles from './custom-form.module.css';
 
 type EditableCell = Record<string, string>;
@@ -125,7 +124,6 @@ export default function CustomForm({
   const [count, setCount] = useState(dataSource?.length || 0);
   const { t } = useContext(LanguageContext);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleDelete = (key: React.Key): void => {
     const newData = dataSource.filter((item) => item.key !== key);
     dispatch(setData(newData));
