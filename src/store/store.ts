@@ -2,10 +2,12 @@ import type { Store } from '@reduxjs/toolkit';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 
+import graphqlRequestSlise from '@/store/reducers/graphql-request-slice';
 import restRequestSlise from '@/store/reducers/rest-request-slice';
 
 const rootReducer = combineReducers({
   request: restRequestSlise,
+  graphql: graphqlRequestSlise,
 });
 
 export const setupStore = (): Store<RootState> => {

@@ -1,10 +1,9 @@
 'use client';
 
 import { Button, Descriptions, Flex, message } from 'antd';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { useContext, useEffect, useState } from 'react';
 
-import { fetchRest } from '@/api/rest';
 import { InputUrl, Navigation } from '@/components';
 import { ClientCustomForm } from '@/components/client/forms';
 import { FormBody } from '@/components/client/forms/body/body';
@@ -12,7 +11,8 @@ import { FormVariables } from '@/components/client/forms/variables/variables';
 import { CodeEditor } from '@/components/code-editor';
 import { tabsGraphQL } from '@/constants/client';
 import { withAuth } from '@/hoc/with-auth';
-import { useEncodeURL } from '@/hooks/useCodeURL';
+import { useEncodeURLgraphql } from '@/hooks/useCodeURLgraphql';
+import { useHistoryLS } from '@/hooks/useHistoryLS';
 import { LanguageContext } from '@/providers/language';
 import {
   selectFormData,
@@ -20,16 +20,14 @@ import {
   selectRequestOject,
   selectisResBody,
   selectisResStatus,
-  setBody,
+  setEndpointURL,
   setHeaders,
-  setMethod,
-  setResponseBody,
-  setResponseStatus,
-  setUrl,
+  setQuery,
+  setSdlURL,
   setVariables,
-} from '@/store/reducers/rest-request-slice';
+} from '@/store/reducers/graphql-request-slice';
 import { useAppDispatch, useAppSelector } from '@/store/store';
-import { parseDataFromURL } from '@/utils/parser-data-from-url';
+import { parseDataFromURLgraphql } from '@/utils/parser-data-from-url-graphql';
 import { prettifyJson } from '@/utils/prettify-json';
 
 function Page(): JSX.Element {
@@ -41,45 +39,49 @@ function Page(): JSX.Element {
   const requestObj = useAppSelector(selectRequestOject);
   const formDataObj = useAppSelector(selectFormData);
   const dispatch = useAppDispatch();
-  const router = useRouter();
   const { t } = useContext(LanguageContext);
   const pathName = usePathname();
   const searchParams = useSearchParams();
-  const encodeURL = useEncodeURL();
+  const encodeURL = useEncodeURLgraphql();
+  const { addRequestToLS } = useHistoryLS();
 
   useEffect(() => {
-    const { method, url, variables, body, headers } = parseDataFromURL(
-      pathName,
-      searchParams,
-    );
+    const { endpointURL, sdlURL, query, variables, headers } =
+      parseDataFromURLgraphql(pathName, searchParams);
 
-    dispatch(setMethod(method));
-    url && dispatch(setUrl(url));
+    endpointURL && dispatch(setEndpointURL(endpointURL));
+    dispatch(setSdlURL(sdlURL));
     variables && dispatch(setVariables(variables));
-    body && dispatch(setBody(body));
+    query && dispatch(setQuery(query));
     headers.length && dispatch(setHeaders(headers));
   }, [pathName, dispatch, searchParams]);
 
   async function handleSend(): Promise<void> {
+    const GRAPHQL_METHOD = 'GRAPHQL';
+
     if (requestObj.error) {
       messageApi.open({
         type: 'warning',
         duration: 10,
-        content: `Variables: ${requestObj.error}`,
+        content: `${t.variables}: ${requestObj.error}`,
       });
     }
 
-    const { method, url, headers, body } = requestObj;
+    // закоментировал чтобы линтер не ругался no-unused-vars
+    // const { endpointURL, sdlURL, headers, query } = requestObj;
+    const { endpointURL } = requestObj;
     const encodedURL = encodeURL(formDataObj);
 
-    const response = await fetchRest({ method, url, headers, body });
-    if (response.error) {
-      messageApi.open({ type: 'error', duration: 5, content: response.error });
-    }
+    // TODO fetch for GRAPHQL
+    // const response = await fetchRest({ method, url, headers, body });
+    // if (response.error) {
+    //   messageApi.open({ type: 'error', duration: 5, content: response.error });
+    // }
 
-    dispatch(setResponseStatus(`${response.status}`));
-    dispatch(setResponseBody(response.body));
-    router.push(encodedURL);
+    // dispatch(setResponseStatus(`${response.status}`));
+    // dispatch(setResponseBody(response.body));
+    addRequestToLS(GRAPHQL_METHOD, endpointURL, encodedURL);
+    window.history.pushState(null, '', encodedURL);
   }
 
   const form = {
@@ -91,7 +93,10 @@ function Page(): JSX.Element {
       variables: formDataObj.variables,
       setVariables,
     }),
-    [tabsGraphQL[2].key]: FormBody({ body: formDataObj.body, setBody }),
+    [tabsGraphQL[2].key]: FormBody({
+      body: formDataObj.query,
+      setBody: setQuery,
+    }),
   };
 
   return (
@@ -99,8 +104,8 @@ function Page(): JSX.Element {
       {contextHolder}
       <Flex gap="small" style={{ marginBottom: '1em' }}>
         <InputUrl
-          url={formDataObj.url}
-          setURL={setUrl}
+          url={formDataObj.endpointURL}
+          setURL={setEndpointURL}
           placeholder={t.enterEndPointURL}
         />
         <Button type="primary" onClick={handleSend}>
@@ -109,8 +114,8 @@ function Page(): JSX.Element {
       </Flex>
       <Flex gap="small" style={{ marginBottom: '1em' }}>
         <InputUrl
-          url={formDataObj.url}
-          setURL={setUrl}
+          url={formDataObj.sdlURL}
+          setURL={setSdlURL}
           placeholder={t.enterSDLurl}
         />
         <Button type="primary" onClick={handleSend}>
