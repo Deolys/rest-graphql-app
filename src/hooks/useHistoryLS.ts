@@ -3,7 +3,6 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { auth } from '@/config/firebase-config';
 import type { methods } from '@/constants/client';
-import { setFormInited } from '@/store/reducers/rest-request-slice';
 import type { MethodsValues } from '@/types/client';
 
 type Data = {
@@ -25,7 +24,6 @@ export function useHistoryLS(): UseHistoryLSReturn {
   useEffect(() => {
     const requestsLS = localStorage.getItem(`reqHist-${user?.uid}`) as string;
     setRequests(JSON.parse(requestsLS));
-    setFormInited(false);
   }, [user]);
 
   const addRequestToLS = (

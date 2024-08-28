@@ -159,6 +159,7 @@ export default function CustomForm({
               type="default"
               size="small"
               style={{ marginBottom: 16 }}
+              title={t.deleteHeader}
             >
               -
             </Button>

@@ -41,7 +41,6 @@ export const initialHeader: DataType = {
 };
 
 export const initialState: InitialState = {
-  isFormInited: false,
   method: methods.get,
   url: '{{baseURL}}{{url}}',
   headers: [initialHeader],

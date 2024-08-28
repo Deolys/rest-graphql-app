@@ -9,7 +9,6 @@ export interface DataType {
 export type HTTPMethod = (typeof methods)[MethodsValues];
 
 export type InitialState = {
-  isFormInited: boolean;
   method: HTTPMethod;
   url: string;
   headers: DataType[];

@@ -50,5 +50,7 @@
   "emailExists": "Email already in use",
   "invalidCredentials": "Invalid credentials",
   "tooManyAttempts": "Too many attempts. Please, try later",
-  "tokenExpired": "Token expired. Please, login again"
+  "tokenExpired": "Token expired. Please, login again",
+  "prettify": "Prettify",
+  "deleteHeader": "Delete the header"
 }
