@@ -29,13 +29,11 @@ export function useEncodeURLgraphql(): EncodeURLgraphql {
     variables = '',
     headers,
   }: Props): string {
-    let urlBase64 = '';
     const urlObj = JSON.stringify({ endpointURL, sdlURL });
-    urlBase64 = '/' + base64.encode(urlObj);
+    const urlBase64 = '/' + base64.encode(urlObj);
 
-    let varsQueryBase64 = '';
     const varsQueryObj = JSON.stringify({ variables, query });
-    varsQueryBase64 = '/' + base64.encode(varsQueryObj);
+    const varsQueryBase64 = '/' + base64.encode(varsQueryObj);
 
     let headersBase64 = '';
     const headersArr = Object.entries(headers);
