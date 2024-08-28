@@ -6,19 +6,13 @@ import { base64 } from '../utils/base64';
 
 type Props = {
   method: HTTPMethod;
-  urlData?: string;
+  url?: string;
   variables?: string;
   body?: string;
   headers: HeadersInit;
 };
 
-type EncodeURL = ({
-  method,
-  urlData,
-  headers,
-  body,
-  variables,
-}: Props) => string;
+type EncodeURL = ({ method, url, headers, body, variables }: Props) => string;
 
 export function useEncodeURL(): EncodeURL {
   const pathName = usePathname();
@@ -26,14 +20,15 @@ export function useEncodeURL(): EncodeURL {
 
   function encodeURL({
     method,
-    urlData,
+    url,
     variables,
     body,
+
     headers,
   }: Props): string {
     let urlBase64 = '';
-    if (urlData) {
-      const urlObj = JSON.stringify({ url: urlData });
+    if (url) {
+      const urlObj = JSON.stringify({ url });
       urlBase64 = '/' + base64.encode(urlObj);
     }
 

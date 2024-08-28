@@ -16,6 +16,7 @@ import { useEncodeURL } from '@/hooks/useCodeURL';
 import { useHistoryLS } from '@/hooks/useHistoryLS';
 import { LanguageContext } from '@/providers/language';
 import {
+  selectFormData,
   selectHeaders,
   selectRequestOject,
   selectisResBody,
@@ -38,7 +39,8 @@ function Page(): JSX.Element {
   const dataHeaders = useAppSelector(selectHeaders);
   const responseStatus = useAppSelector(selectisResStatus);
   const responseBody = useAppSelector(selectisResBody);
-  const req = useAppSelector(selectRequestOject);
+  const requestObj = useAppSelector(selectRequestOject);
+  const formDataObj = useAppSelector(selectFormData);
   const dispatch = useAppDispatch();
   const { t } = useContext(LanguageContext);
   const pathName = usePathname();
@@ -60,16 +62,16 @@ function Page(): JSX.Element {
   }, [pathName, dispatch, searchParams]);
 
   async function handleSend(): Promise<void> {
-    if (req.error) {
+    if (requestObj.error) {
       messageApi.open({
         type: 'warning',
         duration: 10,
-        content: `${t.variables}: ${req.error}`,
+        content: `${t.variables}: ${requestObj.error}`,
       });
     }
 
-    const { method, url, headers, body } = req;
-    const encodedURL = encodeURL(req);
+    const { method, url, headers, body } = requestObj;
+    const encodedURL = encodeURL(formDataObj);
 
     const response = await fetchRest({ method, url, headers, body });
     if (response.error) {
@@ -89,10 +91,10 @@ function Page(): JSX.Element {
       setData: setHeaders,
     }),
     [tabsRest[1].key]: FormVariables({
-      variables: req.variables,
+      variables: formDataObj.variables,
       setVariables,
     }),
-    [tabsRest[2].key]: FormBody({ body: req.bodyData, setBody }),
+    [tabsRest[2].key]: FormBody({ body: formDataObj.body, setBody }),
   };
 
   return (
@@ -100,7 +102,11 @@ function Page(): JSX.Element {
       {contextHolder}
       <Flex gap="small" style={{ marginBottom: '1em' }}>
         <SelectMethod />
-        <InputUrl url={req.urlData} setURL={setUrl} placeholder={t.enterURL} />
+        <InputUrl
+          url={formDataObj.url}
+          setURL={setUrl}
+          placeholder={t.enterURL}
+        />
         <Button type="primary" onClick={handleSend}>
           {t.send}
         </Button>

@@ -68,20 +68,33 @@ export const selectisResBody = (
 
 export const selectRequestOject = createSelector(
   [selectMethod, selectURL, selectHeaders, selectBody, selectVars],
-  (method, urlData, headersData, bodyData, varsData) => {
-    const { data: url, error } = replaceVariables(varsData, urlData);
-    const { data: body } = replaceVariables(varsData, bodyData);
+  (method, urlData, headersData, bodyData, variables) => {
+    const { data: url, error } = replaceVariables(variables, urlData);
+    const { data: body } = replaceVariables(variables, bodyData);
     const headers = headersToObj(headersData);
 
     return {
       method,
       url,
-      urlData,
       body,
-      bodyData,
       headers,
-      variables: varsData,
+      variables,
       error,
+    };
+  },
+);
+
+export const selectFormData = createSelector(
+  [selectMethod, selectURL, selectHeaders, selectBody, selectVars],
+  (method, url, headersData, body, variables) => {
+    const headers = headersToObj(headersData);
+
+    return {
+      method,
+      url,
+      body,
+      headers,
+      variables,
     };
   },
 );
