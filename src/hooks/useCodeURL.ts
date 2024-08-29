@@ -14,7 +14,7 @@ type Props = {
 
 type EncodeURL = ({ method, url, headers, body, variables }: Props) => string;
 
-export function useEncodeURL(): EncodeURL {
+export function useEncodeURLRest(): EncodeURL {
   const pathName = usePathname();
   const [, baseSegment] = pathName.split('/');
 
