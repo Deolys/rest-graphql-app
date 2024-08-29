@@ -18,6 +18,16 @@ export type InitialState = {
   responseBody: string;
 };
 
+export type InitialStateGraphQL = {
+  endpointURL: string;
+  sdlURL: string;
+  headers: DataType[];
+  query: string;
+  variables: string;
+  responseStatus: string;
+  responseBody: string;
+};
+
 export type MethodsValues = keyof typeof methods;
 
 export type TRequestMethods =

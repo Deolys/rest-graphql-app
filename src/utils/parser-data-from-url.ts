@@ -3,7 +3,7 @@ import type { ReadonlyURLSearchParams } from 'next/navigation';
 import { methods } from '@/constants/client';
 import type { DataType, HTTPMethod } from '@/types/client';
 
-import { base64 } from './base64';
+import { parseBase64Object } from './parseBase64Object';
 import { isHTTPMethod } from './predicates';
 
 type DataFromURL = {
@@ -44,16 +44,4 @@ export const parseDataFromURL = (
   }));
 
   return { method, url, variables, body, headers };
-};
-
-const parseBase64Object = (
-  encodedStr: string,
-): object | Record<string, string> => {
-  if (!encodedStr) return {};
-  try {
-    const decodedStr = base64.decode(encodedStr);
-    return JSON.parse(decodedStr);
-  } catch (error) {
-    return {};
-  }
 };

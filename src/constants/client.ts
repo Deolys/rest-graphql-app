@@ -1,4 +1,8 @@
-import type { DataType, InitialState } from '@/types/client';
+import type {
+  DataType,
+  InitialState,
+  InitialStateGraphQL,
+} from '@/types/client';
 
 export const URLSegment = {
   method: 3,
@@ -47,6 +51,24 @@ export const initialState: InitialState = {
   body: 'title=ship',
   variables:
     '{\n"baseURL": "https://stapi.co/api",\n"url": "/v1/rest/episode/search?pageNumber=0&pageSize=2"\n}',
+  responseStatus: '',
+  responseBody: '',
+};
+
+export const initialHeaderGraphQL: DataType = {
+  key: 0,
+  keyName: 'Content-Type',
+  keyValue: 'application/json',
+};
+
+export const initialStateGraphQL: InitialStateGraphQL = {
+  endpointURL: '{{baseURL}}{{url}}',
+  sdlURL: '',
+  headers: [initialHeaderGraphQL],
+  query:
+    'query {\n  allFilms {\n    totalCount\n    films {\n      title\n    }\n  }\n}',
+  variables:
+    '{\n"baseURL": "https://swapi-graphql.netlify.app",\n"url": "/.netlify/functions/index"\n}',
   responseStatus: '',
   responseBody: '',
 };
