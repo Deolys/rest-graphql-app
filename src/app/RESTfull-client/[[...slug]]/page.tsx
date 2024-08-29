@@ -100,7 +100,7 @@ function Page(): JSX.Element {
   };
 
   return (
-    <article style={{ padding: '1em' }}>
+    <article style={{ padding: '1em  50px' }}>
       {contextHolder}
       <Flex gap="small" style={{ marginBottom: '1em' }}>
         <SelectMethod />

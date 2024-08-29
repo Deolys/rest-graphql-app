@@ -52,5 +52,6 @@
   "tooManyAttempts": "Too many attempts. Please, try later",
   "tokenExpired": "Token expired. Please, login again",
   "prettify": "Prettify",
-  "deleteHeader": "Delete the header"
+  "deleteHeader": "Delete the header",
+  "documentation": "Documentation"
 }
