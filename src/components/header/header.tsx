@@ -15,11 +15,10 @@ import { logout } from '@/utils/firebase';
 import style from './header.module.css';
 
 export default function Header(): JSX.Element {
+  const router = useRouter();
+  const [user, loading] = useAuthState(auth);
+  const { toggleLanguage, t } = useContext(LanguageContext);
   const [scrollPosition, setScrollPosition] = useState(0);
-  const handleScroll = (): void => {
-    const position = window.scrollY;
-    setScrollPosition(position);
-  };
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -29,9 +28,9 @@ export default function Header(): JSX.Element {
     };
   }, []);
 
-  const router = useRouter();
-  const [user, loading] = useAuthState(auth);
-  const { toggleLanguage, t } = useContext(LanguageContext);
+  const handleScroll = (): void => {
+    setScrollPosition(window.scrollY);
+  };
 
   const handleSignOut = (): void => {
     logout();
