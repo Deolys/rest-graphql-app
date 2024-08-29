@@ -46,7 +46,13 @@ export function DocItemTypes({ value }: DocItemTypes): ReactNode {
               ),
             },
           ];
-          return <Collapse key={uniqueKeyGenerator()} items={items} />;
+          return (
+            <Collapse
+              style={{ minWidth: 200 }}
+              key={uniqueKeyGenerator()}
+              items={items}
+            />
+          );
         })) ||
         (value instanceof GraphQLEnumType &&
           value.getValues().map((value, index) => {
@@ -57,7 +63,13 @@ export function DocItemTypes({ value }: DocItemTypes): ReactNode {
                 children: <p>{value.description}</p>,
               },
             ];
-            return <Collapse key={uniqueKeyGenerator()} items={items} />;
+            return (
+              <Collapse
+                style={{ minWidth: 200 }}
+                key={uniqueKeyGenerator()}
+                items={items}
+              />
+            );
           })) ||
         (value instanceof GraphQLList && (
           <DocItemTypes value={getNestedType(value)} />
