@@ -103,6 +103,7 @@ function Page(): JSX.Element {
 
     if (response.error) {
       messageApi.open({ type: 'error', duration: 5, content: response.error });
+      setSchemas({});
     } else {
       const data = JSON.parse(response.body) as graphQLIntroResponse;
       const clientSchema = buildClientSchema(data.data);
