@@ -1,4 +1,5 @@
 import type { HTTPMethod } from '@/types/client';
+import { urlCheck } from '@/utils/url-check';
 
 type Props = {
   method: HTTPMethod;
@@ -22,10 +23,7 @@ export async function fetchRest({
   let response;
 
   try {
-    const newURL = url.match(/(http:\/\/|https:\/\/)/i)
-      ? url
-      : 'https://' + url;
-    const correctURL = new URL(newURL);
+    const correctURL = urlCheck(url);
 
     if (method === 'GET' || method === 'HEAD') {
       response = await fetch(correctURL);

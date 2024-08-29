@@ -1,3 +1,5 @@
+import { urlCheck } from '@/utils/url-check';
+
 type Props = {
   endpointURL: string;
   query: string;
@@ -16,10 +18,7 @@ export async function fetchGraph({
   query,
 }: Props): FetchGraphReturn {
   try {
-    const newURL = endpointURL.match(/(http:\/\/|https:\/\/)/i)
-      ? endpointURL
-      : 'https://' + endpointURL;
-    const correctURL = new URL(newURL);
+    const correctURL = urlCheck(endpointURL);
 
     const response = await fetch(correctURL, {
       method: 'POST',
