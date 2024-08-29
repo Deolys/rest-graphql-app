@@ -1,9 +1,11 @@
 'use client';
 
+import { Empty } from 'antd';
 import Sider from 'antd/es/layout/Sider';
+import Title from 'antd/es/typography/Title';
 import type { IntrospectionQuery } from 'graphql';
 import { buildClientSchema, getIntrospectionQuery } from 'graphql';
-import { type JSX, useEffect, useState } from 'react';
+import { type ReactNode, useEffect, useState } from 'react';
 
 import { DocTypeList } from './doc-type-list';
 
@@ -11,7 +13,7 @@ type graphQLIntroResponse = {
   data: IntrospectionQuery;
 };
 
-export function Documentation(): JSX.Element {
+export function Documentation(): ReactNode {
   const [schemas, setSchemas] = useState({});
   const [isCollapsed, setIsCollapsed] = useState(true);
   useEffect(() => {
@@ -36,22 +38,25 @@ export function Documentation(): JSX.Element {
     fetchSchema();
   }, []);
 
+  if (Object.keys(schemas).length === 0) {
+    return null;
+  }
+
   return (
     <Sider
-      width={400}
-      style={{ zIndex: 1 }}
+      width={420}
       collapsedWidth={0}
       theme="light"
       collapsible
       collapsed={isCollapsed}
       onCollapse={(value) => setIsCollapsed(value)}
-      zeroWidthTriggerStyle={{}}
+      zeroWidthTriggerStyle={{ backgroundColor: '#badaff' }}
     >
-      <div style={{ overflowY: 'scroll', maxHeight: '100vh' }}>
+      <div style={{ overflowY: 'scroll', maxHeight: '100vh', padding: '10px' }}>
         {!isCollapsed && (
           <>
-            <h1>Доступные схемы GraphQL</h1>
-            <DocTypeList schemas={schemas} />
+            <Title level={3}>Доступные схемы GraphQL</Title>
+            {schemas ? <DocTypeList schemas={schemas} /> : <Empty />}
           </>
         )}
       </div>
