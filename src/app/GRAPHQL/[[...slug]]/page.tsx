@@ -4,6 +4,7 @@ import { Button, Descriptions, Flex, message } from 'antd';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useContext, useEffect, useState } from 'react';
 
+import { fetchGraph } from '@/api/graph';
 import { InputUrl, Navigation } from '@/components';
 import { ClientCustomForm } from '@/components/client/forms';
 import { FormBody } from '@/components/client/forms/body/body';
@@ -23,6 +24,8 @@ import {
   setEndpointURL,
   setHeaders,
   setQuery,
+  setResponseBody,
+  setResponseStatus,
   setSdlURL,
   setVariables,
 } from '@/store/reducers/graphql-request-slice';
@@ -69,17 +72,18 @@ function Page(): JSX.Element {
 
     // закоментировал чтобы линтер не ругался no-unused-vars
     // const { endpointURL, sdlURL, headers, query } = requestObj;
-    const { endpointURL } = requestObj;
+    const { endpointURL, headers, query } = requestObj;
+
     const encodedURL = encodeURL(formDataObj);
 
-    // TODO fetch for GRAPHQL
-    // const response = await fetchRest({ method, url, headers, body });
-    // if (response.error) {
-    //   messageApi.open({ type: 'error', duration: 5, content: response.error });
-    // }
+    const response = await fetchGraph({ endpointURL, headers, query });
 
-    // dispatch(setResponseStatus(`${response.status}`));
-    // dispatch(setResponseBody(response.body));
+    if (response.error) {
+      messageApi.open({ type: 'error', duration: 5, content: response.error });
+    }
+
+    dispatch(setResponseStatus(`${response.status}`));
+    dispatch(setResponseBody(response.body));
     addRequestToLS(GRAPHQL_METHOD, endpointURL, encodedURL);
     window.history.pushState(null, '', encodedURL);
   }

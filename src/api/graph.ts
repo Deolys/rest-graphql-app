@@ -1,35 +1,30 @@
-import type { HTTPMethod } from '@/types/client';
 import { urlCheck } from '@/utils/url-check';
 
 type Props = {
-  method: HTTPMethod;
-  url: string;
-  body: string;
+  endpointURL: string;
+  query: string;
   headers: HeadersInit;
 };
 
-type FetchRest = Promise<{
+type FetchGraphReturn = Promise<{
   body: string;
   status: string;
   error: string;
 }>;
 
-export async function fetchRest({
-  method,
-  url,
+export async function fetchGraph({
+  endpointURL,
   headers,
-  body,
-}: Props): FetchRest {
-  let response;
-
+  query,
+}: Props): FetchGraphReturn {
   try {
-    const correctURL = urlCheck(url);
+    const correctURL = urlCheck(endpointURL);
 
-    if (method === 'GET' || method === 'HEAD') {
-      response = await fetch(correctURL);
-    } else {
-      response = await fetch(correctURL, { method, body, headers });
-    }
+    const response = await fetch(correctURL, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ query }),
+    });
 
     const status = `${response.status} ${response.ok ? 'OK' : 'HTTP error!'}`;
 
