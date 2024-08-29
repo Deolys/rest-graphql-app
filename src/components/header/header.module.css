@@ -1,4 +1,7 @@
 .headerStyle {
+  position: sticky;
+  top: 0;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -10,4 +13,10 @@
 
 .link {
   display: flex;
+}
+
+.scroll {
+  height: 66px !important;
+  border-bottom: 2px solid #16f;
+  transition: 0.5s ease-in-out;
 }

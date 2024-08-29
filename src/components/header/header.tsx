@@ -4,7 +4,7 @@ import { Button, Flex, Image, Skeleton, Switch } from 'antd';
 import { Header as AntdHeader } from 'antd/es/layout/layout';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { type JSX, useContext } from 'react';
+import { type JSX, useContext, useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { auth } from '@/config/firebase-config';
@@ -18,6 +18,19 @@ export default function Header(): JSX.Element {
   const router = useRouter();
   const [user, loading] = useAuthState(auth);
   const { toggleLanguage, t } = useContext(LanguageContext);
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const handleScroll = (): void => {
+    setScrollPosition(window.scrollY);
+  };
 
   const handleSignOut = (): void => {
     logout();
@@ -41,7 +54,13 @@ export default function Header(): JSX.Element {
 
   return (
     <>
-      <AntdHeader className={style.headerStyle}>
+      <AntdHeader
+        className={
+          scrollPosition === 0
+            ? style.headerStyle
+            : style.headerStyle + ' ' + style.scroll
+        }
+      >
         <Flex align="center" gap={20}>
           <Link className={style.link} href={pageRoutes.MAIN}>
             <Image
