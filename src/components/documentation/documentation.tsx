@@ -1,42 +1,21 @@
 'use client';
 
-import { Empty } from 'antd';
 import Sider from 'antd/es/layout/Sider';
 import Title from 'antd/es/typography/Title';
-import type { IntrospectionQuery } from 'graphql';
-import { buildClientSchema, getIntrospectionQuery } from 'graphql';
-import { type ReactNode, useEffect, useState } from 'react';
+import type { GraphQLNamedType } from 'graphql';
+import { type ReactNode, useContext, useState } from 'react';
+
+import { LanguageContext } from '@/providers/language';
 
 import { DocTypeList } from './doc-type-list';
 
-type graphQLIntroResponse = {
-  data: IntrospectionQuery;
-};
+interface DocumentationProps {
+  schemas: { [key: string]: GraphQLNamedType };
+}
 
-export function Documentation(): ReactNode {
-  const [schemas, setSchemas] = useState({});
+export function Documentation({ schemas }: DocumentationProps): ReactNode {
   const [isCollapsed, setIsCollapsed] = useState(true);
-  useEffect(() => {
-    const fetchSchema = async (): Promise<void> => {
-      try {
-        const response = await fetch('https://rickandmortyapi.com/graphql', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ query: getIntrospectionQuery() }),
-        });
-
-        const data = (await response.json()) as graphQLIntroResponse;
-        const schema = buildClientSchema(data.data);
-
-        const schemasData = schema.getTypeMap();
-        setSchemas(schemasData);
-      } catch (error) {
-        console.error('Error while getting schemas:', error);
-      }
-    };
-
-    fetchSchema();
-  }, []);
+  const { t } = useContext(LanguageContext);
 
   if (Object.keys(schemas).length === 0) {
     return null;
@@ -55,8 +34,8 @@ export function Documentation(): ReactNode {
       <div style={{ overflowY: 'scroll', maxHeight: '100vh', padding: '10px' }}>
         {!isCollapsed && (
           <>
-            <Title level={3}>Доступные схемы GraphQL</Title>
-            {schemas ? <DocTypeList schemas={schemas} /> : <Empty />}
+            <Title level={3}>{t.documentation}</Title>
+            <DocTypeList schemas={schemas} />
           </>
         )}
       </div>
