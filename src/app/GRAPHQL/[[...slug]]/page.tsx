@@ -12,6 +12,7 @@ import { FormVariables } from '@/components/client/forms/variables/variables';
 import { CodeEditor } from '@/components/code-editor';
 import { tabsGraphQL } from '@/constants/client';
 import { withAuth } from '@/hoc/with-auth';
+import { useGRAPHQLFormTracker } from '@/hooks/formTrackers';
 import { useEncodeURLgraphql } from '@/hooks/useCodeURLgraphql';
 import { useHistoryLS } from '@/hooks/useHistoryLS';
 import { LanguageContext } from '@/providers/language';
@@ -47,6 +48,7 @@ function Page(): JSX.Element {
   const searchParams = useSearchParams();
   const encodeURL = useEncodeURLgraphql();
   const { addRequestToLS } = useHistoryLS();
+  useGRAPHQLFormTracker();
 
   useEffect(() => {
     const { endpointURL, sdlURL, query, variables, headers } =
@@ -70,8 +72,6 @@ function Page(): JSX.Element {
       });
     }
 
-    // закоментировал чтобы линтер не ругался no-unused-vars
-    // const { endpointURL, sdlURL, headers, query } = requestObj;
     const { endpointURL, headers, query } = requestObj;
 
     const encodedURL = encodeURL(formDataObj);

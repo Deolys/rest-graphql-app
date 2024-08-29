@@ -12,7 +12,8 @@ import { FormVariables } from '@/components/client/forms/variables/variables';
 import { CodeEditor } from '@/components/code-editor';
 import { tabsRest } from '@/constants/client';
 import { withAuth } from '@/hoc/with-auth';
-import { useEncodeURL } from '@/hooks/useCodeURL';
+import { useRESTFormTracker } from '@/hooks/formTrackers';
+import { useEncodeURLRest } from '@/hooks/useCodeURL';
 import { useHistoryLS } from '@/hooks/useHistoryLS';
 import { LanguageContext } from '@/providers/language';
 import {
@@ -45,8 +46,9 @@ function Page(): JSX.Element {
   const { t } = useContext(LanguageContext);
   const pathName = usePathname();
   const searchParams = useSearchParams();
-  const encodeURL = useEncodeURL();
+  const encodeURL = useEncodeURLRest();
   const { addRequestToLS } = useHistoryLS();
+  useRESTFormTracker();
 
   useEffect(() => {
     const { method, url, variables, body, headers } = parseDataFromURL(
