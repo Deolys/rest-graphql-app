@@ -34,7 +34,7 @@ import { useAppDispatch, useAppSelector } from '@/store/store';
 import { parseDataFromURL } from '@/utils/parser-data-from-url';
 import { prettifyJson } from '@/utils/prettify-json';
 
-function Page(): JSX.Element {
+function RestPage(): JSX.Element {
   const [messageApi, contextHolder] = message.useMessage();
   const [currentTab, setCurrentTab] = useState(tabsRest[0].key);
   const dataHeaders = useAppSelector(selectHeaders);
@@ -145,4 +145,4 @@ function Page(): JSX.Element {
   );
 }
 
-export default withAuth(Page);
+export default withAuth(RestPage);

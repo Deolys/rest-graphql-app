@@ -1,5 +1,3 @@
-import { usePathname } from 'next/navigation';
-
 import type { HTTPMethod } from '@/types/client';
 
 import { base64 } from '../utils/base64';
@@ -15,9 +13,6 @@ type Props = {
 type EncodeURL = ({ method, url, headers, body, variables }: Props) => string;
 
 export function useEncodeURLRest(): EncodeURL {
-  const pathName = usePathname();
-  const [, baseSegment] = pathName.split('/');
-
   function encodeURL({
     method,
     url,
@@ -50,7 +45,7 @@ export function useEncodeURLRest(): EncodeURL {
         : '';
     }
 
-    return `/${baseSegment}/${method}${urlBase64}${varsBodyBase64}${headersBase64}`;
+    return `/${method}${urlBase64}${varsBodyBase64}${headersBase64}`;
   }
 
   return encodeURL;

@@ -19,12 +19,12 @@ export const parseDataFromURL = (
   searchParams: ReadonlyURLSearchParams,
 ): DataFromURL => {
   const segments = pathname.split('/');
-  if (segments.length < 3)
+  if (segments.length < 2)
     return { method: 'GET', url: '', variables: '', body: '', headers: [] };
 
-  const meth = segments[2].toUpperCase();
-  const base64URL = segments[3];
-  const base64BodyVariables = segments[4];
+  const meth = segments[1].toUpperCase();
+  const base64URL = segments[2];
+  const base64BodyVariables = segments[3];
   const method = isHTTPMethod(meth) ? meth : methods.get;
 
   const tempObj = {
