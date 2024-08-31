@@ -1,3 +1,5 @@
+'use server';
+
 import { notFound } from 'next/navigation';
 import { type ReactNode } from 'react';
 
@@ -9,7 +11,9 @@ interface PageProps {
   params: { method: TRequestMethods };
 }
 
-export default function Page({ params: { method } }: PageProps): ReactNode {
+export default async function Page({
+  params: { method },
+}: PageProps): Promise<ReactNode> {
   if (!Object.values(methods).includes(method)) {
     return notFound();
   }
