@@ -1,6 +1,6 @@
 import { jsonParseLinter } from '@codemirror/lang-json';
 import { lintGutter, linter } from '@codemirror/lint';
-import { type JSX, useEffect, useState } from 'react';
+import { type JSX } from 'react';
 
 import { CodeEditor } from '@/components/code-editor';
 import { useDebounce } from '@/hooks/use-debounce';
@@ -14,20 +14,17 @@ type Props = {
 
 export function FormVariables({ variables, setVariables }: Props): JSX.Element {
   const dispatch = useAppDispatch();
-  const [value, setValue] = useState(variables);
-  const debouncedValue = useDebounce(value, 500);
-
-  useEffect(() => {
-    dispatch(setVariables(debouncedValue));
-  }, [debouncedValue, dispatch, setVariables]);
+  const debouncedUpdate = useDebounce((value: string) => {
+    dispatch(setVariables(value));
+  }, 500);
 
   const handleVariablesChange = (value: string): void => {
-    setValue(value);
+    debouncedUpdate(value);
   };
 
   return (
     <CodeEditor
-      value={value}
+      value={variables}
       onChange={handleVariablesChange}
       addExtensions={[linter(jsonParseLinter()), lintGutter()]}
     />

@@ -1,7 +1,7 @@
 'use client';
 
 import { Input } from 'antd';
-import { type ChangeEvent, type JSX, useEffect, useState } from 'react';
+import { type ChangeEvent, type JSX } from 'react';
 
 import { useDebounce } from '@/hooks/use-debounce';
 import { useAppDispatch } from '@/store/store';
@@ -15,20 +15,18 @@ type Props = {
 
 export function InputUrl({ url, setURL, placeholder }: Props): JSX.Element {
   const dispatch = useAppDispatch();
-  const [value, setValue] = useState(url);
-  const debouncedValue = useDebounce(value, 500);
-
-  useEffect(() => {
-    dispatch(setURL(debouncedValue));
-  }, [debouncedValue, dispatch, setURL]);
+  const debaunceUpdate = useDebounce(
+    (value: string) => dispatch(setURL(value)),
+    1,
+  );
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setValue(e.target.value);
+    debaunceUpdate(e.target.value);
   };
 
   return (
     <Input
-      value={value}
+      value={url}
       onChange={handleChange}
       placeholder={placeholder}
     ></Input>
