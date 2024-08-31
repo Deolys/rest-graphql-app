@@ -14,7 +14,7 @@ export const methods = {
   get: 'GET',
   post: 'POST',
   put: 'PUT',
-  putch: 'PATCH',
+  patch: 'PATCH',
   delete: 'DELETE',
   head: 'HEAD',
   options: 'OPTIONS',

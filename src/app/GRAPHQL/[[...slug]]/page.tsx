@@ -59,7 +59,7 @@ function Page(): JSX.Element {
       parseDataFromURLgraphql(pathName, searchParams);
 
     endpointURL && dispatch(setEndpointURL(endpointURL));
-    dispatch(setSdlURL(sdlURL));
+    sdlURL && dispatch(setSdlURL(sdlURL));
     variables && dispatch(setVariables(variables));
     query && dispatch(setQuery(query));
     headers.length && dispatch(setHeaders(headers));
@@ -75,9 +75,16 @@ function Page(): JSX.Element {
       });
     }
 
-    const { endpointURL, headers, query } = requestObj;
+    const { endpointURL, headers, query, sdlURL } = requestObj;
 
-    const encodedURL = encodeURL(formDataObj);
+    const formData = Object.assign(formDataObj);
+    if (!sdlURL) {
+      const defaultSDL = `${endpointURL}?sdl`;
+      handleSendIntrospection(defaultSDL);
+      formData.sdlURL = defaultSDL;
+    }
+
+    const encodedURL = encodeURL(formData);
 
     const response = await fetchGraph({ endpointURL, headers, query });
 
@@ -91,12 +98,12 @@ function Page(): JSX.Element {
     window.history.pushState(null, '', encodedURL);
   }
 
-  async function handleSendIntrospection(): Promise<void> {
+  async function handleSendIntrospection(defaultSDL?: string): Promise<void> {
     const { endpointURL, sdlURL } = requestObj;
     const encodedURL = encodeURL(formDataObj);
 
     const response = await fetchGraph({
-      endpointURL: sdlURL,
+      endpointURL: defaultSDL || sdlURL,
       headers: { 'Content-Type': 'application/json' },
       query: getIntrospectionQuery(),
     });
@@ -110,8 +117,10 @@ function Page(): JSX.Element {
       setSchemas(clientSchema.getTypeMap());
     }
 
-    addRequestToLS(GRAPHQL_METHOD, endpointURL, encodedURL);
-    window.history.pushState(null, '', encodedURL);
+    if (!defaultSDL) {
+      addRequestToLS(GRAPHQL_METHOD, endpointURL, encodedURL);
+      window.history.pushState(null, '', encodedURL);
+    }
   }
 
   const form = {
@@ -150,7 +159,7 @@ function Page(): JSX.Element {
             setURL={setSdlURL}
             placeholder={t.enterSDLurl}
           />
-          <Button type="primary" onClick={handleSendIntrospection}>
+          <Button type="primary" onClick={() => handleSendIntrospection()}>
             {t.send}
           </Button>
         </Flex>

@@ -3,6 +3,7 @@
 import { Input } from 'antd';
 import { type ChangeEvent, type JSX } from 'react';
 
+import { useDebounce } from '@/hooks/use-debounce';
 import { useAppDispatch } from '@/store/store';
 import type { ClientAction } from '@/types/client';
 
@@ -14,9 +15,13 @@ type Props = {
 
 export function InputUrl({ url, setURL, placeholder }: Props): JSX.Element {
   const dispatch = useAppDispatch();
+  const debaunceUpdate = useDebounce(
+    (value: string) => dispatch(setURL(value)),
+    1,
+  );
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    dispatch(setURL(e.target.value));
+    debaunceUpdate(e.target.value);
   };
 
   return (

@@ -25,7 +25,7 @@ describe('Constants and Initial States', () => {
     expect(methods.get).toBe('GET');
     expect(methods.post).toBe('POST');
     expect(methods.put).toBe('PUT');
-    expect(methods.putch).toBe('PATCH');
+    expect(methods.patch).toBe('PATCH');
     expect(methods.delete).toBe('DELETE');
     expect(methods.head).toBe('HEAD');
     expect(methods.options).toBe('OPTIONS');
