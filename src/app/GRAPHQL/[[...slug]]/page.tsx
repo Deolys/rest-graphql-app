@@ -1,6 +1,7 @@
 'use client';
 
 import { Button, Descriptions, Flex, Layout, message } from 'antd';
+import type { GraphQLSchema } from 'graphql';
 import { buildClientSchema, getIntrospectionQuery } from 'graphql';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useContext, useEffect, useState } from 'react';
@@ -52,7 +53,7 @@ function Page(): JSX.Element {
   const encodeURL = useEncodeURLgraphql();
   const { addRequestToLS } = useHistoryLS();
   useGRAPHQLFormTracker();
-  const [schemas, setSchemas] = useState({});
+  const [schemas, setSchemas] = useState<GraphQLSchema | undefined>();
 
   useEffect(() => {
     const { endpointURL, sdlURL, query, variables, headers } =
@@ -110,11 +111,11 @@ function Page(): JSX.Element {
 
     if (response.error) {
       messageApi.open({ type: 'error', duration: 5, content: response.error });
-      setSchemas({});
+      setSchemas(undefined);
     } else {
       const data = JSON.parse(response.body) as graphQLIntroResponse;
       const clientSchema = buildClientSchema(data.data);
-      setSchemas(clientSchema.getTypeMap());
+      setSchemas(clientSchema);
     }
 
     if (!defaultSDL) {
@@ -135,12 +136,14 @@ function Page(): JSX.Element {
     [tabsGraphQL[2].key]: FormBody({
       body: formDataObj.query,
       setBody: setQuery,
+      schema: schemas,
+      isGraphQL: true,
     }),
   };
 
   return (
     <Layout>
-      <Documentation schemas={schemas} />
+      <Documentation schemas={schemas?.getTypeMap() || {}} />
       <article style={{ padding: '1em 50px', width: '100%' }}>
         {contextHolder}
         <Flex gap="small" style={{ marginBottom: '1em' }}>

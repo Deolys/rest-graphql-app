@@ -1,6 +1,8 @@
 import { jsonParseLinter } from '@codemirror/lang-json';
 import { lintGutter, linter } from '@codemirror/lint';
 import { Button } from 'antd';
+import { graphql } from 'cm6-graphql';
+import type { GraphQLSchema } from 'graphql';
 import Image from 'next/image';
 import { type JSX, useContext, useRef } from 'react';
 
@@ -13,9 +15,16 @@ import { prettifyJson } from '@/utils/prettify-json';
 type Props = {
   body: string;
   setBody: ClientAction;
+  schema?: GraphQLSchema | undefined;
+  isGraphQL?: boolean;
 };
 
-export function FormBody({ body, setBody }: Props): JSX.Element {
+export function FormBody({
+  body,
+  setBody,
+  schema,
+  isGraphQL = false,
+}: Props): JSX.Element {
   const { t } = useContext(LanguageContext);
   const dispatch = useAppDispatch();
   const valueRef = useRef(body);
@@ -32,13 +41,19 @@ export function FormBody({ body, setBody }: Props): JSX.Element {
     dispatch(setBody(prettifyJson(body)));
   };
 
+  const extensions = isGraphQL
+    ? schema
+      ? [graphql(schema)]
+      : []
+    : [linter(jsonParseLinter()), lintGutter()];
+
   return (
     <div style={{ position: 'relative' }}>
       <CodeEditor
         value={body}
         onChange={handleBodyChange}
         onBlur={handleBlur}
-        addExtensions={[linter(jsonParseLinter()), lintGutter()]}
+        addExtensions={extensions}
       />
       <Button
         onClick={handlePrettify}
