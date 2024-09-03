@@ -24,6 +24,7 @@
     "@codemirror/lint": "^6.8.1",
     "@reduxjs/toolkit": "^2.2.7",
     "antd": "^5.20.1",
+    "cm6-graphql": "^0.1.1",
     "firebase": "^10.13.1",
     "graphql": "^16.9.0",
     "next": "14.2.5",
