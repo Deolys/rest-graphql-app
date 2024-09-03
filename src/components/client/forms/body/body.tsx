@@ -38,7 +38,9 @@ export function FormBody({
   };
 
   const handlePrettify = (): void => {
-    dispatch(setBody(prettifyJson(body)));
+    const prettified = prettifyJson(body);
+    dispatch(setBody(prettified));
+    valueRef.current = prettified;
   };
 
   const extensions = isGraphQL
