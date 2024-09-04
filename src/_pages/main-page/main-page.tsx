@@ -1,17 +1,23 @@
 'use client';
 
 import { Flex, Spin } from 'antd';
-import { type JSX } from 'react';
+import Title from 'antd/es/typography/Title';
+import Image from 'next/image';
+import { type JSX, useContext } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
+import handsArrow from '@/assets/images/hands-arrow.svg';
+import handsBook from '@/assets/images/hands-book.svg';
 import { CourseInfo, DevelopersList, ProjectInfo } from '@/components';
 import Main from '@/components/main/main';
 import { auth } from '@/config/firebase-config';
+import { LanguageContext } from '@/providers/language';
 
 import styles from './main-page.module.css';
 
 export function MainPage(): JSX.Element {
   const [, loading] = useAuthState(auth);
+  const { t } = useContext(LanguageContext);
 
   return (
     <>
@@ -28,9 +34,21 @@ export function MainPage(): JSX.Element {
             <ProjectInfo />
           </section>
           <section className={styles.section}>
+            <Flex justify="center" align="center">
+              <Image src={handsArrow} alt="Arrow" />
+              <Title level={3} style={{ marginBottom: 4, marginLeft: 8 }}>
+                {t.developers}
+              </Title>
+            </Flex>
             <DevelopersList />
           </section>
           <section className={styles.section}>
+            <Flex justify="center" align="center" style={{ marginBottom: 30 }}>
+              <Image src={handsBook} alt="Book" />
+              <Title level={3} style={{ marginBottom: 4, marginLeft: 8 }}>
+                {t.aboutCourseTitle}
+              </Title>
+            </Flex>
             <CourseInfo />
           </section>
         </>
