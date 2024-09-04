@@ -1,6 +1,6 @@
 import { jsonParseLinter } from '@codemirror/lang-json';
 import { lintGutter, linter } from '@codemirror/lint';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 import { graphql } from 'cm6-graphql';
 import type { GraphQLSchema } from 'graphql';
 import Image from 'next/image';
@@ -10,6 +10,7 @@ import { CodeEditor } from '@/components/code-editor';
 import { LanguageContext } from '@/providers/language';
 import { useAppDispatch } from '@/store/store';
 import type { ClientAction } from '@/types/client';
+import { prettifyGraphQL } from '@/utils/prettify-graphql';
 import { prettifyJson } from '@/utils/prettify-json';
 
 type Props = {
@@ -26,6 +27,7 @@ export function FormBody({
   isGraphQL = false,
 }: Props): JSX.Element {
   const { t } = useContext(LanguageContext);
+  const [messageApi, contextHolder] = message.useMessage();
   const dispatch = useAppDispatch();
   const valueRef = useRef(body);
 
@@ -38,9 +40,17 @@ export function FormBody({
   };
 
   const handlePrettify = (): void => {
-    const prettified = prettifyJson(body);
-    dispatch(setBody(prettified));
-    valueRef.current = prettified;
+    const prettified = isGraphQL ? prettifyGraphQL(body) : prettifyJson(body);
+    if (prettified instanceof Error) {
+      messageApi.open({
+        type: 'warning',
+        duration: 10,
+        content: `${prettified}`,
+      });
+    } else {
+      dispatch(setBody(prettified));
+      valueRef.current = prettified;
+    }
   };
 
   const extensions = isGraphQL
@@ -51,6 +61,7 @@ export function FormBody({
 
   return (
     <div style={{ position: 'relative' }}>
+      {contextHolder}
       <CodeEditor
         value={body}
         onChange={handleBodyChange}
