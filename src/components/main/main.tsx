@@ -1,6 +1,7 @@
 'use client';
 
-import { Button, Spin } from 'antd';
+import { Button } from 'antd';
+import Title from 'antd/es/typography/Title';
 import { useRouter } from 'next/navigation';
 import { type JSX, useContext } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -14,7 +15,7 @@ import styles from './main.module.css';
 export default function Main(): JSX.Element {
   const router = useRouter();
   const { t } = useContext(LanguageContext);
-  const [user, loading] = useAuthState(auth);
+  const [user] = useAuthState(auth);
   const userName = user?.displayName;
 
   const handleNavigate = (path: string): void => {
@@ -23,13 +24,12 @@ export default function Main(): JSX.Element {
 
   return (
     <div className={styles.mainContainer}>
-      {loading ? (
-        <Spin size="large" />
-      ) : user ? (
+      {user ? (
         <>
-          <h1>
-            {t.welcomeBack}, {userName}!
-          </h1>
+          <Title>
+            {t.welcomeBack},{' '}
+            <span className={styles.iridescent}>{userName}</span>!
+          </Title>
           <div className={styles.buttonsContainer}>
             <Button onClick={() => handleNavigate(pageRoutes.RESTFULL_CLIENT)}>
               {t.restClient}
@@ -44,7 +44,7 @@ export default function Main(): JSX.Element {
         </>
       ) : (
         <>
-          <h1>{t.welcome}</h1>
+          <Title>{t.welcome}</Title>
           <div className={styles.buttonsContainer}>
             <Button onClick={() => handleNavigate(pageRoutes.SIGN_IN)}>
               {t.signIn}

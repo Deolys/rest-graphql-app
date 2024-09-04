@@ -1,7 +1,7 @@
 import { type JSX } from 'react';
 
-import Main from '@/components/main/main';
+import { MainPage } from '@/_pages/main-page';
 
 export default function Home(): JSX.Element {
-  return <Main />;
+  return <MainPage />;
 }

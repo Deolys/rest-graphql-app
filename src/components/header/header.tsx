@@ -73,8 +73,8 @@ export default function Header(): JSX.Element {
           </Link>
           <Switch
             className={style.switchStyle}
-            checkedChildren="en"
-            unCheckedChildren="ru"
+            checkedChildren="EN"
+            unCheckedChildren="RU"
             onChange={handleLanguage}
             defaultChecked
           />

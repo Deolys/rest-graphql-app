@@ -53,5 +53,15 @@
   "tokenExpired": "Token expired. Please, login again",
   "prettify": "Prettify",
   "deleteHeader": "Delete the header",
-  "documentation": "Documentation"
+  "documentation": "Documentation",
+  "aboutProjectTitle": "About the project",
+  "aboutCourse": "The React course from RS School is a comprehensive program that will teach you how to create interactive user interfaces using one of the most popular frameworks. You will learn about creating React applications, state management, routing, testing, and best development practices. Upon completion of the course, you can receive an electronic certificate confirming your skills",
+  "developer1": "",
+  "developer1Text": "",
+  "developer2": "Alekseev Eduard",
+  "developer2Text": "A technical student with a creative soul. Creates projects not only functional, but also aesthetically appealing.",
+  "developer3": "",
+  "developer3Text": "",
+  "projectDescription1": "The project is a playground for REST API and GraphQL, where you can easily create and send queries without leaving the browser.",
+  "projectDescription2": "The tool supports the features you would expect from a good REST client, and also has a built-in GraphQL editor. In addition, it includes an authorization and authentication mechanism, as well as a history section for quick access to previously completed requests. This is a complete solution for developers who need a powerful and convenient tool to work with the API."
 }
