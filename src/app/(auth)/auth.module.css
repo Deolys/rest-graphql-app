@@ -1,0 +1,15 @@
+.backgroundImage {
+  background-image: url('../../assets/images/hands-phone.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: 50px;
+  min-height: 400px;
+}
+
+.formWrapper {
+  background-color: #dde9ff;
+  max-width: 410px;
+  margin: 70px auto;
+  padding: 16px;
+  border-radius: 16px;
+}
