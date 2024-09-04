@@ -1,11 +1,13 @@
 'use client';
 
-import { Button } from 'antd';
+import { Button, Flex } from 'antd';
 import Title from 'antd/es/typography/Title';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { type JSX, useContext } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
+import handsHeart from '@/assets/images/hands-heart.svg';
 import { auth } from '@/config/firebase-config';
 import { pageRoutes } from '@/constants/page-routes';
 import { LanguageContext } from '@/providers/language';
@@ -26,10 +28,13 @@ export default function Main(): JSX.Element {
     <div className={styles.mainContainer}>
       {user ? (
         <>
-          <Title>
-            {t.welcomeBack},{' '}
-            <span className={styles.iridescent}>{userName}</span>!
-          </Title>
+          <Flex align="center" style={{ marginBottom: 19 }}>
+            <Title style={{ marginBottom: 0 }}>
+              {t.welcomeBack},{' '}
+              <span className={styles.iridescent}>{userName}</span>!
+            </Title>
+            <Image src={handsHeart} alt="Heart" />
+          </Flex>
           <div className={styles.buttonsContainer}>
             <Button onClick={() => handleNavigate(pageRoutes.RESTFULL_CLIENT)}>
               {t.restClient}
