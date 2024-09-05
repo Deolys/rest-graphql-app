@@ -6,13 +6,36 @@
   margin-left: 20px;
   margin-right: 20px;
   padding-top: 20px;
+  min-height: 300px;
 }
 
 .buttonsContainer {
   display: flex;
+  gap: 10px;
   width: 300px;
   align-items: center;
   justify-content: space-between;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.iridescent {  
+	background: linear-gradient(90deg, #eb7450, #eb3c7f, #21a8d9, #28ddb3);
+	background-size: 300%;
+	animation: iridescent 8s ease infinite;
+  -webkit-background-clip: text; 
+  background-clip: text; 
+  -webkit-text-fill-color: transparent; 
+}
+ 
+@keyframes iridescent {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }

@@ -1,0 +1,12 @@
+.section {
+  padding: 0 50px 100px;
+}
+
+.backgroundImage {
+  background-image: url('../../assets/images/hands-exchange.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  min-height: 500px;
+  margin-bottom: 100px;
+}

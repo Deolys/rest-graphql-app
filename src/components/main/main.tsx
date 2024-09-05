@@ -1,10 +1,13 @@
 'use client';
 
-import { Button, Spin } from 'antd';
+import { Button, Flex } from 'antd';
+import Title from 'antd/es/typography/Title';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { type JSX, useContext } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
+import handsHeart from '@/assets/images/hands-heart.svg';
 import { auth } from '@/config/firebase-config';
 import { pageRoutes } from '@/constants/page-routes';
 import { LanguageContext } from '@/providers/language';
@@ -14,7 +17,7 @@ import styles from './main.module.css';
 export default function Main(): JSX.Element {
   const router = useRouter();
   const { t } = useContext(LanguageContext);
-  const [user, loading] = useAuthState(auth);
+  const [user] = useAuthState(auth);
   const userName = user?.displayName;
 
   const handleNavigate = (path: string): void => {
@@ -23,13 +26,15 @@ export default function Main(): JSX.Element {
 
   return (
     <div className={styles.mainContainer}>
-      {loading ? (
-        <Spin size="large" />
-      ) : user ? (
+      {user ? (
         <>
-          <h1>
-            {t.welcomeBack}, {userName}!
-          </h1>
+          <Flex align="center" style={{ marginBottom: 19 }}>
+            <Title style={{ marginBottom: 0 }}>
+              {t.welcomeBack},{' '}
+              <span className={styles.iridescent}>{userName}</span>!
+            </Title>
+            <Image src={handsHeart} alt="Heart" />
+          </Flex>
           <div className={styles.buttonsContainer}>
             <Button onClick={() => handleNavigate(pageRoutes.RESTFULL_CLIENT)}>
               {t.restClient}
@@ -44,7 +49,7 @@ export default function Main(): JSX.Element {
         </>
       ) : (
         <>
-          <h1>{t.welcome}</h1>
+          <Title>{t.welcome}</Title>
           <div className={styles.buttonsContainer}>
             <Button onClick={() => handleNavigate(pageRoutes.SIGN_IN)}>
               {t.signIn}

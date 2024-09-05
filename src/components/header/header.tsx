@@ -55,10 +55,17 @@ export default function Header(): JSX.Element {
   return (
     <>
       <AntdHeader
-        className={
+        className={style.headerStyle}
+        style={
           scrollPosition === 0
-            ? style.headerStyle
-            : style.headerStyle + ' ' + style.scroll
+            ? {}
+            : {
+                borderBottom: '1px solid #cbcbcb',
+                background: 'rgba(217, 217, 217, 0.2)',
+                backdropFilter: 'blur(40px)',
+                WebkitBackdropFilter: 'blur(40px)',
+                boxShadow: 'rgba(0, 0, 0, 0.2) 0 0 20px',
+              }
         }
       >
         <Flex align="center" gap={20}>
@@ -73,8 +80,8 @@ export default function Header(): JSX.Element {
           </Link>
           <Switch
             className={style.switchStyle}
-            checkedChildren="en"
-            unCheckedChildren="ru"
+            checkedChildren="EN"
+            unCheckedChildren="RU"
             onChange={handleLanguage}
             defaultChecked
           />

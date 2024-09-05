@@ -11,7 +11,7 @@ export default function Footer(): JSX.Element {
   return (
     <AntdFooter
       className={styles.footerStyle}
-      style={{ backgroundColor: '#f9f2ff', paddingBlock: 0 }}
+      style={{ backgroundColor: '#dde9ff', paddingBlock: 0, height: 64 }}
     >
       <Dropdown
         menu={{
