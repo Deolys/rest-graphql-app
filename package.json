@@ -19,11 +19,20 @@
       "eslint --fix"
     ]
   },
+  "resolutions": {
+    "@codemirror/state": "6.2.1",
+    "@codemirror/view": "6.3.0",
+    "@codemirror/lint": "6.2.1"
+  },
+  "overrides": {
+    "@codemirror/state": "6.2.1"
+  },
   "dependencies": {
     "@ant-design/nextjs-registry": "^1.0.1",
-    "@codemirror/lint": "^6.8.1",
+    "@codemirror/lint": "^6.2.1",
     "@reduxjs/toolkit": "^2.2.7",
     "antd": "^5.20.1",
+    "cm6-graphql": "^0.1.1",
     "firebase": "^10.13.1",
     "graphql": "^16.9.0",
     "next": "14.2.5",

@@ -1,4 +1,3 @@
-import { json } from '@codemirror/lang-json';
 import CodeMirror, {
   type Extension,
   type ReactCodeMirrorProps,
@@ -12,7 +11,7 @@ export function CodeEditor({
   return (
     <CodeMirror
       height="300px"
-      extensions={[json(), ...(addExtensions || [])]}
+      extensions={[...(addExtensions || [])]}
       {...props}
     />
   );
