@@ -35,6 +35,9 @@ beforeAll(() => {
       isReady: true,
     }),
   }));
+  vi.mock('@/hoc/with-auth', () => ({
+    withAuth: (component: unknown) => component,
+  }));
 });
 
 afterAll(() => {

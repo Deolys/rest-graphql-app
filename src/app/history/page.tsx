@@ -23,7 +23,7 @@ function HistoryPage(): JSX.Element {
 
   return (
     <>
-      {requests ? (
+      {requests?.length ? (
         <article style={{ padding: '1em' }}>
           <List
             size="large"
