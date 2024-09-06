@@ -13,7 +13,7 @@ type Data = {
 };
 
 interface UseHistoryLSReturn {
-  requests: Data[];
+  requests: Data[] | null;
   addRequestToLS: (method: string, url: string, encodedURL: string) => void;
 }
 

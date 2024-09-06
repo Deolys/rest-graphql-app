@@ -6,27 +6,15 @@ import HistoryPage from '@/app/history/page';
 import { useHistoryLS } from '@/hooks/useHistoryLS';
 import { LanguageContext } from '@/providers/language';
 
+import { mockLanguageContext } from '../mocks/languageContext';
+
 vi.mock('@/hooks/useHistoryLS', () => ({
   useHistoryLS: vi.fn(),
-}));
-
-vi.mock('@/hoc/with-auth', () => ({
-  withAuth: (component: unknown) => component,
 }));
 
 afterEach(() => {
   vi.clearAllMocks();
 });
-
-const mockLanguageContext = {
-  t: {
-    historyRequests: 'История запросов',
-    historyEmpty: 'История запросов пуста',
-    restClient: 'REST клиент',
-    graphqlClient: 'GraphQL клиент',
-  },
-  toggleLanguage: vi.fn(),
-};
 
 describe('HistoryPage', () => {
   it('Show history', () => {
@@ -57,7 +45,7 @@ describe('HistoryPage', () => {
 
   it('Empty history', () => {
     vi.mocked(useHistoryLS).mockReturnValueOnce({
-      requests: [],
+      requests: null,
       addRequestToLS: vi.fn(),
     });
 
