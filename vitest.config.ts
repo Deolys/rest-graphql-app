@@ -10,14 +10,17 @@ export default defineConfig({
     globals: true,
     setupFiles: './src/__tests__/setup.ts',
     alias: {
-      '@/': path.resolve(__dirname, 'src'),
+      '@': path.resolve(__dirname, 'src'),
     },
     coverage: {
+      include: ['src/**/*.{js,ts,tsx}'],
       exclude: [
         ...configDefaults.exclude,
         '.eslintrc.cjs',
         'next.config.mjs',
         'next-env.d.ts',
+        '**/__tests__/**',
+        '**/node_modules/**',
       ],
     },
   },
