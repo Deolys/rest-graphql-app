@@ -12,6 +12,7 @@
     "builtin",
     "<THIRD_PARTY_MODULES>",
     "^@/(.*)$",
+    "^@public/(.*)$",
     "^[./]"
   ],
   "importOrderSeparation": true,

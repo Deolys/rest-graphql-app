@@ -5,7 +5,7 @@ import SignInPage from '@/app/(auth)/sign-in/page';
 import { LanguageContext } from '@/providers/language';
 import { logInWithEmailAndPassword } from '@/utils/firebase';
 
-import * as language from '../../../../../public/locale/ru.json';
+import { mockLanguageContext } from '../../../mocks/language-context';
 
 vi.mock('@/utils/firebase', () => ({
   logInWithEmailAndPassword: vi.fn(),
@@ -14,9 +14,7 @@ vi.mock('@/utils/firebase', () => ({
 describe('Sign in page', () => {
   it('should render correctly', () => {
     render(
-      <LanguageContext.Provider
-        value={{ toggleLanguage: vi.fn(), t: language }}
-      >
+      <LanguageContext.Provider value={mockLanguageContext}>
         <SignInPage />
       </LanguageContext.Provider>,
     );
@@ -27,9 +25,7 @@ describe('Sign in page', () => {
 
   it('should login by form submission', async () => {
     render(
-      <LanguageContext.Provider
-        value={{ toggleLanguage: vi.fn(), t: language }}
-      >
+      <LanguageContext.Provider value={mockLanguageContext}>
         <SignInPage />
       </LanguageContext.Provider>,
     );
