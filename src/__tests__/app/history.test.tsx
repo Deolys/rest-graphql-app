@@ -5,21 +5,6 @@ import { describe, expect, it, vi } from 'vitest';
 import HistoryPage from '@/app/history/page';
 import { LanguageContext } from '@/providers/language';
 
-vi.mock('next/navigation', () => ({
-  useRouter: () => ({
-    push: vi.fn(),
-    replace: vi.fn(),
-    reload: vi.fn(),
-    back: vi.fn(),
-    prefetch: vi.fn(),
-    asPath: '',
-    route: '',
-    pathname: '',
-    query: {},
-    isReady: true,
-  }),
-}));
-
 vi.mock('@/hooks/useHistoryLS', () => ({
   useHistoryLS: () => ({
     requests: [
