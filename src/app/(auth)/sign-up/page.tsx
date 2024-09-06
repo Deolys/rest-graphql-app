@@ -102,7 +102,7 @@ export default function SignUpPage(): JSX.Element {
           hasFeedback
         >
           <div>
-            <Input.Password />
+            <Input.Password data-testid="password" />
             <PasswordStrength password={passwordValue} />
           </div>
         </Form.Item>
