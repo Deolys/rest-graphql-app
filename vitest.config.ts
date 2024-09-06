@@ -13,11 +13,14 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'src'),
     },
     coverage: {
+      include: ['src/**/*.{js,ts,tsx}'],
       exclude: [
         ...configDefaults.exclude,
         '.eslintrc.cjs',
         'next.config.mjs',
         'next-env.d.ts',
+        '**/__tests__/**',
+        '**/node_modules/**',
       ],
     },
   },
