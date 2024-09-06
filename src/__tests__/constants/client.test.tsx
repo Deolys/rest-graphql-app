@@ -10,7 +10,7 @@ import {
   methods,
   tabsGraphQL,
   tabsRest,
-} from '../constants/client';
+} from '@/constants/client';
 
 describe('Constants and Initial States', () => {
   it('should have correct URLSegment values', () => {
