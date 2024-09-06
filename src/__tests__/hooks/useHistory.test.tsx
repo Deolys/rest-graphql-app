@@ -1,6 +1,6 @@
 import { act, render } from '@testing-library/react';
 import { useEffect, useState } from 'react';
-import type JSX from 'react';
+import { type JSX } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { useHistoryLS } from '@/hooks/useHistoryLS';
