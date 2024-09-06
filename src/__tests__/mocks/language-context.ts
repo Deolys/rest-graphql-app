@@ -1,6 +1,6 @@
 import { vi } from 'vitest';
 
-import ru from '../../../public/locale/ru.json';
+import ru from '@public/locale/ru.json';
 
 export const mockLanguageContext = {
   t: ru,

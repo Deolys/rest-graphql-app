@@ -11,6 +11,7 @@ export default defineConfig({
     setupFiles: './src/__tests__/setup.ts',
     alias: {
       '@': path.resolve(__dirname, 'src'),
+      '@public': path.resolve(__dirname, 'public'),
     },
     coverage: {
       include: ['src/**/*.{js,ts,tsx}'],
