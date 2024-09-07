@@ -3,7 +3,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import type { Mock } from 'vitest';
 import { describe, expect, it, vi } from 'vitest';
 
-import { MainPage } from '@/_pages/main-page/main-page';
+import { MainPage } from '@/_pages/main-page';
 import { LanguageContext } from '@/providers/language';
 
 import { mockLanguageContext } from '../mocks/language-context';
