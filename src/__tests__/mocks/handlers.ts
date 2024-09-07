@@ -6,6 +6,8 @@ import {
   mockDocumentation,
   mockGraphErrorResponse,
   mockGraphResponse,
+  mockRESTResponse,
+  mockRESTResponseError,
 } from './mock-data';
 
 export const handlers = [
@@ -30,4 +32,10 @@ export const handlers = [
 
     return HttpResponse.json(mockGraphErrorResponse, { status: 400 });
   }),
+  http.all('https://correct-rest-api-url/', () =>
+    HttpResponse.json(mockRESTResponse),
+  ),
+  http.get('https://incorrect-rest-api-url/', () =>
+    HttpResponse.json(mockRESTResponseError, { status: 400 }),
+  ),
 ];
