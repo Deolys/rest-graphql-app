@@ -16,18 +16,6 @@ vi.mock('@/config/firebase-config', () => ({
   auth: {},
 }));
 
-vi.mock('next/image', () => ({
-  default: ({
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    priority = false,
-    ...props
-  }: {
-    priority?: boolean;
-    [key: string]: unknown;
-    // eslint-disable-next-line @next/next/no-img-element
-  }) => <img {...props} alt="img" />,
-}));
-
 describe('MainPage', () => {
   it('renders component', () => {
     (useAuthState as Mock).mockReturnValue([null, false]);

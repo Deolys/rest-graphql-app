@@ -35,7 +35,7 @@ export function MainPage(): JSX.Element {
           </section>
           <section className={styles.section}>
             <Flex justify="center" align="center">
-              <Image src={handsArrow} alt="Arrow" />
+              <Image src={handsArrow} alt="Arrow" width={40} height={32} />
               <Title level={3} style={{ marginBottom: 4, marginLeft: 8 }}>
                 {t.developers}
               </Title>
@@ -44,7 +44,7 @@ export function MainPage(): JSX.Element {
           </section>
           <section className={styles.section}>
             <Flex justify="center" align="center" style={{ marginBottom: 30 }}>
-              <Image src={handsBook} alt="Book" />
+              <Image src={handsBook} alt="Book" width={40} height={32} />
               <Title level={3} style={{ marginBottom: 4, marginLeft: 8 }}>
                 {t.aboutCourseTitle}
               </Title>
