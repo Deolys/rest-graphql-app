@@ -17,6 +17,7 @@ export default defineConfig({
       include: ['src/**/*.{js,ts,tsx}'],
       exclude: [
         ...configDefaults.exclude,
+        '.next/*',
         '.eslintrc.cjs',
         'next.config.mjs',
         'next-env.d.ts',
