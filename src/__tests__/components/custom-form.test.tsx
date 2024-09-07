@@ -1,14 +1,14 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 
-import CustomForm from '@/components/client/forms/CustomForm/custom-form';
+import CustomForm from '@/components/client/forms/custom-form/custom-form';
 import { initialData } from '@/constants/client';
 import { LanguageContext } from '@/providers/language';
 import type { DataType } from '@/types/client';
 
 import { mockLanguageContext } from '../mocks/language-context';
 
-vi.mock('@/store/store', () => ({
+vi.mock('@/store', () => ({
   useAppDispatch: () => vi.fn(),
 }));
 

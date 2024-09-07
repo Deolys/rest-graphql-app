@@ -3,7 +3,7 @@ import type { ReadonlyURLSearchParams } from 'next/navigation';
 import { methods } from '@/constants/client';
 import type { DataType, HTTPMethod } from '@/types/client';
 
-import { parseBase64Object } from './parseBase64Object';
+import { parseBase64Object } from './parse-base64-object';
 import { isHTTPMethod } from './predicates';
 
 type DataFromURL = {

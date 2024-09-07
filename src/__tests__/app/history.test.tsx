@@ -2,12 +2,12 @@ import { render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import HistoryPage from '@/app/history/page';
-import { useHistoryLS } from '@/hooks/useHistoryLS';
+import { useHistoryLS } from '@/hooks/use-history-LS';
 import { LanguageContext } from '@/providers/language';
 
 import { mockLanguageContext } from '../mocks/language-context';
 
-vi.mock('@/hooks/useHistoryLS', () => ({
+vi.mock('@/hooks/use-history-LS', () => ({
   useHistoryLS: vi.fn(),
 }));
 

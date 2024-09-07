@@ -8,7 +8,7 @@ import { type JSX, useContext, useRef } from 'react';
 
 import { CodeEditor } from '@/components/code-editor';
 import { LanguageContext } from '@/providers/language';
-import { useAppDispatch } from '@/store/store';
+import { useAppDispatch } from '@/store';
 import type { ClientAction } from '@/types/client';
 import { prettifyGraphQL } from '@/utils/prettify-graphql';
 import { prettifyJson } from '@/utils/prettify-json';

@@ -4,7 +4,7 @@ import { type JSX } from 'react';
 
 import { CodeEditor } from '@/components/code-editor';
 import { useDebounce } from '@/hooks/use-debounce';
-import { useAppDispatch } from '@/store/store';
+import { useAppDispatch } from '@/store';
 import type { ClientAction } from '@/types/client';
 
 type Props = {

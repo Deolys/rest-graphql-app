@@ -15,10 +15,11 @@ import { CodeEditor } from '@/components/code-editor';
 import { Documentation } from '@/components/documentation';
 import { tabsGraphQL } from '@/constants/client';
 import { withAuth } from '@/hoc/with-auth';
-import { useGRAPHQLFormTracker } from '@/hooks/formTrackers';
-import { useEncodeURLgraphql } from '@/hooks/useCodeURLgraphql';
-import { useHistoryLS } from '@/hooks/useHistoryLS';
+import { useGRAPHQLFormTracker } from '@/hooks/form-trackers';
+import { useEncodeURLgraphql } from '@/hooks/use-code-URL-graphql';
+import { useHistoryLS } from '@/hooks/use-history-LS';
 import { LanguageContext } from '@/providers/language';
+import { useAppDispatch, useAppSelector } from '@/store';
 import {
   selectFormData,
   selectHeaders,
@@ -33,7 +34,6 @@ import {
   setSdlURL,
   setVariables,
 } from '@/store/reducers/graphql-request-slice';
-import { useAppDispatch, useAppSelector } from '@/store/store';
 import type { graphQLIntroResponse } from '@/types/graphql';
 import { parseDataFromURLgraphql } from '@/utils/parser-data-from-url-graphql';
 import { prettifyJson } from '@/utils/prettify-json';
