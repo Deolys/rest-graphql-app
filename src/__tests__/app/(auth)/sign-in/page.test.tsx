@@ -36,16 +36,16 @@ describe('Sign in page', () => {
     fireEvent.change(emailInput, { target: { value: 'email@mail.ru' } });
 
     const passwordInput = screen.getByLabelText('Пароль');
-    fireEvent.change(passwordInput, { target: { value: 'Password' } });
+    fireEvent.change(passwordInput, { target: { value: 'Password1$' } });
 
     const submitButton = screen.getByRole('button', { name: /Отправить/i });
     fireEvent.click(submitButton);
 
-    waitFor(() => {
+    await waitFor(() => {
       expect(logInWithEmailAndPassword).toHaveBeenCalledOnce();
       expect(logInWithEmailAndPassword).toHaveBeenCalledWith(
         'email@mail.ru',
-        'Password',
+        'Password1$',
       );
     });
   });

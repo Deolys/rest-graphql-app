@@ -41,6 +41,6 @@ export async function fetchRest({
     return { body: responseBody, status, error: '' };
   } catch (e) {
     const error = e instanceof Error ? e.message : `${e}`;
-    return { body: '', status: '500 HTTP errror!', error };
+    return { body: '', status: '500 HTTP error!', error };
   }
 }

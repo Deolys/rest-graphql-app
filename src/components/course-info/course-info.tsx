@@ -16,7 +16,7 @@ export function CourseInfo(): JSX.Element {
           {t.aboutCourse}
         </Typography>
       </Card>
-      <Image src={handsHat} alt="Hand with the hat" priority={false} />
+      <Image src={handsHat} alt="Hand with the hat" width={248} height={278} />
     </Flex>
   );
 }

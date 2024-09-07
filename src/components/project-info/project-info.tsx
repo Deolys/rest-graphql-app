@@ -11,7 +11,12 @@ export function ProjectInfo(): JSX.Element {
 
   return (
     <Flex gap={40}>
-      <Image src={handsPoint} alt="Hand with the light bulb" priority={false} />
+      <Image
+        src={handsPoint}
+        alt="Hand with the light bulb"
+        width={245}
+        height={352}
+      />
       <Flex align="center">
         <Card
           title={t.aboutProjectTitle}

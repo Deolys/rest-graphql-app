@@ -22,6 +22,7 @@ export default defineConfig({
         'next-env.d.ts',
         '**/__tests__/**',
         '**/node_modules/**',
+        'src/app/**/layout.tsx',
       ],
     },
   },
