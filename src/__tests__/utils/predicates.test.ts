@@ -2,12 +2,12 @@ import { assert, describe, test } from 'vitest';
 
 import { isDataType, isDataTypeArr, isHTTPMethod } from '@/utils/predicates';
 
+import { msg } from '../test-utils/msg';
 import {
   queriesDataType,
   queriesDataTypeArr,
   queriesHTTPMethod,
 } from './data/predicates-data';
-import { msg } from './msg';
 
 describe('predicates', () => {
   test('isDataTypeArr must return correct value', () => {

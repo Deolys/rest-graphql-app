@@ -2,8 +2,8 @@ import { assert, describe, test } from 'vitest';
 
 import { headersToObj } from '@/utils/headers-to-obj';
 
+import { msg } from '../test-utils/msg';
 import { headers } from './data/headers-to-obj-data';
-import { msg } from './msg';
 
 describe('headersToObj', () => {
   test('must return correct headers from DataType', () => {

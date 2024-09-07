@@ -2,8 +2,8 @@ import { assert, describe, test } from 'vitest';
 
 import { parseDataFromURL } from '@/utils/parser-data-from-url';
 
+import { msg } from '../test-utils/msg';
 import { encodedURLrestData } from './data/parser-data-from-url-data';
-import { msg } from './msg';
 
 describe('parseDataFromURL', () => {
   test('must return correct HTTP meathod', () => {
