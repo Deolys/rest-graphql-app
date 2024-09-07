@@ -3,7 +3,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import type { Mock } from 'vitest';
 import { describe, expect, it, vi } from 'vitest';
 
-import { MainPage } from '@/_pages/main-page';
+import Page from '@/app/page';
 import { LanguageContext } from '@/providers/language';
 
 import { mockLanguageContext } from '../mocks/language-context';
@@ -22,7 +22,7 @@ describe('MainPage', () => {
 
     render(
       <LanguageContext.Provider value={mockLanguageContext}>
-        <MainPage />
+        <Page />
       </LanguageContext.Provider>,
     );
   });
@@ -32,7 +32,7 @@ describe('MainPage', () => {
 
     render(
       <LanguageContext.Provider value={mockLanguageContext}>
-        <MainPage />
+        <Page />
       </LanguageContext.Provider>,
     );
 
