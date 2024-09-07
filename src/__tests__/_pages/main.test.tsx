@@ -16,17 +16,16 @@ vi.mock('@/config/firebase-config', () => ({
   auth: {},
 }));
 
-vi.mock('@/components', () => ({
-  Main: () => <div>Main</div>,
-  ProjectInfo: () => <div>ProjectInfo</div>,
-  DevelopersList: () => <div>DevelopersList</div>,
-  CourseInfo: () => <div>CourseInfo</div>,
-}));
-
 vi.mock('next/image', () => ({
-  default: (props: React.ImgHTMLAttributes<HTMLImageElement>) => (
-    <img {...props} />
-  ),
+  default: ({
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    priority = false,
+    ...props
+  }: {
+    priority?: boolean;
+    [key: string]: unknown;
+    // eslint-disable-next-line @next/next/no-img-element
+  }) => <img {...props} alt="img" />,
 }));
 
 describe('MainPage', () => {
