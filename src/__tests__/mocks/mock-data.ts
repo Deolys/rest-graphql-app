@@ -52,3 +52,18 @@ export const mockGraphErrorResponse = {
     },
   ],
 };
+
+export const mockRESTResponse = {
+  data: {
+    graph: 'test-rest-response-data',
+    fruits: { apple: 'apple', avocado: 'avocado' },
+  },
+};
+
+export const mockRESTResponseError = {
+  errors: [
+    {
+      message: 'test-rest-error-response-message',
+    },
+  ],
+};

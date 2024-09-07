@@ -2,8 +2,8 @@ import { assert, describe, test } from 'vitest';
 
 import { prettifyJson } from '@/utils/prettify-json';
 
+import { msg } from '../test-utils/msg';
 import { jsonPretifyData } from './data/prettify-json-data';
-import { msg } from './msg';
 
 describe('prettifyJson', () => {
   test('must return prettified string', () => {

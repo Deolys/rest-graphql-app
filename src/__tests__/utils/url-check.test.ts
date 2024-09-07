@@ -2,8 +2,8 @@ import { assert, describe, test } from 'vitest';
 
 import { urlCheck } from '@/utils/url-check';
 
+import { msg } from '../test-utils/msg';
 import { badURLData, goodURLData } from './data/url-check-data';
-import { msg } from './msg';
 
 describe('urlCheck', () => {
   test('bad url: must return error', () => {

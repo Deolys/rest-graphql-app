@@ -2,8 +2,8 @@ import { assert, describe, test } from 'vitest';
 
 import { parseDataFromURLgraphql } from '@/utils/parser-data-from-url-graphql';
 
+import { msg } from '../test-utils/msg';
 import { encodedURLData } from './data/parser-data-from-url-graphql-data';
-import { msg } from './msg';
 
 describe('parseDataFromURL', () => {
   test('must return correct url', () => {

@@ -2,8 +2,8 @@ import { assert, describe, test } from 'vitest';
 
 import { prettifyGraphQL } from '@/utils/prettify-graphql';
 
+import { msg } from '../test-utils/msg';
 import { ERR_MESSAGE, graphqlPretifyData } from './data/prettify-graphql-data';
-import { msg } from './msg';
 
 describe('prettifyGraphQL', () => {
   test('must return prettified string', () => {

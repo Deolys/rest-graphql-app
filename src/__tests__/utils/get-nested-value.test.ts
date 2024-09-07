@@ -2,8 +2,8 @@ import { assert, describe, test } from 'vitest';
 
 import { findField, getNestedType } from '@/utils/get-nested-value';
 
+import { msg } from '../test-utils/msg';
 import { queryGraphQL, queryObjects } from './data/get-nested-value-data';
-import { msg } from './msg';
 
 describe('get-nested-value', () => {
   test('findField must return correct value from object', () => {

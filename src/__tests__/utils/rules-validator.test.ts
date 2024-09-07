@@ -2,8 +2,8 @@ import { assert, describe, test } from 'vitest';
 
 import { rulesValidator } from '@/utils/rules-validator';
 
+import { msg } from '../test-utils/msg';
 import { rulesBadData, rulesGoodData } from './data/rules-validator-data';
-import { msg } from './msg';
 
 describe('rulesValidator', () => {
   test('good values: rule must return { success: true }', () => {

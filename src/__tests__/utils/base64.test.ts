@@ -2,8 +2,8 @@ import { assert, describe, test } from 'vitest';
 
 import { base64 } from '@/utils/base64';
 
+import { msg } from '../test-utils/msg';
 import { decodeData, encodeData } from './data/base64-data';
-import { msg } from './msg';
 
 describe('base64', () => {
   test('...encode', () => {
