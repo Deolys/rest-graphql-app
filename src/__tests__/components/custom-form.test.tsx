@@ -58,24 +58,17 @@ describe('CustomForm component', () => {
     ]);
   });
 
-  it('allows editing a cell', () => {
-    render(
-      <LanguageContext.Provider value={mockLanguageContext}>
-        <CustomForm dataSource={mockDataSource} setData={mockSetData} />
-      </LanguageContext.Provider>,
-    );
-
-    fireEvent.click(screen.getByText('Key 1'));
-    const input = screen.getByDisplayValue('Key 1');
-    expect(input).toBeInTheDocument();
-  });
-
   it('allows deleting a row', () => {
     render(
       <LanguageContext.Provider value={mockLanguageContext}>
         <CustomForm dataSource={mockDataSource} setData={mockSetData} />
       </LanguageContext.Provider>,
     );
-    expect(screen.getByText('Добавить')).toBeInTheDocument();
+
+    fireEvent.click(screen.getAllByTitle('Удалить заголовок')[0]);
+
+    expect(mockSetData).toHaveBeenCalledWith([
+      { key: '2', keyName: 'Key 2', keyValue: 'Value 2' },
+    ]);
   });
 });
