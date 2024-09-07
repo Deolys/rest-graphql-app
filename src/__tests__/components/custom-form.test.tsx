@@ -15,8 +15,7 @@ vi.mock('@/store/store', () => ({
 beforeAll(() => {
   Object.defineProperty(window, 'getComputedStyle', {
     value: () => ({
-      getPropertyValue: (prop: string) => {
-        if (prop === 'scrollbarColor') return '';
+      getPropertyValue: () => {
         return '';
       },
     }),
@@ -68,6 +67,42 @@ describe('CustomForm component', () => {
     fireEvent.click(screen.getAllByTitle('Удалить заголовок')[0]);
 
     expect(mockSetData).toHaveBeenCalledWith([
+      { key: '2', keyName: 'Key 2', keyValue: 'Value 2' },
+    ]);
+  });
+
+  it('allows editing a cell', async () => {
+    render(
+      <LanguageContext.Provider value={mockLanguageContext}>
+        <CustomForm dataSource={mockDataSource} setData={mockSetData} />
+      </LanguageContext.Provider>,
+    );
+
+    fireEvent.click(screen.getByText('Key 1'));
+
+    const input = screen.getByDisplayValue('Key 1');
+    fireEvent.change(input, { target: { value: 'Updated Key 1' } });
+    fireEvent.blur(input);
+
+    await screen.findByDisplayValue('Updated Key 1');
+
+    expect(mockSetData).toHaveBeenCalledWith([
+      { key: '1', keyName: 'Updated Key 1', keyValue: 'Value 1' },
+      { key: '2', keyName: 'Key 2', keyValue: 'Value 2' },
+    ]);
+  });
+
+  it('calls setData with correct payload when deleting a row', () => {
+    const localMockSetData = vi.fn();
+    render(
+      <LanguageContext.Provider value={mockLanguageContext}>
+        <CustomForm dataSource={mockDataSource} setData={localMockSetData} />
+      </LanguageContext.Provider>,
+    );
+
+    fireEvent.click(screen.getAllByTitle('Удалить заголовок')[0]);
+
+    expect(localMockSetData).toHaveBeenCalledWith([
       { key: '2', keyName: 'Key 2', keyValue: 'Value 2' },
     ]);
   });
