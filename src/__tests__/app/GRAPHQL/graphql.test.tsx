@@ -1,5 +1,5 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
+import { afterAll, describe, expect, it, vi } from 'vitest';
 
 import { mockLanguageContext } from '@/__tests__/mocks/language-context';
 import { mockDocumentation } from '@/__tests__/mocks/mock-data';
@@ -33,7 +33,13 @@ vi.mock('graphql', async (importOriginal) => {
   });
 });
 
-describe('Page Component', () => {
+describe('GraphQL page', () => {
+  const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+  afterAll(() => {
+    consoleSpy.mockRestore();
+  });
+
   it('renders without crashing', async () => {
     await waitFor(() => {
       renderWithProviders(
@@ -63,11 +69,11 @@ describe('Page Component', () => {
     expect(sdlInput).toBeInTheDocument();
     await waitFor(() => {
       fireEvent.change(sdlInput, {
-        target: { value: 'https://correct-sdl-url' },
+        target: { value: 'https://correct-api-url' },
       });
     });
 
-    const sdlButton = screen.getByTestId('sdl-button');
+    const sdlButton = screen.getAllByRole('button', { name: 'Отправить' })[1];
     fireEvent.click(sdlButton);
 
     await waitFor(() => {
@@ -78,6 +84,66 @@ describe('Page Component', () => {
       fireEvent.click(documentationButton);
       const docList = screen.getByTestId('documentation-list');
       expect(docList).toBeInTheDocument();
+    });
+  });
+
+  it('shows response data with code and status by correct api request', async () => {
+    await waitFor(() => {
+      renderWithProviders(
+        <LanguageContext.Provider value={mockLanguageContext}>
+          <Page />
+        </LanguageContext.Provider>,
+      );
+    });
+
+    const urlInput = screen.getByPlaceholderText(
+      'Введите адрес точки доступа...',
+    );
+    expect(urlInput).toBeInTheDocument();
+    await waitFor(() => {
+      fireEvent.change(urlInput, {
+        target: { value: 'https://correct-api-url' },
+      });
+    });
+
+    const urlButton = screen.getAllByRole('button', { name: 'Отправить' })[0];
+    fireEvent.click(urlButton);
+
+    await waitFor(() => {
+      const responseData = screen.getByText(/test-graph-response-data/i);
+      expect(responseData).toBeInTheDocument();
+      const responseStatus = screen.getByText(/200 OK/i);
+      expect(responseStatus).toBeInTheDocument();
+    });
+  });
+
+  it('shows error with code and status by incorrect api request', async () => {
+    await waitFor(() => {
+      renderWithProviders(
+        <LanguageContext.Provider value={mockLanguageContext}>
+          <Page />
+        </LanguageContext.Provider>,
+      );
+    });
+
+    const urlInput = screen.getByPlaceholderText(
+      'Введите адрес точки доступа...',
+    );
+    expect(urlInput).toBeInTheDocument();
+    await waitFor(() => {
+      fireEvent.change(urlInput, {
+        target: { value: 'https://incorrect-api-url' },
+      });
+    });
+
+    const urlButton = screen.getAllByRole('button', { name: 'Отправить' })[0];
+    fireEvent.click(urlButton);
+
+    await waitFor(() => {
+      const errorData = screen.getByText(/test-graph-error-response-message/i);
+      expect(errorData).toBeInTheDocument();
+      const errorStatus = screen.getByText(/400 HTTP error!/i);
+      expect(errorStatus).toBeInTheDocument();
     });
   });
 });

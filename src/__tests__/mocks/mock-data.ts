@@ -30,3 +30,25 @@ const RGBType = new GraphQLEnumType({
     BLUE: { value: 2 },
   },
 });
+
+export const mockGraphResponse = {
+  data: {
+    graph: 'test-graph-response-data',
+    colors: { red: 'red', yellow: 'yellow', blue: 'blue' },
+  },
+};
+
+export const mockGraphErrorResponse = {
+  errors: [
+    {
+      message: 'test-graph-error-response-message',
+      locations: [
+        {
+          line: 1,
+          column: 1,
+        },
+      ],
+      path: ['graph'],
+    },
+  ],
+};

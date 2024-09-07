@@ -162,11 +162,7 @@ function Page(): JSX.Element {
             setURL={setSdlURL}
             placeholder={t.enterSDLurl}
           />
-          <Button
-            type="primary"
-            onClick={() => handleSendIntrospection()}
-            data-testid="sdl-button"
-          >
+          <Button type="primary" onClick={() => handleSendIntrospection()}>
             {t.send}
           </Button>
         </Flex>
