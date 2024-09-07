@@ -22,10 +22,7 @@ export function replaceVariables(
 
     return { data: urlWithReplacedVars, error: '' };
   } catch (error) {
-    if (error instanceof SyntaxError) {
-      return { data: sourceData, error: error.message };
-    } else {
-      return { data: sourceData, error: `${error}` };
-    }
+    const e = error as SyntaxError;
+    return { data: sourceData, error: e.message };
   }
 }
