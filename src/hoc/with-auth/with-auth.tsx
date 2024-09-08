@@ -1,8 +1,8 @@
-import { Flex, Spin } from 'antd';
 import { redirect } from 'next/navigation';
 import { type ComponentType, type JSX, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
+import { LoadingSpin } from '@/components';
 import { auth } from '@/config/firebase-config';
 
 export function withAuth<P extends object>(
@@ -18,11 +18,7 @@ export function withAuth<P extends object>(
     }, [user, loading]);
 
     if (loading) {
-      return (
-        <Flex justify="center" align="center" style={{ height: '20vh' }}>
-          <Spin size="large" />
-        </Flex>
-      );
+      return <LoadingSpin />;
     }
 
     return <Component {...props} />;
