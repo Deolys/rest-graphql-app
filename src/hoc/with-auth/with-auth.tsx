@@ -4,6 +4,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { LoadingSpin } from '@/components';
 import { auth } from '@/config/firebase-config';
+import { pageRoutes } from '@/constants/page-routes';
 
 export function withAuth<P extends object>(
   Component: ComponentType<P>,
@@ -13,7 +14,7 @@ export function withAuth<P extends object>(
 
     useEffect(() => {
       if (!loading && !user) {
-        redirect('/sign-in');
+        redirect(pageRoutes.SIGN_IN);
       }
     }, [user, loading]);
 
