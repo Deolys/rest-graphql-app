@@ -4,7 +4,6 @@ import type { DataType } from '@/types/client';
 
 type DataFromURL = {
   endpointURL: string;
-  sdlURL: string;
   variables: string;
   query: string;
   headers: DataType[];
@@ -29,7 +28,6 @@ export const encodedURLData: EncodedURLData[] = [
       query: '',
       headers: [],
       endpointURL: '',
-      sdlURL: '',
       variables: '',
     },
   },
@@ -42,7 +40,6 @@ export const encodedURLData: EncodedURLData[] = [
         'query {\n  allFilms {\n    totalCount\n    films {\n      director\n      edited\n      releaseDate\n      title\n    }\n  }\n}',
       headers,
       endpointURL: 'https://swapi-graphql.netlify.app/.netlify/functions/index',
-      sdlURL: 'https://swapi-graphql.netlify.app/.netlify/functions/index?sdl',
       variables:
         '{\n"baseURL": "https://swapi-graphql.netlify.app",\n"url": "/.netlify/functions/index"\n}',
     },
