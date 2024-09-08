@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { type JSX } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { useHistoryLS } from '@/hooks/useHistoryLS';
+import { useHistoryLS } from '@/hooks/use-history-LS';
 
 vi.mock('@/config/firebase-config', () => {
   return {

@@ -8,7 +8,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 
 import { initialData } from '@/constants/client';
 import { LanguageContext } from '@/providers/language';
-import { useAppDispatch } from '@/store/store';
+import { useAppDispatch } from '@/store';
 import type { DataType } from '@/types/client';
 
 import styles from './custom-form.module.css';

@@ -7,7 +7,7 @@ import { useContext } from 'react';
 
 import { pageRoutes } from '@/constants/page-routes';
 import { withAuth } from '@/hoc/with-auth';
-import { useHistoryLS } from '@/hooks/useHistoryLS';
+import { useHistoryLS } from '@/hooks/use-history-LS';
 import { LanguageContext } from '@/providers/language';
 
 import styles from './history.module.css';

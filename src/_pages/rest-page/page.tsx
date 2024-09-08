@@ -12,10 +12,11 @@ import { FormVariables } from '@/components/client/forms/variables/variables';
 import { CodeEditor } from '@/components/code-editor';
 import { tabsRest } from '@/constants/client';
 import { withAuth } from '@/hoc/with-auth';
-import { useRESTFormTracker } from '@/hooks/formTrackers';
-import { useEncodeURLRest } from '@/hooks/useCodeURL';
-import { useHistoryLS } from '@/hooks/useHistoryLS';
+import { useRESTFormTracker } from '@/hooks/form-trackers';
+import { useEncodeURLRest } from '@/hooks/use-code-URL';
+import { useHistoryLS } from '@/hooks/use-history-LS';
 import { LanguageContext } from '@/providers/language';
+import { useAppDispatch, useAppSelector } from '@/store';
 import {
   selectFormData,
   selectHeaders,
@@ -30,7 +31,6 @@ import {
   setUrl,
   setVariables,
 } from '@/store/reducers/rest-request-slice';
-import { useAppDispatch, useAppSelector } from '@/store/store';
 import { parseDataFromURL } from '@/utils/parser-data-from-url';
 import { prettifyJson } from '@/utils/prettify-json';
 

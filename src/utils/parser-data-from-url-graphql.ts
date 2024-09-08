@@ -2,7 +2,7 @@ import type { ReadonlyURLSearchParams } from 'next/navigation';
 
 import type { DataType } from '@/types/client';
 
-import { parseBase64Object } from './parseBase64Object';
+import { parseBase64Object } from './parse-base64-object';
 
 type DataFromURL = {
   endpointURL: string;

@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 
+import { useAppSelector } from '@/store';
 import { selectFormData as GraphQLData } from '@/store/reducers/graphql-request-slice';
 import { selectFormData as RestData } from '@/store/reducers/rest-request-slice';
-import { useAppSelector } from '@/store/store';
 
-import { useEncodeURLRest } from './useCodeURL';
-import { useEncodeURLgraphql } from './useCodeURLgraphql';
+import { useEncodeURLRest } from './use-code-URL';
+import { useEncodeURLgraphql } from './use-code-URL-graphql';
 
 export function useRESTFormTracker(): void {
   const encodeURL = useEncodeURLRest();

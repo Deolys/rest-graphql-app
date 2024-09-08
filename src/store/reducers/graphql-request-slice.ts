@@ -2,7 +2,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 
 import { initialStateGraphQL } from '@/constants/client';
-import type { RootState } from '@/store/store';
+import type { RootState } from '@/store';
 import type { InitialStateGraphQL } from '@/types/client';
 import { headersToObj } from '@/utils/headers-to-obj';
 import { replaceVariables } from '@/utils/replace-variables';

@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 
 import { initialStateGraphQL } from '@/constants/client';
+import { setupStore } from '@/store';
 import {
   selectEndpointURL,
   selectFormData,
@@ -19,7 +20,6 @@ import {
   setSdlURL,
   setVariables,
 } from '@/store/reducers/graphql-request-slice';
-import { setupStore } from '@/store/store';
 import type { DataType } from '@/types/client';
 import { headersToObj } from '@/utils/headers-to-obj';
 

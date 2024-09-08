@@ -1,7 +1,7 @@
 import { type JSX } from 'react';
 
 import { LanguageProvider } from '@/providers/language';
-import StoreProvider from '@/providers/storeProvider';
+import StoreProvider from '@/providers/store-provider';
 
 export default function Providers({
   children,
