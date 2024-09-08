@@ -92,9 +92,13 @@ export function prettifyGraphQL(data: string): string | Error {
   let result = '';
 
   try {
-    const parsedQuery = parse(data);
+    const replacedVarsData = data.replace(
+      /\{\s*\{\s*(\w+)\s*\}\s*\}/g,
+      '__TEMP_VAR_$1__',
+    );
+    const parsedQuery = parse(replacedVarsData);
     result = pretiefy(parsedQuery.loc?.startToken.next);
-    return result.trim();
+    return result.trim().replace(/__TEMP_VAR_(\w+)__/g, '{{$1}}');
   } catch (error) {
     if (error instanceof Error) {
       return new Error(error.message);
