@@ -1,1 +1,1 @@
-npm run test --watchAll=false
+npm run test run
