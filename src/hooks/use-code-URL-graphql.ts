@@ -4,7 +4,6 @@ import { base64 } from '../utils/base64';
 
 type Props = {
   endpointURL: string;
-  sdlURL: string;
   headers: HeadersInit;
   query: string;
   variables: string;
@@ -12,7 +11,6 @@ type Props = {
 
 type EncodeURLgraphql = ({
   endpointURL,
-  sdlURL,
   headers,
   query,
   variables,
@@ -24,12 +22,11 @@ export function useEncodeURLgraphql(): EncodeURLgraphql {
 
   function encodeURL({
     endpointURL = '',
-    sdlURL = '',
     query = '',
     variables = '',
     headers,
   }: Props): string {
-    const urlObj = JSON.stringify({ endpointURL, sdlURL });
+    const urlObj = JSON.stringify({ endpointURL });
     const urlBase64 = '/' + base64.encode(urlObj);
 
     const varsQueryObj = JSON.stringify({ variables, query });
