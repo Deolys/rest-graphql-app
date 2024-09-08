@@ -1,9 +1,11 @@
 export function prettifyJson(data: string): string {
-  data = data
-    .replace(/\s/g, '')
+  const formattedData = data
+    .replace(/\{\s*\{\s*(\w+)\s*\}\s*\}/g, '__TEMP_VAR_$1__')
+    .replace(/\s+/g, ' ')
     .replace(/{/g, '{\n')
+    .replace(/(\w+)\{/g, '$1 {')
     .replace(/(}\s*,?)/g, '\n$1\n');
-  const lines = data.split('\n');
+  const lines = formattedData.split('\n');
 
   let level = 0;
   const prettifiedLines = [];
@@ -22,6 +24,7 @@ export function prettifyJson(data: string): string {
   }
   let prettifiedToJson = prettifiedLines.join('\n');
   prettifiedToJson = prettifiedToJson
+    .replace(/__TEMP_VAR_(\w+)__/g, '{{$1}}')
     .replace(/ {2}}/g, '}')
     .replace(/:/g, ': ')
     .replace(/\n(?:\s*\n)+/g, '\n');
