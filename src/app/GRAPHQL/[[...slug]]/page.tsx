@@ -56,11 +56,12 @@ function Page(): JSX.Element {
   const [schemas, setSchemas] = useState<GraphQLSchema | undefined>();
 
   useEffect(() => {
-    const { endpointURL, sdlURL, query, variables, headers } =
-      parseDataFromURLgraphql(pathName, searchParams);
+    const { endpointURL, query, variables, headers } = parseDataFromURLgraphql(
+      pathName,
+      searchParams,
+    );
 
     endpointURL && dispatch(setEndpointURL(endpointURL));
-    sdlURL && dispatch(setSdlURL(sdlURL));
     variables && dispatch(setVariables(variables));
     query && dispatch(setQuery(query));
     headers.length && dispatch(setHeaders(headers));
@@ -83,6 +84,7 @@ function Page(): JSX.Element {
       const defaultSDL = `${endpointURL}?sdl`;
       handleSendIntrospection(defaultSDL);
       formData.sdlURL = defaultSDL;
+      dispatch(setSdlURL(defaultSDL));
     }
 
     const encodedURL = encodeURL(formData);
