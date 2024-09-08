@@ -83,7 +83,6 @@ function Page(): JSX.Element {
     if (!sdlURL) {
       const defaultSDL = `${endpointURL}?sdl`;
       handleSendIntrospection(defaultSDL);
-      formData.sdlURL = defaultSDL;
       dispatch(setSdlURL(defaultSDL));
     }
 
@@ -102,8 +101,7 @@ function Page(): JSX.Element {
   }
 
   async function handleSendIntrospection(defaultSDL?: string): Promise<void> {
-    const { endpointURL, sdlURL } = requestObj;
-    const encodedURL = encodeURL(formDataObj);
+    const { sdlURL } = requestObj;
 
     const response = await fetchGraph({
       endpointURL: defaultSDL || sdlURL,
@@ -118,11 +116,6 @@ function Page(): JSX.Element {
       const data = JSON.parse(response.body) as graphQLIntroResponse;
       const clientSchema = buildClientSchema(data.data);
       setSchemas(clientSchema);
-    }
-
-    if (!defaultSDL) {
-      addRequestToLS(GRAPHQL_METHOD, endpointURL, encodedURL);
-      window.history.pushState(null, '', encodedURL);
     }
   }
 
