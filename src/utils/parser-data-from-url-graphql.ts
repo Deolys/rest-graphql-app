@@ -6,7 +6,6 @@ import { parseBase64Object } from './parse-base64-object';
 
 type DataFromURL = {
   endpointURL: string;
-  sdlURL: string;
   variables: string;
   query: string;
   headers: DataType[];
@@ -20,7 +19,6 @@ export const parseDataFromURLgraphql = (
   if (segments.length < 2)
     return {
       endpointURL: '',
-      sdlURL: '',
       variables: '',
       query: '',
       headers: [],
@@ -34,7 +32,6 @@ export const parseDataFromURLgraphql = (
     ...parseBase64Object(base64QueryAndVariables),
   };
   const endpointURL = tempObj.endpointURL || '';
-  const sdlURL = tempObj.sdlURL || '';
   const variables = tempObj.variables || '';
   const query = tempObj.query || '';
 
@@ -46,5 +43,5 @@ export const parseDataFromURLgraphql = (
     keyValue: value,
   }));
 
-  return { endpointURL, sdlURL, variables, query, headers };
+  return { endpointURL, variables, query, headers };
 };

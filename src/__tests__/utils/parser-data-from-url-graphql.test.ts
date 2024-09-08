@@ -15,12 +15,6 @@ describe('parseDataFromURL', () => {
       );
     });
   });
-  test('must return correct urlSDL', () => {
-    encodedURLData.forEach(({ pathname, searchParams, expected }) => {
-      const res = parseDataFromURLgraphql(pathname, searchParams);
-      assert(res.sdlURL === expected.sdlURL, msg(expected.sdlURL, res.sdlURL));
-    });
-  });
   test('must return correct variables', () => {
     encodedURLData.forEach(({ pathname, searchParams, expected }) => {
       const res = parseDataFromURLgraphql(pathname, searchParams);

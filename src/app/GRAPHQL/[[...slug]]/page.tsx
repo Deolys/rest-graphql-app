@@ -56,11 +56,12 @@ function Page(): JSX.Element {
   const [schemas, setSchemas] = useState<GraphQLSchema | undefined>();
 
   useEffect(() => {
-    const { endpointURL, sdlURL, query, variables, headers } =
-      parseDataFromURLgraphql(pathName, searchParams);
+    const { endpointURL, query, variables, headers } = parseDataFromURLgraphql(
+      pathName,
+      searchParams,
+    );
 
     endpointURL && dispatch(setEndpointURL(endpointURL));
-    sdlURL && dispatch(setSdlURL(sdlURL));
     variables && dispatch(setVariables(variables));
     query && dispatch(setQuery(query));
     headers.length && dispatch(setHeaders(headers));
@@ -82,7 +83,7 @@ function Page(): JSX.Element {
     if (!sdlURL) {
       const defaultSDL = `${endpointURL}?sdl`;
       handleSendIntrospection(defaultSDL);
-      formData.sdlURL = defaultSDL;
+      dispatch(setSdlURL(defaultSDL));
     }
 
     const encodedURL = encodeURL(formData);
@@ -100,8 +101,7 @@ function Page(): JSX.Element {
   }
 
   async function handleSendIntrospection(defaultSDL?: string): Promise<void> {
-    const { endpointURL, sdlURL } = requestObj;
-    const encodedURL = encodeURL(formDataObj);
+    const { sdlURL } = requestObj;
 
     const response = await fetchGraph({
       endpointURL: defaultSDL || sdlURL,
@@ -116,11 +116,6 @@ function Page(): JSX.Element {
       const data = JSON.parse(response.body) as graphQLIntroResponse;
       const clientSchema = buildClientSchema(data.data);
       setSchemas(clientSchema);
-    }
-
-    if (!defaultSDL) {
-      addRequestToLS(GRAPHQL_METHOD, endpointURL, encodedURL);
-      window.history.pushState(null, '', encodedURL);
     }
   }
 
