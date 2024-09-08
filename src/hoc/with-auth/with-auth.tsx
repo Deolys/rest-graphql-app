@@ -1,9 +1,10 @@
-import { Flex, Spin } from 'antd';
 import { redirect } from 'next/navigation';
 import { type ComponentType, type JSX, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
+import { LoadingSpin } from '@/components';
 import { auth } from '@/config/firebase-config';
+import { pageRoutes } from '@/constants/page-routes';
 
 export function withAuth<P extends object>(
   Component: ComponentType<P>,
@@ -13,16 +14,12 @@ export function withAuth<P extends object>(
 
     useEffect(() => {
       if (!loading && !user) {
-        redirect('/sign-in');
+        redirect(pageRoutes.SIGN_IN);
       }
     }, [user, loading]);
 
     if (loading) {
-      return (
-        <Flex justify="center" align="center" style={{ height: '20vh' }}>
-          <Spin size="large" />
-        </Flex>
-      );
+      return <LoadingSpin />;
     }
 
     return <Component {...props} />;
