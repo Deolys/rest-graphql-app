@@ -1,5 +1,6 @@
 'use client';
 
+import { HistoryOutlined } from '@ant-design/icons';
 import { Button, List } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -28,7 +29,9 @@ function HistoryPage(): JSX.Element {
           <List
             size="large"
             header={
-              <h1 style={{ textAlign: 'center' }}>{t.historyRequests}</h1>
+              <h1 style={{ textAlign: 'center' }}>
+                {t.historyRequests} <HistoryOutlined />
+              </h1>
             }
             bordered
             dataSource={requests}

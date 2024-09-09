@@ -1,3 +1,4 @@
+import { FundProjectionScreenOutlined } from '@ant-design/icons';
 import { Card, Flex, Typography } from 'antd';
 import Image from 'next/image';
 import { useContext } from 'react';
@@ -19,7 +20,11 @@ export function ProjectInfo(): JSX.Element {
       />
       <Flex align="center">
         <Card
-          title={t.aboutProjectTitle}
+          title={
+            <p>
+              {t.aboutProjectTitle} <FundProjectionScreenOutlined />
+            </p>
+          }
           hoverable
           style={{ height: 'fit-content' }}
         >
