@@ -211,7 +211,7 @@ export default function CustomForm({
 
   return (
     <>
-      <Flex vertical={true} style={{ maxWidth: '40em' }}>
+      <Flex vertical={true} style={{ maxWidth: '45em' }}>
         <Table
           size="small"
           components={components}

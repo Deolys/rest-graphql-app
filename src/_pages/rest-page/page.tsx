@@ -118,7 +118,7 @@ function RestPage(): JSX.Element {
         setCurrentTab={setCurrentTab}
         currentTab={currentTab}
       />
-      {form[currentTab]}
+      <section style={{ minHeight: 300 }}>{form[currentTab]}</section>
       <Descriptions
         title={t.response}
         className="Response"
