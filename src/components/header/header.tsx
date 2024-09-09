@@ -1,5 +1,6 @@
 'use client';
 
+import { LoginOutlined, LogoutOutlined } from '@ant-design/icons';
 import { Button, Flex, Image, Skeleton, Switch } from 'antd';
 import { Header as AntdHeader } from 'antd/es/layout/layout';
 import Link from 'next/link';
@@ -102,12 +103,16 @@ export default function Header(): JSX.Element {
                 <Button type="primary" onClick={handleMainPage}>
                   {t.mainPage}
                 </Button>
-                <Button onClick={handleSignOut}>{t.signOut}</Button>
+                <Button onClick={handleSignOut}>
+                  {t.signOut}
+                  <LogoutOutlined />
+                </Button>
               </>
             ) : (
               <>
                 <Button type="primary" onClick={handleSignIn}>
                   {t.signIn}
+                  <LoginOutlined />
                 </Button>
                 <Button onClick={handleSignUp}>{t.signUp}</Button>
               </>

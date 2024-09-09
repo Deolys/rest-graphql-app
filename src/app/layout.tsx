@@ -33,7 +33,14 @@ export default function RootLayout({
             <ErrorBoundary fallback={<ErrorPage />}>
               <Layout>
                 <Header />
-                <Content>{children}</Content>
+                <Content
+                  style={{
+                    background:
+                      'linear-gradient(90deg, rgba(216,200,255,1) 0%, rgba(224,224,255,1) 35%, rgba(174,242,255,1) 100%)',
+                  }}
+                >
+                  {children}
+                </Content>
                 <Footer />
               </Layout>
             </ErrorBoundary>

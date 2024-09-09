@@ -1,9 +1,16 @@
+import { CrownOutlined, Html5Outlined, SmileOutlined } from '@ant-design/icons';
 import { Avatar, List } from 'antd';
 import { useContext } from 'react';
 import { type JSX } from 'react';
 
 import { developersList } from '@/constants/coders';
 import { LanguageContext } from '@/providers/language';
+
+const Icons = [
+  <Html5Outlined key="Html5Outlined" />,
+  <SmileOutlined key="SmileOutlined" />,
+  <CrownOutlined key="CrownOutlined" />,
+];
 
 export function DevelopersList(): JSX.Element {
   const { t } = useContext(LanguageContext);
@@ -24,10 +31,18 @@ export function DevelopersList(): JSX.Element {
             }
             title={
               <a href={item.link} target="_blank" rel="noopener noreferrer">
-                {t[item.name]}
+                {t[item.name]} {Icons[index]}
               </a>
             }
-            description={t[item.description]}
+            description={
+              <p
+                style={{
+                  color: '#373737',
+                }}
+              >
+                {t[item.description]}
+              </p>
+            }
           />
         </List.Item>
       )}
