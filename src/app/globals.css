@@ -53,3 +53,7 @@ p,
 figure {
   margin: 0;
 }
+
+span.ant-menu-title-content {
+  user-select: none;
+}
