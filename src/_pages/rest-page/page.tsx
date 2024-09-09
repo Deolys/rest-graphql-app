@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Descriptions, Flex, message } from 'antd';
+import { Button, Flex, message } from 'antd';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useContext, useEffect, useState } from 'react';
 
@@ -8,8 +8,8 @@ import { fetchRest } from '@/api/rest';
 import { InputUrl, Navigation, SelectMethod } from '@/components';
 import { ClientCustomForm } from '@/components/client/forms';
 import { FormBody } from '@/components/client/forms/body/body';
+import { ResponseForm } from '@/components/client/forms/response-form';
 import { FormVariables } from '@/components/client/forms/variables/variables';
-import { CodeEditor } from '@/components/code-editor';
 import { tabsRest } from '@/constants/client';
 import { withAuth } from '@/hoc/with-auth';
 import { useRESTFormTracker } from '@/hooks/form-trackers';
@@ -32,7 +32,6 @@ import {
   setVariables,
 } from '@/store/reducers/rest-request-slice';
 import { parseDataFromURL } from '@/utils/parser-data-from-url';
-import { prettifyJson } from '@/utils/prettify-json';
 
 function RestPage(): JSX.Element {
   const [messageApi, contextHolder] = message.useMessage();
@@ -119,28 +118,10 @@ function RestPage(): JSX.Element {
         currentTab={currentTab}
       />
       <section style={{ minHeight: 300 }}>{form[currentTab]}</section>
-      <Descriptions
-        title={t.response}
-        className="Response"
-        bordered={true}
-        size="small"
-        column={1}
-      >
-        <Descriptions.Item label={t.status}>{responseStatus}</Descriptions.Item>
-        <Descriptions.Item
-          label={t.body}
-          contentStyle={{
-            height: '10em',
-            width: '90%',
-          }}
-        >
-          <CodeEditor
-            placeholder={t.responseBody}
-            readOnly={true}
-            value={prettifyJson(responseBody)}
-          />
-        </Descriptions.Item>
-      </Descriptions>
+      <ResponseForm
+        responseStatus={responseStatus}
+        responseBody={responseBody}
+      />
     </article>
   );
 }

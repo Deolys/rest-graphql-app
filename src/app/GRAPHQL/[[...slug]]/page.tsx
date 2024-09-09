@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Descriptions, Flex, Layout, message } from 'antd';
+import { Button, Flex, Layout, message } from 'antd';
 import type { GraphQLSchema } from 'graphql';
 import { buildClientSchema, getIntrospectionQuery } from 'graphql';
 import { usePathname, useSearchParams } from 'next/navigation';
@@ -10,8 +10,8 @@ import { fetchGraph } from '@/api/graph';
 import { InputUrl, Navigation } from '@/components';
 import { ClientCustomForm } from '@/components/client/forms';
 import { FormBody } from '@/components/client/forms/body/body';
+import { ResponseForm } from '@/components/client/forms/response-form';
 import { FormVariables } from '@/components/client/forms/variables/variables';
-import { CodeEditor } from '@/components/code-editor';
 import { Documentation } from '@/components/documentation';
 import { tabsGraphQL } from '@/constants/client';
 import { withAuth } from '@/hoc/with-auth';
@@ -36,7 +36,6 @@ import {
 } from '@/store/reducers/graphql-request-slice';
 import type { graphQLIntroResponse } from '@/types/graphql';
 import { parseDataFromURLgraphql } from '@/utils/parser-data-from-url-graphql';
-import { prettifyJson } from '@/utils/prettify-json';
 
 function Page(): JSX.Element {
   const [messageApi, contextHolder] = message.useMessage();
@@ -172,30 +171,10 @@ function Page(): JSX.Element {
           currentTab={currentTab}
         />
         <section style={{ minHeight: 300 }}>{form[currentTab]}</section>
-        <Descriptions
-          title={t.response}
-          className="Response"
-          bordered={true}
-          size="small"
-          column={1}
-        >
-          <Descriptions.Item label={t.status}>
-            {responseStatus}
-          </Descriptions.Item>
-          <Descriptions.Item
-            label={t.body}
-            contentStyle={{
-              height: '10em',
-              width: '90%',
-            }}
-          >
-            <CodeEditor
-              placeholder={t.responseBody}
-              readOnly={true}
-              value={prettifyJson(responseBody)}
-            />
-          </Descriptions.Item>
-        </Descriptions>
+        <ResponseForm
+          responseStatus={responseStatus}
+          responseBody={responseBody}
+        />
       </article>
     </Layout>
   );
