@@ -1,5 +1,6 @@
 'use client';
 
+import { DeleteOutlined } from '@ant-design/icons';
 import type { UnknownAction } from '@reduxjs/toolkit';
 import type { GetRef, InputRef, TableProps } from 'antd';
 import { Button, Flex, Form, Input, Table } from 'antd';
@@ -146,7 +147,7 @@ export default function CustomForm({
       editable: true,
     },
     {
-      title: '-',
+      title: <DeleteOutlined />,
       dataIndex: 'operation',
       align: 'center',
       width: '1%',
@@ -158,7 +159,6 @@ export default function CustomForm({
               onClick={() => handleDelete(record.key)}
               type="default"
               size="small"
-              style={{ marginBottom: 16 }}
               title={t.deleteHeader}
             >
               -
@@ -211,7 +211,7 @@ export default function CustomForm({
 
   return (
     <>
-      <Flex vertical={true} style={{ maxWidth: '40em' }}>
+      <Flex vertical={true} style={{ maxWidth: '45em' }}>
         <Table
           size="small"
           components={components}
