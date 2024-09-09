@@ -1,5 +1,6 @@
 'use client';
 
+import { DeleteOutlined } from '@ant-design/icons';
 import type { UnknownAction } from '@reduxjs/toolkit';
 import type { GetRef, InputRef, TableProps } from 'antd';
 import { Button, Flex, Form, Input, Table } from 'antd';
@@ -146,7 +147,7 @@ export default function CustomForm({
       editable: true,
     },
     {
-      title: '-',
+      title: <DeleteOutlined />,
       dataIndex: 'operation',
       align: 'center',
       width: '1%',
