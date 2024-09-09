@@ -28,6 +28,7 @@
     "@codemirror/state": "6.2.1"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.4.0",
     "@ant-design/nextjs-registry": "^1.0.1",
     "@codemirror/lint": "^6.2.1",
     "@reduxjs/toolkit": "^2.2.7",
