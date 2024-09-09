@@ -159,7 +159,6 @@ export default function CustomForm({
               onClick={() => handleDelete(record.key)}
               type="default"
               size="small"
-              style={{ marginBottom: 16 }}
               title={t.deleteHeader}
             >
               -
