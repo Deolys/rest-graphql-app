@@ -11,6 +11,27 @@ export const headers: HeadersTestData[] = [
     expected: {},
   },
   {
+    header: [
+      { key: '0', keyName: 'header-1', keyValue: 'value-1' },
+      { key: '1', keyName: '', keyValue: '' },
+    ],
+    expected: { 'header-1': 'value-1' },
+  },
+  {
+    header: [
+      { key: '0', keyName: 'header-1', keyValue: 'value-1' },
+      { key: '1', keyName: 'header-2', keyValue: '' },
+    ],
+    expected: { 'header-1': 'value-1' },
+  },
+  {
+    header: [
+      { key: '0', keyName: 'header-1', keyValue: 'value-1' },
+      { key: '1', keyName: '', keyValue: 'value-2' },
+    ],
+    expected: { 'header-1': 'value-1' },
+  },
+  {
     header: [{ key: '0', keyName: 'header-1', keyValue: 'value-1' }],
     expected: { 'header-1': 'value-1' },
   },
