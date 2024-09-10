@@ -1,5 +1,5 @@
-import { EditorView } from '@codemirror/view';
 import CodeMirror, {
+  EditorView,
   type Extension,
   type ReactCodeMirrorProps,
 } from '@uiw/react-codemirror';
