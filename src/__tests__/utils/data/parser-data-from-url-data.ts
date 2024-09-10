@@ -5,7 +5,6 @@ import type { DataType, HTTPMethod } from '@/types/client';
 type DataFromURL = {
   method: HTTPMethod;
   url: string;
-  urlSDL: string;
   variables: string | object;
   body: string;
   headers: DataType[];
@@ -31,7 +30,6 @@ export const encodedURLrestData: EncodedURLData[] = [
       headers: [],
       method: 'GET',
       url: '',
-      urlSDL: '',
       variables: '',
     },
   },
@@ -47,7 +45,6 @@ export const encodedURLrestData: EncodedURLData[] = [
       ],
       method: 'GET',
       url: 'https://example.com',
-      urlSDL: '',
       variables: '',
     },
   },
@@ -60,7 +57,6 @@ export const encodedURLrestData: EncodedURLData[] = [
       headers,
       method: 'POST',
       url: 'https://example.com/api/v2',
-      urlSDL: '',
       variables: '',
     },
   },
@@ -73,7 +69,6 @@ export const encodedURLrestData: EncodedURLData[] = [
       headers,
       method: 'PUT',
       url: 'https://example.com/api/v2/test',
-      urlSDL: 'https://example.com/api/v3/sdl',
       variables: { var1: 'value1' },
     },
   },
@@ -86,7 +81,6 @@ export const encodedURLrestData: EncodedURLData[] = [
       headers,
       method: 'PATCH',
       url: 'https://example.com/api/v2/test',
-      urlSDL: 'https://example.com/api/v3/sdl',
       variables: { var1: 'value1' },
     },
   },
@@ -99,7 +93,6 @@ export const encodedURLrestData: EncodedURLData[] = [
       headers,
       method: 'DELETE',
       url: 'https://example.com/api/v2/test',
-      urlSDL: 'https://example.com/api/v3/sdl',
       variables: { var1: 'value1', var2: 'value2' },
     },
   },
@@ -112,7 +105,6 @@ export const encodedURLrestData: EncodedURLData[] = [
       headers,
       method: 'HEAD',
       url: 'https://example.com/api/v2/test',
-      urlSDL: 'https://example.com/api/v3/sdl',
       variables: '',
     },
   },
@@ -125,7 +117,6 @@ export const encodedURLrestData: EncodedURLData[] = [
       headers,
       method: 'OPTIONS',
       url: 'https://example.com/api/v2/test',
-      urlSDL: 'https://example.com/api/v3/sdl',
       variables: '',
     },
   },

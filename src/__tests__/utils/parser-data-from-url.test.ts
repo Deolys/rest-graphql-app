@@ -18,12 +18,6 @@ describe('parseDataFromURL', () => {
       assert(res.url === expected.url, msg(expected.url, res.url));
     });
   });
-  test('must return correct urlSDL', () => {
-    encodedURLrestData.forEach(({ pathname, searchParams, expected }) => {
-      const res = parseDataFromURL(pathname, searchParams);
-      assert(res.urlSDL === expected.urlSDL, msg(expected.urlSDL, res.urlSDL));
-    });
-  });
   test('must return correct variables', () => {
     encodedURLrestData.forEach(({ pathname, searchParams, expected }) => {
       const res = parseDataFromURL(pathname, searchParams);

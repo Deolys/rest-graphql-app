@@ -9,7 +9,6 @@ import { isHTTPMethod } from './predicates';
 type DataFromURL = {
   method: HTTPMethod;
   url: string;
-  urlSDL: string;
   variables: string;
   body: string;
   headers: DataType[];
@@ -24,7 +23,6 @@ export const parseDataFromURL = (
     return {
       method: 'GET',
       url: '',
-      urlSDL: '',
       variables: '',
       body: '',
       headers: [],
@@ -40,7 +38,6 @@ export const parseDataFromURL = (
     ...parseBase64Object(base64BodyVariables),
   };
   const url = tempObj.url || '';
-  const urlSDL = tempObj.urlsdl || '';
   const variables = tempObj.variables || '';
   const body = tempObj.body || '';
 
@@ -52,5 +49,5 @@ export const parseDataFromURL = (
     keyValue: value,
   }));
 
-  return { method, url, urlSDL, variables, body, headers };
+  return { method, url, variables, body, headers };
 };
