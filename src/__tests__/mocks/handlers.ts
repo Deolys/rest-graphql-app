@@ -32,10 +32,14 @@ export const handlers = [
 
     return HttpResponse.json(mockGraphErrorResponse, { status: 400 });
   }),
-  http.all('https://correct-rest-api-url/', () =>
-    HttpResponse.json(mockRESTResponse),
-  ),
-  http.get('https://incorrect-rest-api-url/', () =>
-    HttpResponse.json(mockRESTResponseError, { status: 400 }),
-  ),
+  http.all('/api/rest', ({ request }) => {
+    const url = new URL(request.url);
+    const urlParam = url.searchParams.get('url');
+
+    if (!urlParam || urlParam === 'https://incorrect-rest-api-url/') {
+      return HttpResponse.json(mockRESTResponseError, { status: 400 });
+    }
+
+    return HttpResponse.json(mockRESTResponse);
+  }),
 ];

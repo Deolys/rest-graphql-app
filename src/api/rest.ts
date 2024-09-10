@@ -26,17 +26,34 @@ export async function fetchRest({
     const correctURL = urlCheck(url);
 
     if (method === 'GET' || method === 'HEAD') {
-      response = await fetch(correctURL);
+      response = await fetch(`/api/rest?url=${correctURL}`, {
+        method,
+        headers,
+      });
     } else {
-      response = await fetch(correctURL, { method, body, headers });
+      response = await fetch(`/api/rest?url=${correctURL}`, {
+        method,
+        body: JSON.stringify({ body }),
+        headers,
+      });
     }
 
     const status = `${response.status} ${response.ok ? 'OK' : 'HTTP error!'}`;
 
     let responseBody = '';
-    if (response.headers.get('Content-Type')?.includes('application/json')) {
+
+    if (
+      response.headers.get('Content-Type')?.includes('application/json') &&
+      method !== 'HEAD'
+    ) {
       const json: unknown = await response.json();
       responseBody = JSON.stringify(json);
+    } else if (method === 'HEAD') {
+      const headersObj: Record<string, string> = {};
+      response.headers.forEach((value, key) => {
+        headersObj[key] = value;
+      });
+      responseBody = JSON.stringify(headersObj);
     }
     return { body: responseBody, status, error: '' };
   } catch (e) {
