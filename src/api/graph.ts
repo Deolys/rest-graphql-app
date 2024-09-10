@@ -20,7 +20,7 @@ export async function fetchGraph({
   try {
     const correctURL = urlCheck(endpointURL);
 
-    const response = await fetch(correctURL, {
+    const response = await fetch(`/api/graphql?url=${correctURL}`, {
       method: 'POST',
       headers,
       body: JSON.stringify({ query }),

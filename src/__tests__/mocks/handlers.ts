@@ -12,8 +12,13 @@ import {
 
 export const handlers = [
   http.get('/locale/en.json', () => HttpResponse.json(en)),
-  http.post('https://correct-api-url/', ({ request }) => {
+  http.post('/api/graphql', ({ request }) => {
     const url = new URL(request.url);
+    const urlParam = url.searchParams.get('url');
+    if (!urlParam || urlParam.startsWith('https://incorrect-api-url/')) {
+      return HttpResponse.json(mockGraphErrorResponse, { status: 400 });
+    }
+
     const sdlParam = url.searchParams.get('sdl');
 
     if (!sdlParam) {
