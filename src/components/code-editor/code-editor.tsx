@@ -1,4 +1,5 @@
 import CodeMirror, {
+  EditorView,
   type Extension,
   type ReactCodeMirrorProps,
 } from '@uiw/react-codemirror';
@@ -11,7 +12,7 @@ export function CodeEditor({
   return (
     <CodeMirror
       height="300px"
-      extensions={[...(addExtensions || [])]}
+      extensions={[...(addExtensions || []), EditorView.lineWrapping]}
       {...props}
     />
   );

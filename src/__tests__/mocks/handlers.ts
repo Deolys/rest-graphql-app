@@ -12,8 +12,13 @@ import {
 
 export const handlers = [
   http.get('/locale/en.json', () => HttpResponse.json(en)),
-  http.post('https://correct-api-url/', ({ request }) => {
+  http.post('/api/graphql', ({ request }) => {
     const url = new URL(request.url);
+    const urlParam = url.searchParams.get('url');
+    if (!urlParam || urlParam.startsWith('https://incorrect-api-url/')) {
+      return HttpResponse.json(mockGraphErrorResponse, { status: 400 });
+    }
+
     const sdlParam = url.searchParams.get('sdl');
 
     if (!sdlParam) {
@@ -32,10 +37,14 @@ export const handlers = [
 
     return HttpResponse.json(mockGraphErrorResponse, { status: 400 });
   }),
-  http.all('https://correct-rest-api-url/', () =>
-    HttpResponse.json(mockRESTResponse),
-  ),
-  http.get('https://incorrect-rest-api-url/', () =>
-    HttpResponse.json(mockRESTResponseError, { status: 400 }),
-  ),
+  http.all('/api/rest', ({ request }) => {
+    const url = new URL(request.url);
+    const urlParam = url.searchParams.get('url');
+
+    if (!urlParam || urlParam === 'https://incorrect-rest-api-url/') {
+      return HttpResponse.json(mockRESTResponseError, { status: 400 });
+    }
+
+    return HttpResponse.json(mockRESTResponse);
+  }),
 ];
