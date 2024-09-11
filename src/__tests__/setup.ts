@@ -8,7 +8,7 @@ afterEach(() => {
 });
 
 beforeAll(() => {
-  server.listen();
+  server.listen({ onUnhandledRequest: 'bypass' });
   Object.defineProperty(window, 'matchMedia', {
     writable: true,
     value: vi.fn().mockImplementation((query) => ({
