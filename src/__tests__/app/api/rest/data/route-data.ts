@@ -3,6 +3,7 @@ import type { NextResponse } from 'next/server';
 import {
   HTTP_ALL,
   REST_API_ROUTE,
+  WRONG_API_ROUTE,
 } from '@/__tests__/test-constants/test-constants';
 import {
   DELETE,
@@ -66,11 +67,11 @@ export const testApiRequests: TestApiRequests[] = [
     expectedCode: 400,
   },
   {
-    query: '?url=/api/rest',
+    query: `?url=${REST_API_ROUTE}`,
     expectedCode: 400,
   },
   {
-    query: '?url=/rest/api',
+    query: `?url=${WRONG_API_ROUTE}`,
     expectedCode: 500,
   },
 ];

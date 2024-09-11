@@ -1,8 +1,9 @@
 import type { NextResponse } from 'next/server';
 
 import {
+  GRAPHQL_API_ROUTE,
   HTTP_ALL,
-  REST_API_ROUTE,
+  WRONG_API_ROUTE,
 } from '@/__tests__/test-constants/test-constants';
 import { POST } from '@/app/api/graphql/route';
 import type { HTTPMethod } from '@/types/client';
@@ -26,7 +27,7 @@ export const testMethods: TestMethods[] = [
 
 export const testApiRequests: TestApiRequests[] = [
   {
-    query: `?url=${REST_API_ROUTE}?url=${HTTP_ALL}`,
+    query: `?url=${GRAPHQL_API_ROUTE}?url=${HTTP_ALL}`,
     expectedCode: 200,
   },
   {
@@ -34,11 +35,11 @@ export const testApiRequests: TestApiRequests[] = [
     expectedCode: 400,
   },
   {
-    query: '?url=/api/rest',
+    query: `?url=${GRAPHQL_API_ROUTE}`,
     expectedCode: 400,
   },
   {
-    query: '?url=/rest/api',
+    query: `?url=${WRONG_API_ROUTE}`,
     expectedCode: 500,
   },
 ];
