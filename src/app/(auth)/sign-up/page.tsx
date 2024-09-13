@@ -101,11 +101,9 @@ export default function SignUpPage(): JSX.Element {
           validateDebounce={700}
           hasFeedback
         >
-          <div>
-            <Input.Password data-testid="password" />
-            <PasswordStrength password={passwordValue} />
-          </div>
+          <Input.Password data-testid="password" />
         </Form.Item>
+        <PasswordStrength password={passwordValue} />
         <Form.Item<FieldType>
           label={t.confirmPassword}
           name="confirmPassword"
