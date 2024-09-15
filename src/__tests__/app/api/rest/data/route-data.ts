@@ -1,11 +1,6 @@
 import type { NextResponse } from 'next/server';
 
 import {
-  HTTP_ALL,
-  REST_API_ROUTE,
-  WRONG_API_ROUTE,
-} from '@/__tests__/test-constants/test-constants';
-import {
   DELETE,
   GET,
   HEAD,
@@ -59,19 +54,15 @@ export const testMethods: TestMethods[] = [
 
 export const testApiRequests: TestApiRequests[] = [
   {
-    query: `?url=${REST_API_ROUTE}?url=${HTTP_ALL}`,
+    query: `?url=https://test.com?status=200`,
     expectedCode: 200,
   },
   {
-    query: ``,
+    query: `?url=https://test.com?status=400`,
     expectedCode: 400,
   },
   {
-    query: `?url=${REST_API_ROUTE}`,
-    expectedCode: 400,
-  },
-  {
-    query: `?url=${WRONG_API_ROUTE}`,
+    query: `?url=https://test.com?status=500`,
     expectedCode: 500,
   },
 ];
