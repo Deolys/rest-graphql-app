@@ -29,6 +29,7 @@ export function InputUrl({ url, setURL, placeholder }: Props): JSX.Element {
       value={url}
       onChange={handleChange}
       placeholder={placeholder}
-    ></Input>
+      name="input-url"
+    />
   );
 }
