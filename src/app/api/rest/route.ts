@@ -1,8 +1,7 @@
 import { NextResponse } from 'next/server';
 
 export async function GET(request: Request): Promise<NextResponse> {
-  const { searchParams } = new URL(request?.url || '');
-  const url = searchParams.get('url');
+  const [, url] = request.url.split('?url=');
 
   if (!url) {
     return NextResponse.json({ error: 'URL is undefined' }, { status: 400 });
@@ -34,8 +33,7 @@ export async function GET(request: Request): Promise<NextResponse> {
 }
 
 export async function POST(request: Request): Promise<NextResponse> {
-  const { searchParams } = new URL(request?.url || '');
-  const url = searchParams.get('url');
+  const [, url] = request.url.split('?url=');
 
   if (!url) {
     return NextResponse.json({ error: 'URL is undefined' }, { status: 400 });
@@ -43,11 +41,11 @@ export async function POST(request: Request): Promise<NextResponse> {
 
   try {
     const headers = request?.headers;
-    const body = await request.json();
+    const body = await request.text();
 
     const response = await fetch(url, {
       method: 'POST',
-      body: JSON.stringify(body),
+      body,
       headers,
     });
 
@@ -71,8 +69,7 @@ export async function POST(request: Request): Promise<NextResponse> {
 }
 
 export async function PUT(request: Request): Promise<NextResponse> {
-  const { searchParams } = new URL(request?.url || '');
-  const url = searchParams.get('url');
+  const [, url] = request.url.split('?url=');
 
   if (!url) {
     return NextResponse.json({ error: 'URL is undefined' }, { status: 400 });
@@ -80,11 +77,11 @@ export async function PUT(request: Request): Promise<NextResponse> {
 
   try {
     const headers = request?.headers;
-    const body = await request.json();
+    const body = await request.text();
 
     const response = await fetch(url, {
       method: 'PUT',
-      body: JSON.stringify(body),
+      body,
       headers,
     });
 
@@ -108,8 +105,7 @@ export async function PUT(request: Request): Promise<NextResponse> {
 }
 
 export async function DELETE(request: Request): Promise<NextResponse> {
-  const { searchParams } = new URL(request?.url || '');
-  const url = searchParams.get('url');
+  const [, url] = request.url.split('?url=');
 
   if (!url) {
     return NextResponse.json({ error: 'URL is undefined' }, { status: 400 });
@@ -117,11 +113,11 @@ export async function DELETE(request: Request): Promise<NextResponse> {
 
   try {
     const headers = request?.headers;
-    const body = await request.json();
+    const body = await request.text();
 
     const response = await fetch(url, {
       method: 'DELETE',
-      body: JSON.stringify(body),
+      body,
       headers,
     });
 
@@ -144,8 +140,7 @@ export async function DELETE(request: Request): Promise<NextResponse> {
 }
 
 export async function PATCH(request: Request): Promise<NextResponse> {
-  const { searchParams } = new URL(request?.url || '');
-  const url = searchParams.get('url');
+  const [, url] = request.url.split('?url=');
 
   if (!url) {
     return NextResponse.json({ error: 'URL is undefined' }, { status: 400 });
@@ -153,11 +148,11 @@ export async function PATCH(request: Request): Promise<NextResponse> {
 
   try {
     const headers = request?.headers;
-    const body = await request.json();
+    const body = await request.text();
 
     const response = await fetch(url, {
       method: 'PATCH',
-      body: JSON.stringify(body),
+      body,
       headers,
     });
 
@@ -181,8 +176,7 @@ export async function PATCH(request: Request): Promise<NextResponse> {
 }
 
 export async function HEAD(request: Request): Promise<NextResponse> {
-  const { searchParams } = new URL(request?.url || '');
-  const url = searchParams.get('url');
+  const [, url] = request.url.split('?url=');
 
   if (!url) {
     return NextResponse.json({ error: 'URL is undefined' }, { status: 400 });
@@ -213,8 +207,7 @@ export async function HEAD(request: Request): Promise<NextResponse> {
 }
 
 export async function OPTIONS(request: Request): Promise<NextResponse> {
-  const { searchParams } = new URL(request?.url || '');
-  const url = searchParams.get('url');
+  const [, url] = request.url.split('?url=');
 
   if (!url) {
     return NextResponse.json({ error: 'URL is undefined' }, { status: 400 });

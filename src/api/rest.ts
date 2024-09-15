@@ -33,7 +33,7 @@ export async function fetchRest({
     } else {
       response = await fetch(`/api/rest?url=${correctURL}`, {
         method,
-        body: JSON.stringify({ body }),
+        body,
         headers,
       });
     }
