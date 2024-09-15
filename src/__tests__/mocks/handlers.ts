@@ -47,4 +47,18 @@ export const handlers = [
 
     return HttpResponse.json(mockRESTResponse);
   }),
+  http.all('https://test.com/', ({ request }) => {
+    const url = new URL(request.url);
+    const urlParam = url.searchParams.get('status');
+
+    switch (urlParam) {
+      case '200':
+        return HttpResponse.json(mockRESTResponse);
+      case '400':
+        return HttpResponse.json(mockRESTResponseError, { status: 400 });
+
+      default:
+        return HttpResponse.json(mockRESTResponseError, { status: 500 });
+    }
+  }),
 ];
