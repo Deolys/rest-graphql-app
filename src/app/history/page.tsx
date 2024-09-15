@@ -36,7 +36,7 @@ function HistoryPage(): JSX.Element {
             bordered
             dataSource={requests}
             renderItem={(item) => (
-              <List.Item>
+              <List.Item key={item.encodedURL}>
                 <div>
                   <span style={{ paddingRight: '0.5em' }}>{item.date}:</span>
                   <span style={{ paddingRight: '0.5em' }}>[{item.method}]</span>

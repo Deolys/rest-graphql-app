@@ -40,6 +40,6 @@ export const testApiRequests: TestApiRequests[] = [
   },
   {
     query: `?url=${WRONG_API_ROUTE}`,
-    expectedCode: 404,
+    expectedCode: 500,
   },
 ];

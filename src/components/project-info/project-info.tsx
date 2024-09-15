@@ -15,8 +15,9 @@ export function ProjectInfo(): JSX.Element {
       <Image
         src={handsPoint}
         alt="Hand with the light bulb"
-        width={245}
+        width={246}
         height={352}
+        priority
       />
       <Flex align="center">
         <Card
